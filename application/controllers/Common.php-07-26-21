@@ -1,0 +1,44 @@
+<?php
+
+class Common extends CI_Controller{
+
+  public function __construct() {
+
+    parent::__construct();
+    error_reporting(0);
+
+    $this->data['title']          = 'crowd music';
+    $this->data['theme']          = 'user';
+
+    $this->load->model('user_panel_model');
+
+
+}
+
+public function index()
+{
+ 
+  $this->data['page_title'] = 'Home';
+  $this->data['module']  = 'home';
+  $this->data['page'] = 'index';
+  $this->load->vars($this->data);
+  $this->load->view($this->data['theme'].'/template');
+
+}
+public function album_details()
+{
+ 
+  $this->data['page_title'] = 'Album details';
+  $this->data['module']  = 'album';
+  $this->data['page'] = 'album_details';
+  $this->load->vars($this->data);
+  $this->load->view($this->data['theme'].'/template');
+
+}
+
+
+
+
+}
+
+?>

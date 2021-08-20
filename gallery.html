@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&family=Saira+Extra+Condensed:wght@700&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="./scss/plugins.min.css">
+	<link rel="stylesheet" href="./scss/custom.min.css"> </head>
+
+<body id="_view">
+	<header id="header">
+		<div class="header-area">
+			<div class="header-top text-right">
+				<div class="container-fluid">
+					<div class="header-social">
+						<a href="#">
+							<svg width="11" height="20" viewBox="0 0 11 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<path d="M10.2792 11.25L10.8496 7.63047H7.28306V5.28164C7.28306 4.29141 7.78127 3.32617 9.3786 3.32617H11V0.244531C11 0.244531 9.52863 0 8.12184 0C5.18471 0 3.26486 1.73359 3.26486 4.87187V7.63047H0V11.25H3.26486V20H7.28306V11.25H10.2792Z" fill="white"/>
+							</svg>
+						</a>
+						<a href="#"><svg width="23" height="19" viewBox="0 0 23 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<path d="M20.6358 4.73514C20.6504 4.94294 20.6504 5.15079 20.6504 5.35859C20.6504 11.6968 15.9074 19 7.2386 19C4.5679 19 2.08694 18.2132 0 16.8477C0.379457 16.8922 0.744269 16.907 1.13832 16.907C3.34198 16.907 5.37057 16.15 6.9905 14.8586C4.91816 14.8141 3.18147 13.4336 2.58311 11.5336C2.87501 11.5781 3.16687 11.6078 3.47337 11.6078C3.89658 11.6078 4.31984 11.5484 4.71385 11.4445C2.55395 10.9992 0.933974 9.06952 0.933974 6.73905V6.6797C1.56149 7.03595 2.29125 7.25861 3.06467 7.28826C1.795 6.4273 0.963174 4.95779 0.963174 3.29528C0.963174 2.40467 1.19663 1.58826 1.60529 0.875759C3.92574 3.78513 7.41371 5.6851 11.3248 5.89295C11.2519 5.5367 11.2081 5.16564 11.2081 4.79454C11.2081 2.15232 13.3096 0 15.9219 0C17.2792 0 18.5051 0.578905 19.3661 1.51406C20.4314 1.30626 21.453 0.905458 22.3579 0.356253C22.0076 1.46956 21.2633 2.40472 20.2855 2.99842C21.2342 2.89457 22.1536 2.62732 23 2.25627C22.358 3.20623 21.5553 4.05229 20.6358 4.73514Z" fill="white"/>
+							</svg>
+						</a>
+						<a href="#"><svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<path d="M10.4977 5.11587C13.4772 5.11587 15.8806 7.51975 15.8806 10.5C15.8806 13.4803 13.4772 15.8841 10.4977 15.8841C7.51807 15.8841 5.11472 13.4803 5.11472 10.5C5.11472 7.51975 7.51807 5.11587 10.4977 5.11587ZM10.4977 14.0004C12.4231 14.0004 13.9973 12.4306 13.9973 10.5C13.9973 8.5694 12.4278 6.99961 10.4977 6.99961C8.56748 6.99961 6.99805 8.5694 6.99805 10.5C6.99805 12.4306 8.57217 14.0004 10.4977 14.0004ZM3.63898 4.89563C3.63898 5.59383 4.20117 6.15146 4.89453 6.15146C5.59258 6.15146 6.15008 5.58914 6.15008 4.89563C6.15008 4.20211 5.5879 3.6398 4.89453 3.6398C4.20117 3.6398 3.63898 4.20211 3.63898 4.89563ZM0.0737858 6.1702C0.153429 4.48795 0.53759 2.99782 1.76972 1.77011C2.99716 0.542396 4.48695 0.15815 6.16882 0.0738034C7.90223 -0.0246011 13.0978 -0.0246011 14.8312 0.0738034C16.5084 0.153464 17.9982 0.537711 19.2303 1.76542C20.4624 2.99314 20.8419 4.48326 20.9262 6.16551C21.0246 7.89931 21.0246 13.096 20.9262 14.8298C20.8466 16.512 20.4624 18.0022 19.2303 19.2299C17.9982 20.4576 16.5131 20.8419 14.8312 20.9262C13.0978 21.0246 7.90223 21.0246 6.16882 20.9262C4.48695 20.8465 2.99716 20.4623 1.76972 19.2299C0.542276 18.0022 0.158113 16.512 0.0737858 14.8298C-0.0245953 13.096 -0.0245953 7.90399 0.0737858 6.1702ZM2.31316 16.6901C2.67858 17.6086 3.386 18.3161 4.30892 18.6863C5.69096 19.2346 8.97038 19.1081 10.4977 19.1081C12.0249 19.1081 15.309 19.2299 16.6864 18.6863C17.6046 18.3208 18.312 17.6132 18.6822 16.6901C19.2303 15.3078 19.1038 12.0276 19.1038 10.5C19.1038 8.97239 19.2256 5.68755 18.6822 4.30989C18.3167 3.39144 17.6093 2.68387 16.6864 2.31368C15.3044 1.76542 12.0249 1.89194 10.4977 1.89194C8.97038 1.89194 5.68628 1.77011 4.30892 2.31368C3.39069 2.67918 2.68327 3.38676 2.31316 4.30989C1.76503 5.69223 1.89152 8.97239 1.89152 10.5C1.89152 12.0276 1.76503 15.3125 2.31316 16.6901Z" fill="white"/>
+							</svg>
+						</a>
+					</div>
+				</div>
+			</div>
+			<div class="header-bottom">
+				<div class="container-fluid">
+					<div class="row">
+							<div class="col-auto mr-auto">
+								<a href="index.html" class="logo navbar-brand"><img src="./images/logo.png" alt="logo"></a>
+							</div>
+							<div class="col-auto">
+								<nav class="header-nav">
+									<ul class="home-section-menu vc">
+										<li><a class="active" href="#_view">Home</a></li>
+										<li><a href="#_top-songs">Top Songs</a></li>
+										<li><a href="#_categories">Categories</a></li>
+									</ul>
+									<div class="socials vc">
+										<a href="#">
+											<svg width="30" height="28" viewBox="0 0 30 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+												<path d="M16.5 0C10.089 0 4.69762 4.66356 3.32812 10.8889H6.42188C7.71637 6.39644 11.7525 3.11111 16.5 3.11111C22.29 3.11111 27 7.99556 27 14C27 20.0044 22.29 24.8889 16.5 24.8889C11.7525 24.8889 7.71637 21.6036 6.42188 17.1111H3.32812C4.69762 23.3364 10.089 28 16.5 28C23.943 28 30 21.7187 30 14C30 6.28133 23.943 0 16.5 0ZM12 7.77778V12.4444H0V15.5556H12V20.2222L19.5 14L12 7.77778Z" fill="#D70672" /> </svg>
+										</a>
+										<a href="#popup1">
+											<svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+												<circle cx="18" cy="18" r="18" fill="#D70672" />
+												<g clip-path="url(#clip0)">
+													<path d="M17 18C19.2094 18 21 16.2094 21 14C21 11.7906 19.2094 10 17 10C14.7906 10 13 11.7906 13 14C13 16.2094 14.7906 18 17 18ZM19.8 19H19.2781C18.5844 19.3188 17.8125 19.5 17 19.5C16.1875 19.5 15.4188 19.3188 14.7219 19H14.2C11.8813 19 10 20.8813 10 23.2V24.5C10 25.3281 10.6719 26 11.5 26H20.0906C20.0156 25.7875 19.9844 25.5625 20.0094 25.3344L20.2219 23.4312L20.2594 23.0844L20.5063 22.8375L22.9219 20.4219C22.1563 19.5562 21.0469 19 19.8 19ZM21.2156 23.5406L21.0031 25.4469C20.9688 25.7656 21.2375 26.0344 21.5531 25.9969L23.4563 25.7844L27.7656 21.475L25.525 19.2344L21.2156 23.5406ZM29.7813 18.4031L28.5969 17.2188C28.3063 16.9281 27.8313 16.9281 27.5406 17.2188L26.3594 18.4L26.2313 18.5281L28.475 20.7688L29.7813 19.4625C30.0719 19.1687 30.0719 18.6969 29.7813 18.4031Z" fill="white" /> </g>
+												<defs>
+													<clipPath id="clip0">
+														<rect width="20" height="16" fill="white" transform="translate(10 10)" /> </clipPath>
+												</defs>
+											</svg>
+										</a>
+										<div id="popup1" class="overlay">
+											<div class="popup login-box">
+												<div class="tab">
+													<button class="tablinks" onclick="openCity(event, 'London')">Sign-In</button>
+													<button class="tablinks" onclick="openCity(event, 'Paris')">Sign-Up</button>
+												</div> <a class="close" href="#">&times;</a>
+												<div class="">
+													<div id="London" class="tabcontent">
+														
+														<form>
+															<div class="user-box">
+																<input type="text" name="" required="">
+																<label>Username</label>
+															</div>
+															<div class="user-box">
+																<input type="password" name="" required="">
+																<label>Password</label>
+															</div>
+															<!-- <a href="#"> <span></span> <span></span> <span></span> <span></span> Submit </a> -->
+
+															<button class="log-btn btn btn-lg btn-primary btn-block" type="submit">Login</button>
+															<div class="omb_login">
+																<h4>Or</h4>
+																<div class="row  omb_socialButtons">
+																	<div class="col-xs-4 col-sm-2 col-lg-4 col-md-4">
+																		<a href="#" class="btn btn-lg btn-block omb_btn-facebook">
+																			<i class="fa fa-facebook visible-xs"></i>
+																			<!-- <span class="hidden-xs">Facebook</span> -->
+																		</a>
+																	</div>
+																	<div class="col-xs-4 col-sm-2 col-lg-4 col-md-4">
+																		<a href="#" class="btn btn-lg btn-block omb_btn-twitter">
+																			<i class="fa fa-twitter visible-xs"></i>
+																			<!-- <span class="hidden-xs">Twitter</span> -->
+																		</a>
+																	</div>	
+																	<div class="col-xs-4 col-sm-2 col-lg-4 col-md-4">
+																		<a href="#" class="btn btn-lg btn-block omb_btn-google">
+																			<i class="fa fa-google-plus visible-xs"></i>
+																			<!-- <span class="hidden-xs">Google+</span> -->
+																		</a>
+																	</div>	
+																</div>
+
+															</div>
+		
+														</form>
+													</div>
+													<div id="Paris" class="tabcontent">
+														<form>
+															<div class="user-box">
+																<input type="text" name="" required="">
+																<label>Username</label>
+															</div>
+															<div class="user-box">
+																<input type="password" name="" required="">
+																<label>Password</label>
+															</div>
+															<div class="user-box">
+																<input type="password" name="" required="">
+																<label>Confirm Password</label>
+															</div>
+															<!-- <a href="#"> <span></span> <span></span> <span></span> <span></span> Submit </a> -->
+
+															<button class="log-btn btn btn-lg btn-primary btn-block" type="submit">Login</button>
+															<div class="omb_login">
+																<h4>Or</h4>
+																<div class="row  omb_socialButtons">
+																	<div class="col-xs-4 col-sm-2 col-lg-4 col-md-4">
+																		<a href="#" class="btn btn-lg btn-block omb_btn-facebook">
+																			<i class="fa fa-facebook visible-xs"></i>
+																			<!-- <span class="hidden-xs">Facebook</span> -->
+																		</a>
+																	</div>
+																	<div class="col-xs-4 col-sm-2 col-lg-4 col-md-4">
+																		<a href="#" class="btn btn-lg btn-block omb_btn-twitter">
+																			<i class="fa fa-twitter visible-xs"></i>
+																			<!-- <span class="hidden-xs">Twitter</span> -->
+																		</a>
+																	</div>	
+																	<div class="col-xs-4 col-sm-2 col-lg-4 col-md-4">
+																		<a href="#" class="btn btn-lg btn-block omb_btn-google">
+																			<i class="fa fa-google-plus visible-xs"></i>
+																			<!-- <span class="hidden-xs">Google+</span> -->
+																		</a>
+																	</div>	
+																</div>
+
+															</div>
+		
+														</form>
+													</div>
+												</div>
+											</div>
+										</div>
+										<button class="menu-toggler vc">
+											<span></span>
+											<span></span>
+											<span></span>
+										</button>
+									</div>
+									<div class="menu-wrapper">
+										<div class="menu-close">
+											<span></span>
+											<span></span>
+										</div>
+										<ul>
+											<li><a href="#">Item 1</a></li>
+											<li><a href="#">Item 2</a></li>
+											<li><a href="#">Item 3</a></li>
+											<li><a href="#">Item 4</a></li>
+										</ul>
+									</div>
+									<div class="menu-overlay"></div>
+								</nav>
+							</div>
+						</div>
+					
+				</div>
+			</div>
+		</div>
+	</header>
+	<main id="page-view">
+		<section class="inner-pg">
+			<div class="inner-cover-div">
+				<a class="inner-cover-bg twPc-block"> <img src="images/innercover.jpg" /> </a>
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-md-3 col-lg-3" align="center">
+							<div class="profile-bg left-inner">
+								<div class="profile-img"> </div>
+								<h4 class="profile-heading">John Doe</h4>
+								<p>Vivamus siscript tortor eget felis portitor volutpat.</p>
+								<p><i class="fa fa-map-markar"></i> Kolkata, India</p>
+								<a href="#" class="follow-btn ">
+									<svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+										<path d="M11 0C17.0748 0 22 4.92525 22 11C22 17.0748 17.0748 22 11 22C4.92525 22 0 17.0748 0 11C0 4.92525 4.92525 0 11 0ZM5.5 12.375H9.625V16.5H12.375V12.375H16.5V9.625H12.375V5.5H9.625V9.625H5.5V12.375Z" fill="white" /> </svg> Follow</a>
+								<a href="#" class="follow-btn w-button">
+									<svg width="22" height="18" viewBox="0 0 22 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+										<path d="M22 5.71651V15.4643C22 16.5446 21.1161 17.4286 20.0357 17.4286H1.96429C0.883929 17.4286 0 16.5446 0 15.4643V5.71651C0.368304 6.12165 0.785714 6.47767 1.23996 6.78459C3.2779 8.17187 5.3404 9.55915 7.34152 11.0201C8.37277 11.7812 9.64955 12.7143 10.9877 12.7143H11.0123C12.3504 12.7143 13.6272 11.7812 14.6585 11.0201C16.6596 9.57142 18.7221 8.17187 20.7723 6.78459C21.2143 6.47767 21.6317 6.12165 22 5.71651ZM22 2.10714C22 3.48214 20.981 4.72209 19.9007 5.47098C17.9855 6.79687 16.058 8.12276 14.1551 9.46093C13.3571 10.0134 12.0067 11.1429 11.0123 11.1429H10.9877C9.9933 11.1429 8.64286 10.0134 7.84487 9.46093C5.94196 8.12276 4.01451 6.79687 2.11161 5.47098C1.23996 4.88169 0 3.49442 0 2.37723C0 1.1741 0.65067 0.142853 1.96429 0.142853H20.0357C21.1038 0.142853 22 1.02678 22 2.10714Z" fill="#fff" /> </svg> Message</a>
+								<div class="m_bottom_30 m_top_30 ">
+									<div class="row">
+										<div class="col-md-4 col-4"> <span>Lorem</span> </div>
+										<div class="col-md-8 col-4 text-right"> <span class="">650</span> </div>
+									</div>
+								</div>
+								<div class="m_bottom_30 m_top_30 ">
+									<div class="row">
+										<div class="col-md-4 col-4"> <span>Lorem</span> </div>
+										<div class="col-md-8 col-4 text-right"> <span class="">650</span> </div>
+									</div>
+								</div>
+								<div class="m_bottom_30 m_top_30 ">
+									<div class="row">
+										<div class="col-md-4 col-4"> <span>Followers</span> </div>
+										<div class="col-md-8 col-4 text-right"> <span class="">650</span> </div>
+									</div>
+								</div>
+								<div class="own_profile_text">
+									<h4>About the Musician</h4>
+									<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. </p> <a href="#" class="btn btn_blue my-3">Member since 28th January, 2019</a> </div>
+							</div>
+						</div>
+						<div class="col-md-9 col-lg-9 right-inner">
+							<div class="row">
+								<div class="innernav"> <a class="active" href="#home">Album</a> <a href="#news">Trucks</a> </div>
+							</div>
+							<article class="row">
+								<section class="col-lg-4 col-md-4 col-sm-6 m_top_30"> <img src="images/innerimg6.jpg" /> </section>
+								<section class="col-lg-4 col-md-4 col-sm-6 m_top_30"> <img src="images/innerimg5.jpg" /> </section>
+								<section class="col-lg-4 col-md-4 col-sm-6 m_top_30"> <img src="images/innerimg4.jpg" /> </section>
+								<section class="col-lg-4 col-md-4 col-sm-6 m_top_30"> <img src="images/innerimg1.jpg" /> </section>
+								<section class="col-lg-4 col-md-4 col-sm-6 m_top_30"> <img src="images/innerimg2.jpg" /> </section>
+								<section class="col-lg-4 col-md-4 col-sm-6 m_top_30"> <img src="images/innerimg3.jpg" /> </section>
+							</article>
+						</div>
+					</div>
+				</div>
+			</div>
+			</div>
+		</section>
+	</main>
+	<footer id="footer">
+		<div class="container-fluid">
+			<div class="row text-center text-xs-center text-sm-left text-md-left">
+				<div class="col-xs-12 col-sm-12 col-md-12">
+					<a href="#" class="logo"><img src="./images/logo.png" alt="" style="margin: 0 auto; display: block; text-align: center;"></a>
+				</div>
+				<!--<div class="col-xs-12 col-sm-4 col-md-3">
+					<h5>Latest Albums</h5>
+					<ul class="list-unstyled quick-links">
+						<li><a href="#"><i class="fa fa-angle-double-right"></i>Lorem Ipsum</a></li>
+						<li><a href="#"><i class="fa fa-angle-double-right"></i>Lorem Ipsum</a></li>
+						<li><a href="#"><i class="fa fa-angle-double-right"></i>Lorem Ipsum</a></li>
+						<li><a href="#"><i class="fa fa-angle-double-right"></i>Lorem Ipsum</a></li>
+					</ul>
+				</div>
+				<div class="col-xs-12 col-sm-4 col-md-3">
+					<h5>Latest Albums</h5>
+					<ul class="list-unstyled quick-links">
+						<li><a href="#"><i class="fa fa-angle-double-right"></i>Lorem Ipsum</a></li>
+						<li><a href="#"><i class="fa fa-angle-double-right"></i>Lorem Ipsum</a></li>
+						<li><a href="#"><i class="fa fa-angle-double-right"></i>Lorem Ipsum</a></li>
+						<li><a href="#"><i class="fa fa-angle-double-right"></i>Lorem Ipsum</a></li>
+					</ul>
+				</div>
+				<div class="col-xs-12 col-sm-4 col-md-3">
+					<h5>Latest Albums</h5>
+					<ul class="list-unstyled quick-links">
+						<li><a href="#"><i class="fa fa-angle-double-right"></i>Lorem Ipsum</a></li>
+						<li><a href="#"><i class="fa fa-angle-double-right"></i>Lorem Ipsum</a></li>
+						<li><a href="#"><i class="fa fa-angle-double-right"></i>Lorem Ipsum</a></li>
+						<li><a href="#"><i class="fa fa-angle-double-right"></i>Lorem Ipsum</a></li>
+					</ul>
+				</div>--></div>
+			<div class="bottom-nav  m_top_60">
+				<div class="row">
+					<div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 mt-2 mt-sm-2 text-white footer-nav">
+						<ul class="list-unstyled social-links">
+							<li><a href="#">Home</a></li>
+							<li><a href="#">About Us</a></li>
+							<li><a href="#">Privacy Policy</a></li>
+							<li><a href="#">Work with Us</a></li>
+							<li><a href="#">Contact Us</a></li>
+						</ul>
+					</div>
+					<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 mt-2 mt-sm-2 text-right text-white">
+						<ul class="list-unstyled list-inline social">
+							<li class="list-inline-item">
+								<a href="#"><img src="./images/facebook.png" /></a>
+							</li>
+							<li class="list-inline-item">
+								<a href="#"><img src="./images/twitter.png" /></a>
+							</li>
+							<li class="list-inline-item">
+								<a href="#"><img src="./images/linkedin.png" /></a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-12 col-sm-12 col-md-12 mt-2 mt-sm-2 text-center text-white">
+					<p class="copyright">Copyright © 2021.<a class="text-green ml-2" href="#" target="_blank">Crowdmusiq.com</a> </p>
+				</div>
+				<hr> </div>
+		</div>
+	</footer>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="./js/jquery.flipster.min.js"></script>
+	<script src="./js/custom.js"></script>
+	<script>
+	openCity(event, "London")
+
+	function openCity(evt, cityName) {
+		var i, tabcontent, tablinks;
+		tabcontent = document.getElementsByClassName("tabcontent");
+		for(i = 0; i < tabcontent.length; i++) {
+			tabcontent[i].style.display = "none";
+		}
+		tablinks = document.getElementsByClassName("tablinks");
+		for(i = 0; i < tabcontent.length; i++) {
+			tablinks[i].classList.remove("active");
+		}
+		document.getElementById(cityName).style.display = "block";
+		if(evt) {
+			evt.currentTarget.classList.add("active");
+		}
+	}
+	</script>
+	<script>
+	var mybtn = document.getElementsByClassName("tablinks")[0];
+	mybtn.click();
+	</script>
+</body>
+
+</html>

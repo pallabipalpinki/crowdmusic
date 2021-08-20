@@ -1,0 +1,150 @@
+<div class="content-wrapper">
+   <!-- Content Header (Page header) -->
+   
+   <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0 text-dark"></h1>
+          </div>
+        </div>
+      </div>
+   </div>
+
+
+   <section class="content">
+      <div class="container-fluid">
+
+         <div class="row">
+
+            <div class="col-lg-9">
+       
+               <div class="card card-primary">
+                  <div class="card-header">
+                     <h3 class="card-title">Register</h3>
+                     <!--  
+                        -->
+                  </div>
+                  <!-- /.card-header -->
+                  <!-- form start -->
+                  <form role="form" id="useraddform" method="post" enctype="multipart/form-data">
+                     <div class="card-body">
+                        <div class="row">
+                           <div class="col-lg-6">
+                              <div class="form-group">
+                                 <label for="fname">First Name</label>
+                                 <input type="text" class="form-control" id="fname" name="fname" placeholder="Enter First Name" value="">
+                                 <span style="color:red"></span>
+                              </div>
+                           </div>
+                           <div class="col-lg-6">
+                              <div class="form-group">
+                                 <label for="lname">Last Name</label>
+                                 <input type="text" class="form-control" id="lname" name="lname" placeholder="Enter Last Name" value="">
+                                 <span style="color:red"></span>
+                              </div>
+                           </div>
+                        </div>
+
+                        <div class="row">
+                           <div class="col-lg-4">
+                              <div class="form-group">
+                                 <label for="phone">Phone Number</label>
+                                 <input type="text" class="form-control" id="phone" name="phone" placeholder="Enter Phone Number" value="">
+                                 <span style="color:red"></span>
+                              </div>
+                           </div>
+                           <div class="col-lg-4">
+                              <div class="form-group">
+                                 <label for="email">Email address</label>
+                                 <input type="email" class="form-control" id="email" name="email" placeholder="Enter Email" value="">
+                                 <span style="color:red"></span>
+                              </div>
+                           </div>
+                           <div class="col-lg-4">
+                              <div class="form-group">
+                                 <label>Account Type</label>
+                                 <select class="form-control" id="usertype" name="usertype">
+                                    <option value="0">Account Type</option>
+                                    <?php
+                                    if ($user_role)
+                                    { 
+                                       foreach ($user_role as $role)
+                                       {
+                                       ?>
+                                       <option value="<?=$role->role_id; ?>"><?php echo $role->role_name;?></option>
+
+                                       <?php
+                                       }
+                                    }
+                                    ?>
+                                 </select>
+                              </div>
+                           </div>
+                        </div>
+
+                        <div class="row">
+                           <div class="col-lg-6">
+                              <div class="form-group" id="companydiv">
+                                 <label for="companyname">Company Name</label>
+                                 <input type="text" class="form-control" id="companyname" name="companyname" placeholder="Enter Company Name" value="">
+                              </div>
+                           </div>
+                           <div class="col-lg-6">
+                              <div class="form-group">
+                                 <label>Upload Your profile image</label><br>
+                                 <input type="file" class="image-upload" accept="image/*" name="profile_image" id="profile_image"/>
+                              </div>
+                           </div>
+                        </div>
+                           
+                        <div class="row">
+                           <div class="col-lg-6">
+                              <div class="form-group">
+                                 <label for="address">Address</label>
+                                 <textarea class="form-control" name="address" id="address" placeholder="Enter address" rows="2"></textarea>
+                              </div>
+                           </div>
+                           <div class="col-lg-6">
+                              <div class="form-group">
+                                 <label>Write About Yourself</label>
+                                 <div>
+                                    <div class="mb-3">
+                                       <textarea class="form-control" name="about" id="about" placeholder="Place some text here" rows="5"></textarea>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+
+                        <div class="row">
+                           <div class="col-lg-6">
+                              <div class="form-group">
+                                 <label for="password">Password</label>
+                                 <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+                                 <span style="color:red"></span>
+                              </div>                        
+                           </div>
+                           <div class="col-lg-6">
+                              <div class="form-group">
+                                 <label for="cpassword1">Re-Type Password</label>
+                                 <input type="password" class="form-control" id="" name="cpassword" placeholder=" Re Enter Password">
+                                 <span style="color:red"></span>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <!-- /.card-body -->
+                     <div class="card-footer">
+                        <button type="submit" class="btn btn-primary" id="useraddbtn">Submit</button>
+                     </div>
+                  </form>
+               </div>
+
+            </div>
+
+         </div>
+      </div>
+      
+   </section>
+</div>

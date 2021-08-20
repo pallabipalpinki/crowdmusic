@@ -1,0 +1,25 @@
+<?php
+if(session_userdata('SESSION_USER_ID')){
+  if(in_array($module, array('home','album','user','profile','contents'))){
+     $this->load->view($theme . '/includes/header');
+     $this->load->view($theme . '/modules/' . $module .'/'.$page);   
+     $this->load->view($theme . '/includes/footer');
+  }
+  else{
+      if($module=="user"){
+        $this->load->view($theme . '/modules/' . $module .'/'.$page);   
+      }
+  }
+}else{ 
+  if(in_array($module, array('home','album','user','profile','contents'))){
+       $this->load->view($theme . '/includes/header');
+       $this->load->view($theme . '/modules/' . $module .'/'.$page);   
+       $this->load->view($theme . '/includes/footer');
+  }
+  else{
+    if($module=="user"){
+      $this->load->view($theme . '/modules/' . $module .'/'.$page);   
+    }
+  }
+}
+?>
