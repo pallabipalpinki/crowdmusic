@@ -45,6 +45,7 @@
                       <th style="width: 10px">SL.</th>
                       <th>Category Name</th>
                       <th>Present in Homepage</th>
+                      <th>Category Serial</th>
                       <th>Category Image</th>
                       <th style="width: 200px">ACTION</th>
                     </tr>
@@ -63,6 +64,7 @@
 
                       <td><?= $category["spec_name"]?></td>
                        <td><?= ($category['spec_show_in_home_page']==1)?  "Yes": "No"?></td>
+                       <td><?= $category["spec_serial"]?></td>
                      <td><img src="<?php echo $image; ?>"  width="50" height="40"></td>
                       <td>
                       <a class="btn btn-warning btn-sm" href="<?=base_url('admin-category-edit/'.$category['spec_id'])?>" title="Edit"><i class="fas fa-pencil-alt"> </i>Edit</a>

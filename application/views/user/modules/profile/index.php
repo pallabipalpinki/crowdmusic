@@ -61,16 +61,16 @@
 											
 
 											<?php
-									if($user_details['user_roleid']!='2'){
-										?>
+											if($user_details['user_roleid']!='2'){
+												?>
 
-										<a href="<?php echo $user_details['user_contributorlist_url'];?>"  class="follow-btn">
-									    <i class="fas fa-microphone mr-1" style="font-size: 18px;"></i>Contributors
-											</a>
-											<?php } ?>
-										</div>
-										<?php
-									}
+												<a href="<?php echo $user_details['user_contributorlist_url'];?>"  class="follow-btn">
+											    <i class="fas fa-microphone mr-1" style="font-size: 18px;"></i>Contributors
+													</a>
+													<?php } ?>
+												</div>
+												<?php
+											}
 
 
 									?>

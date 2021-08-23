@@ -5,6 +5,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['default_controller'] = 'common';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
+$route['admin-category'] = 'admin/admin/category';
+$route['admin-category-add'] = 'admin/admin/category_add';
+$route['admin-save-category'] = 'admin/admin/save_category';
+$route['admin-category-edit/(:num)'] = 'admin/admin/category_edit/$1';
+$route['admin-category-update'] = 'admin/admin/update_category';
+$route['admin-category-status/(:num)'] = 'admin/admin/category_status/$1';
+$route['admin-category-delete/(:num)'] = 'admin/admin/category_delete/$1';
+
 
 $route['admin'] = 'admin/admin/index';
 $route['admin-login'] = 'admin/admin/login';
@@ -111,11 +119,10 @@ $route['album-track-view/(:num)/(:num)'] = 'common/album_track_view/$1/$2';
 
 $route['search_global']='user/Contentcuration/onSearchGlobal';
 
-//=========
-$route['admin-category'] = 'admin/admin/category';
-$route['admin-category-add'] = 'admin/admin/category_add';
-$route['admin-save-category'] = 'admin/admin/save_category';
-$route['admin-category-edit/(:num)'] = 'admin/admin/category_edit/$1';
-$route['admin-category-update'] = 'admin/admin/update_category';
-$route['admin-category-status/(:num)'] = 'admin/admin/category_status/$1';
-$route['admin-category-delete/(:num)'] = 'admin/admin/category_delete/$1';
+$route['search_category/(:num)/(:num)/(:num)']	=	'Common/onLoadCategoryUsers';
+
+$route['(:any)']	=	'Common/indexCategories';
+
+//=========admin category==========
+
+

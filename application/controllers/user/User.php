@@ -97,7 +97,7 @@ class User extends CI_Controller
                             'user_profile_image'=>(!empty($userdata->profile_image))?$userdata->profile_image:base_url().'assets/images/innercover.jpg',
                             'user_tracks'=>$tracks,
                             'user_genres'=>$user_geners,                            
-                            'user_message_link'=>(session_userdata('SESSION_USER_ID') && $userdata->user_role=='4')?$user_slug->slug_url_value.'/messages':'',
+                            'user_message_link'=>(session_userdata('SESSION_USER_ID') && in_array($userdata->user_role, array(2,4)))?$user_slug->slug_url_value.'/messages':'',
                             'user_following'=>(!empty($user_following) && $user_following->follow_status=='following')?'Following':'Follow',
                             'user_followed_by_me'=>(!empty($user_following))?$user_following->follow_status:'unfollowed',
                             'user_total_followers'=>$total_followers
@@ -170,20 +170,18 @@ class User extends CI_Controller
 
                     if($userdata->user_specs!=null){
                         $user_specs[]=explode(',', $userdata->user_specs);
-                        
-
-                        //echo '<pre>';print_r($user_specs[0]);die;
-
-                        foreach ($content_specs as $_k => $_v) {
-                            $_user_specs[]=array(
-                                'spec_id'=>$_v->spec_id,
-                                'spec_name'=>$_v->spec_name,
-                                'selected'=>(in_array($_v->spec_id, $user_specs[0]))?'selected':''
-                            );
-                        }
                     }else{
-                        $_user_specs=array();
+                        $user_specs=array();
                     }
+
+                    foreach ($content_specs as $_k => $_v) {
+                        $_user_specs[]=array(
+                            'spec_id'=>$_v->spec_id,
+                            'spec_name'=>$_v->spec_name,
+                            'selected'=>((!empty($user_specs) && is_array($user_specs)) && in_array($_v->spec_id, $user_specs[0]))?'selected':''
+                        );
+                    }
+                    
                 }else{
                     $_user_specs=array();
                 }

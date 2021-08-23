@@ -39,7 +39,7 @@ class Common extends CI_Controller{
     }
 
     $this->data['artists']=$artists;
-  // $albums=$this->contents_model->get_albums();
+    // $albums=$this->contents_model->get_albums();
    //print_r($albums);die;
     //phpinfo();die;
     $p['order']='content_id';
@@ -69,7 +69,7 @@ class Common extends CI_Controller{
           'content_image'=>$value->content_image,
           'content_track_name'=>$value->content_track_name,
           'content_thumbs'=>($track_thumbs->thumbs_value=='up')?'liked':'',
-          'content_thumbs_icon'=>(!empty($track_thumbs))?(($track_thumbs->thumbs_value=='up')?'far fa-thumbs-up':'far fa-thumbs-down'):'far fa-thumbs-up',
+          'content_thumbs_icon'=>(!empty($track_thumbs))?(($track_thumbs->thumbs_value=='up')?'fas fa-thumbs-up':'far fas fa-thumbs-down'):'far fa-thumbs-up',
           'content_login_toggle'=>(!session_userdata('SESSION_USER_ID'))?'onclick="openSignin()"':'',
            'artists_image'=>$value->profile_image,
           'artists_profile'=>base_url().'artists/'.$slug_url->slug_value
@@ -81,11 +81,157 @@ class Common extends CI_Controller{
 
     $this->data['tracks']=$tracks_data;
 
+    $content_categories=$this->cm->get_content_specs(array('spec_status'=>'1','spec_show_in_home_page'=>'1'),FALSE,'spec_serial');
 
+    if(!empty($content_categories)){
+      foreach ($content_categories as $key => $value) {
+        $slug=$this->sm->get_slug(array('slug_type'=>'CATEGORIES','slug_type_id'=>$value->spec_id));
+        $categories[]=array(
+          'spec_name'=>$value->spec_name,
+          'spec_url'=>$slug->slug_url_value,
+          'spec_img'=>base_url().'assets/images/producer.jpg'
+        );
+      }
+    }else{
+      $categories=array();
+    }
+
+    $this->data['categories']=$categories;
 
     $this->load->vars($this->data);
     $this->load->view($this->data['theme'].'/template');
 
+  }
+
+
+  public function indexCategories(){
+    $settings_data=$this->sm->get_settings(array('settings_key'=>'system_settings'));
+    $settings_data_decoded=json_decode($settings_data->settings_value);
+
+    $segment_1=$this->uri->segment(1,0);
+    $current_url=current_url();
+
+    if($segment_1!='0' && is_string($segment_1)){
+      $slug=$this->sm->get_slug(array('slug_type'=>'CATEGORIES','slug_value'=>$segment_1,'slug_url_value'=>$current_url));
+      
+      if(!empty($slug)){
+        $category=$this->cm->get_content_specs(array('spec_id'=>$slug->slug_type_id),TRUE);
+
+        $page_title=ucwords($category->spec_name).' for Hire | '.$settings_data_decoded->system_title;
+
+        $param['user_role']='2';
+        $param['slug_type']='USER_PROFILE';
+        $param['specs']=$slug->slug_type_id;
+
+        $category_users=$this->um->_get_users($param,'id','ASC',10);
+
+        //echo '<pre>';print_r($category_users);die;
+
+        if(!empty($category_users)){
+
+          foreach ($category_users as $key => $value) {
+
+            $name=ucwords($value->firstname.' '.$value->lastname);
+
+            $_category_users[]=array(
+              'user_name'=>$name,
+              'user_about'=>subsstring($value->about,80),
+              'user_slug'=>$value->slug_url_value,
+              'user_image'=>($value->profile_image!='')?$value->profile_image:base_url().'uploads/user/no.jpg'
+            );
+          }
+          
+        }else{
+          $_category_users=array();
+        }
+
+        //print_obj($_category_users);die;
+
+        $this->data['category_users']=$_category_users;
+
+        $this->data['geners']=$this->cm->get_genere();
+
+        $this->data['category']=$category->spec_id;
+
+        $this->data['module']       =   'home';
+        $this->data['page']         =   'categories_page';
+        $this->data['page_title']   =   $page_title;
+
+
+        $this->load->vars($this->data);
+
+        $this->load->view($this->data['theme'].'/template');
+
+
+      }else{
+        redirect(base_url());
+      }
+
+
+    }else{
+      redirect(base_url());
+    }
+  }
+
+
+
+  public function onLoadCategoryUsers(){
+    //if($this->input->is_ajax_request() && $this->input->server('REQUEST_METHOD')=='GET'){
+
+      $category=$this->uri->segment(2,0);
+      $generes=$this->uri->segment(3,0);
+      $offset=$this->uri->segment(4,0);
+      $srch=$this->input->get('p');
+      
+
+      //echo $srch;die;
+
+      $param['user_role']='2';
+      $param['slug_type']='USER_PROFILE';
+      $param['specs']=$category;
+
+      if(!empty($srch)){
+        $param['srch']=$srch;
+      }
+
+      if($generes>0){
+        $param['generes']=$generes;
+      }
+
+      //print_obj($param);die;
+
+      if($offset>0){
+        $_offset=$offset;
+      }else{
+        $_offset='0';
+      }
+
+      $category_users=$this->um->_get_users($param,'id','ASC',10,$_offset);
+
+     // print_obj($category_users);die;
+
+      if(!empty($category_users)){
+
+        foreach ($category_users as $key => $value) {
+
+          $name=ucwords($value->firstname.' '.$value->lastname);
+          $_category_users[]=array(
+            'user_name'=>$name,
+            'user_about'=>subsstring($value->about,80),
+            'user_slug'=>$value->slug_url_value,
+            'user_image'=>($value->profile_image!='')?$value->profile_image:base_url().'uploads/user/no.jpg'
+          );
+        }
+        
+      }else{
+        $_category_users=array();
+      }
+
+
+      json_header_encode($_category_users);
+    // }else{
+    //   redirect(base_url());
+    // }
   }
   
 

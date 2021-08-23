@@ -1,0 +1,121 @@
+<main id="page-view">
+		<section class="inner-pg">
+			<div class="inner-cover-div">
+				<a class="inner-cover-bg twPc-block"> <img src="images/innercover.jpg" /> </a>
+				<div class="artist_body">
+					<div class="container-fluid">
+						<div class="row">
+							<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+								<button type="button" class="btn btn-sm  btn-primary m-t-15"><i class="fa fa-search "> </i> Filter</button>
+							</div>
+							<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+								<div class="form-group">
+									<div class="form-line">
+										<input type="text" id="name1" class="form-control" placeholder="Search by Reg. No.">
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+								<div class="form-group">
+									<select class="form-control" >
+										<option>Genre</option>
+										<option>Akhilesh</option>
+										<option>Neeraj</option>
+										<option>Suman</option>
+										<option>Tyagi</option>
+									</select>
+								</div>
+							</div>
+							
+						</div>
+						<div class="row">
+							<div class="col-md-3">
+								<div class="artist-item">
+								  <div class="ai-img-wrapper">
+									<img src="images/edit.jpg" class="img-responsive" />
+								  </div>
+								  <div class="artist-box">
+									<h3>Berry Lace Dress</h3>
+									<div class="ai-price">Song Type</div>
+									<ul class="rating">
+										<li class="fa fa-star"></li>
+										<li class="fa fa-star"></li>
+										<li class="fa fa-star"></li>
+										<li class="fa fa-star"></li>
+										<li class="fa fa-star disable"></li>
+									</ul>
+								  </div>
+								  <div class="artist-desc">
+									<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+								  </div>
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="artist-item">
+								  <div class="ai-img-wrapper">
+									<img src="images/edit.jpg" class="img-responsive" />
+								  </div>
+								  <div class="artist-box">
+									<h3>Berry Lace Dress</h3>
+									<div class="ai-price">Song Type</div>
+									<ul class="rating">
+										<li class="fa fa-star"></li>
+										<li class="fa fa-star"></li>
+										<li class="fa fa-star"></li>
+										<li class="fa fa-star"></li>
+										<li class="fa fa-star disable"></li>
+									</ul>
+								  </div>
+								  <div class="artist-desc">
+									<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+								  </div>
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="artist-item">
+								  <div class="ai-img-wrapper">
+									<img src="images/edit.jpg" class="img-responsive" />
+								  </div>
+								  <div class="artist-box">
+									<h3>Berry Lace Dress</h3>
+									<div class="ai-price">Song Type</div>
+									<ul class="rating">
+										<li class="fa fa-star"></li>
+										<li class="fa fa-star"></li>
+										<li class="fa fa-star"></li>
+										<li class="fa fa-star"></li>
+										<li class="fa fa-star disable"></li>
+									</ul>
+								  </div>
+								  <div class="artist-desc">
+									<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+								  </div>
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="artist-item">
+								  <div class="ai-img-wrapper">
+									<img src="images/edit.jpg" class="img-responsive" />
+								  </div>
+								  <div class="artist-box">
+									<h3>Berry Lace Dress</h3>
+									<div class="ai-price">Song Type</div>
+									<ul class="rating">
+										<li class="fa fa-star"></li>
+										<li class="fa fa-star"></li>
+										<li class="fa fa-star"></li>
+										<li class="fa fa-star"></li>
+										<li class="fa fa-star disable"></li>
+									</ul>
+								  </div>
+								  <div class="artist-desc">
+									<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+								  </div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	</main>

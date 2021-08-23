@@ -519,4 +519,13 @@ if (!function_exists('check_subscription'))
     }
 }
 
+
+function subsstring($string,$length=20){
+    if (strlen($string) > $length) {
+        $string = substr($string, 0, $length) . "..."; 
+    }
+
+    return $string;
+}
+
 ?>

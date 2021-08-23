@@ -7,6 +7,13 @@ class Contents_model extends CI_Model
 	    return $result;
 	}
 
+	public function _get_genere($param){
+	    $this->db->where($param);
+        $query = $this->db->get('content_genere');
+        $result = $query->first_row();
+        return $result; 
+	}
+
 	public function get_content($param)
     {
         $this->db->where($param);
@@ -14,6 +21,14 @@ class Contents_model extends CI_Model
         $result = $query->first_row();
         return $result;                  
     }
+
+
+
+    public function get_concat_genere($generes){
+		$query = $this->db->query("SELECT GROUP_CONCAT(DISTINCT genere_name) as genere_name FROM `content_genere` WHERE genere_id IN(".$generes.")");
+	    $result = $query->first_row();
+	    return $result;	
+	}
 
     public function get_contents($param,$order_by=NULL,$order='DESC',$limit=10,$start=0)
     {
@@ -442,7 +457,7 @@ public function get_album_track($aid,$uid)
 	    return $result;
 	}
 
-	public function get_content_specs($param,$order_by=NULL,$order='DESC')
+	public function get_content_specs($param,$single_row=FALSE,$order_by=NULL,$order='DESC',$return_query=FALSE)
     {
         $this->db->where($param);
 
@@ -451,7 +466,18 @@ public function get_album_track($aid,$uid)
         }
 
         $query = $this->db->get('content_speciality');
-        $result = $query->result();
+
+        if($return_query==FALSE){
+        	if($single_row==FALSE){
+				$result = $query->result();
+        	}else{
+        		$result=$query->first_row();
+        	}
+        }else{
+        	$result=$this->db->last_query();
+        }
+
+        
         return $result;                  
     }
 }

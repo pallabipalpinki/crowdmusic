@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
     <title><?php echo isset($page_title)?$page_title:'';?></title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -113,14 +112,7 @@
                         <button type="submit">Search</button>
                         <!-- </form> -->
                         <ul class="search-list">
-                          <li>
-                            <div class="img"><img src="<?php echo base_url('assets/images/director.jpg');?>" alt=""></div>
-                            <div class="text">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptate iusto, perferendis debitis hic provident tempora obcaecati eaque optio? Beatae magnam in voluptates nobis.</div>
-                          </li>
-                          <li>
-                            <div class="img"><img src="<?php echo base_url('assets/images/director.jpg');?>" alt=""></div>
-                            <div class="text">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptate iusto, perferendis debitis hic provident tempora obcaecati eaque optio? Beatae magnam in voluptates nobis.</div>
-                          </li>
+                          
                         </ul>
                       </div>
                     </div>

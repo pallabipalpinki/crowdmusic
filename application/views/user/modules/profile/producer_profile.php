@@ -42,13 +42,23 @@
                 </a>
                 <?php
               }
+
+              if($user_details['user_is_following_me']=='yes'){
+                ?>
+                <a href="javascript:void(0);" class="follow-btn" <?php echo $user_details['user_follow_link'];?> data-usr="<?php echo $user_details['user_id'];?>" data-usr_followed_by="<?php echo $user_details['user_followed_by_me'];?>" data-follow_count="<?php echo $user_details['user_total_followers'];?>">
+                  <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M11 0C17.0748 0 22 4.92525 22 11C22 17.0748 17.0748 22 11 22C4.92525 22 0 17.0748 0 11C0 4.92525 4.92525 0 11 0ZM5.5 12.375H9.625V16.5H12.375V12.375H16.5V9.625H12.375V5.5H9.625V9.625H5.5V12.375Z" fill="white" />
+                  </svg>
+                  <?php echo $user_details['user_following'];?>
+                </a>
+                <?php
+              }
+
+
               ?>
-              
-              
-              <!-- <a href="#" class="follow-btn ">
-                <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                 
-                  <path d="M11 0C17.0748 0 22 4.92525 22 11C22 17.0748 17.0748 22 11 22C4.92525 22 0 17.0748 0 11C0 4.92525 4.92525 0 11 0ZM5.5 12.375H9.625V16.5H12.375V12.375H16.5V9.625H12.375V5.5H9.625V9.625H5.5V12.375Z" fill="white" /> </svg> Follow</a> -->
+              
+                
 
                   <?php
                   if($user_details['user_contributorlist_url']!=''){

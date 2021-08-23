@@ -19,40 +19,46 @@ class Message extends CI_Controller
 
     			$_searched_param=$this->input->get('_searched_param');
 
+    			$suser_data=$this->um->get_user(array('id'=>$user_id));
+
     			if($user_type=='4'){
-    				$user_role='5';
-    			}else if($user_type=='5'){
+    				$user_role='2';
+    			}else if($user_type=='2'){
     				$user_role='4';
     			}
 
     			if($_searched_param==''){
-					$user_data=$this->um->get_users(array('user_role'=>$user_role,'status'=>1));
+					$user_data=$this->um->get_users(array('user_role'=>$user_role,'status'=>1),'id','ASC',10,0,FALSE);
     			}else{
 					$user_data=$this->um->get_filtered_users($_searched_param,"user_role='".$user_role."' AND status=1",'NATURAL LANGUAGE',10,0,'id','ASC',FALSE);
     			}
 
-    			//echo '<pre>';print_r($user_data);die;
+    			//print_obj($user_data);die;
 
 				if(!empty($user_data)){
 					foreach ($user_data as $key => $value) {
 
 						$user_name=ucwords($value->firstname.' '.$value->lastname);
-						$user_image=(!empty($user_data->profile_image))?$user_data->profile_image:base_url('uploads/user/no.jpg');
+						$user_image=(!empty($value->profile_image) && $value->profile_image!='')?$value->profile_image:base_url('uploads/user/no.jpg');
 
-						$user_last_msg=$this->um->get_messages(array('sender_id'=>$value->id),NULL,'msg_id','DESC',1);
+						$user_last_msg=$this->um->get_messages(array('sender_id'=>$value->id),NULL,FALSE,'msg_id','DESC',1);
 
 						$userdata[]=array(
 							'user_id'=>$value->id,
 							'user_type'=>$value->user_role,
+							'user_sender_type'=>$suser_data->user_role,
 							'user_name'=>$user_name,
 							'user_image'=>$user_image,
-							'user_last_message'=>(!empty($user_last_msg) && $user_last_msg->msg_sent!=NULL)?$user_last_msg->msg_sent:'No message',
+							'user_last_message'=>(!empty($user_last_msg) && $user_last_msg[0]->msg_sent!=NULL)?$user_last_msg[0]->msg_sent:'No message',
 							'user_online_status'=>$value->online_status
 						);
 					}
 				}else{
 					$userdata=array();
 				}
+
+
+				//print_obj($userdata);die;
 
 
 				$last_user_msg='';
@@ -116,7 +122,7 @@ class Message extends CI_Controller
 
     			$msg_data=array();
 
-    			$user_msgs=$this->um->get_messages(NULL,array('u1.id'=>$user_id,'u2.id'=>$user_id),'msg_id','ASC',10);
+    			$user_msgs=$this->um->get_messages(array('u1.id'=>$user_id,'u2.id'=>$user_id),array('u1.id'=>$reciver_id,'u2.id'=>$reciver_id),TRUE,'msg_id','ASC',10,0,FALSE);
 
     			//echo '<pre>';print_r($user_msgs);die;
 

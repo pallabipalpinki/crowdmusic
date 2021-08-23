@@ -961,20 +961,20 @@ public function category_add(){
                 }
               else{
             $name=post_data('name');
-            $categoryshown=post_data('');
-            
-
-            //echo '<pre>';print_r($user_specs);die;
-
-          
+            $categoryshown=post_data('categoryshown');
             // $duplicate_data=$this->admin_panel_model->get_duplicate_category(null,array('spec_name'=>$name));
 
             // if($duplicate_data->counted==0){
+            $query=$this->db->query("SELECT spec_serial FROM content_speciality ORDER BY spec_id DESC LIMIT 1");
 
+              $lastdata= $query->row();
+            
+                $spec_serial=($lastdata->spec_serial=='')? 2 : $lastdata->spec_serial+1 ;
+                //echo $spec_serial; die;
                 $data_to_store=array(
                     'spec_name' => $name,
-                    'spec_status' => 1
-                    //'spec_serial'=>
+                    'spec_status' => 1,
+                    'spec_serial'=>$spec_serial
                     
                 );
 
@@ -983,7 +983,7 @@ public function category_add(){
                 if($added){
 
                     $this->load->library('image_lib');
-                    $media_disk_path=FCPATH.'/uploads/admin/category/';
+                    $media_disk_path=FCPATH.'/uploads/category/';
 
                     if(isset($_FILES['category_image']) && $_FILES['category_image']['name']!=''){
                         $config['upload_path']   = $media_disk_path;
@@ -1002,7 +1002,7 @@ public function category_add(){
 
                           $path=$media_disk_path.'/'.$upload_image['file_name'];
 
-                          $relative_path=base_url().'uploads/admin/category/'.$new_name;
+                          $relative_path=base_url().'uploads/category/'.$new_name;
                           $disk_path=$path;
 
                           //$this->resizeImage($path,$path,'366','365');
@@ -1014,10 +1014,10 @@ public function category_add(){
                     $slug=url_slug($name);
 
                     $slug_data_to_store=array(
-                        'slug_type'=>'CATEGORY',
+                        'slug_type'=>'CATEGORIES',
                         'slug_type_id'=>$added,
                         'slug_value'=>$slug,
-                        'slug_url_value'=>base_url().'category/'.$slug
+                        'slug_url_value'=>base_url().$slug
                     );
 
                     $slug_added=$this->sm->add_slug($slug_data_to_store);
@@ -1108,9 +1108,8 @@ public function update_category(){
                         'spec_name' => $name,
                         'spec_show_in_home_page'=>$categoryshown,
                         'spec_status' => 1
-                        //'spec_serial'=>
-                        
-                );
+                       
+                        );
 
 
                
@@ -1122,7 +1121,7 @@ public function update_category(){
 
                         if(isset($_FILES['category_image']) && $_FILES['category_image']['name']!=''){
                             $this->load->library('image_lib');
-                            $media_disk_path=FCPATH.'uploads/admin/category/';
+                            $media_disk_path=FCPATH.'uploads/category/';
                             $config['upload_path']   = $media_disk_path;
                             $new_name = strtotime(date('d-m-Y h:i:s')).str_replace(' ', '_', $_FILES["category_image"]['name']);
                             $config['file_name'] = $new_name;
@@ -1139,7 +1138,7 @@ public function update_category(){
 
                               $path=$media_disk_path.'/'.$upload_image['file_name'];
 
-                              $relative_path=base_url().'uploads/admin/category/'.$new_name;
+                              $relative_path=base_url().'uploads/category/'.$new_name;
                               $disk_path=$path;
                               if(is_file($data[0]->spec_img_path)){
                                 @unlink($data[0]->spec_img_path);
@@ -1150,21 +1149,21 @@ public function update_category(){
                             }
                         }
 
-                        $user_slug=$this->sm->get_slug(array('slug_type'=>'CATEGORY','slug_type_id'=>$cid));
+                        $user_slug=$this->sm->get_slug(array('slug_type'=>'CATEGORIES','slug_type_id'=>$cid));
 
                         if(!empty($user_slug)){
                             $slug=url_slug($name);
 
-                            $slug_url=base_url().'category/'.$slug.'/categoryedit';
+                            $slug_url=base_url().$slug.'/categoryedit';
 
                             $slu_data_to_store=array(
-                                'slug_type'=>'CATEGORY',
+                                'slug_type'=>'CATEGORIES',
                                 'slug_type_id'=>$cid,
                                 'slug_value'=>$slug,
-                                'slug_url_value'=>base_url().'category/'.$slug
+                                'slug_url_value'=>base_url().$slug
                             );
 
-                        $this->sm->update_slug($slu_data_to_store,array('slug_type'=>'CATEGORY','slug_type_id'=>$cid));
+                        $this->sm->update_slug($slu_data_to_store,array('slug_type'=>'CATEGORIES','slug_type_id'=>$cid));
                         }else{
                             $slug_url=$user_slug->slug_url_value.'/categoryedit';
                         }

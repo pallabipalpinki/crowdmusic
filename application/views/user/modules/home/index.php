@@ -394,77 +394,20 @@
 
       <div class="row small-gutter justify-content-center">
 
-         <div class="col-lg-4 col-md-6 onview">
-
-            <div class="cat-box">
-
-               <img src="<?php echo base_url(); ?>assets/images/producer.jpg" alt="">
-
-               <h3>Producers</h3>
-
-            </div>
-
-         </div>
-
-         <div class="col-lg-4 col-md-6 onview">
-
-            <div class="cat-box">
-
-               <img src="<?php echo base_url(); ?>assets/images/singer.jpg" alt="">
-
-               <h3>Singer</h3>
-
-            </div>
-
-         </div>
-
-         <div class="col-lg-4 col-md-6 onview">
-
-            <div class="cat-box">
-
-               <img src="<?php echo base_url(); ?>assets/images/director.jpg" alt="">
-
-               <h3>Director</h3>
-
-            </div>
-
-         </div>
-
-         <div class="col-lg-4 col-md-6 onview">
-
-            <div class="cat-box">
-
-               <img src="<?php echo base_url(); ?>assets/images/musician.jpg" alt="">
-
-               <h3>Musician</h3>
-
-            </div>
-
-         </div>
-
-         <div class="col-lg-4 col-md-6 onview">
-
-            <div class="cat-box">
-
-               <img src="<?php echo base_url(); ?>assets/images/engineers.jpg" alt="">
-
-               <h3>Engineers</h3>
-
-            </div>
-
-         </div>
-
-         <div class="col-lg-4 col-md-6 onview">
-
-            <div class="cat-box">
-
-               <img src="<?php echo base_url(); ?>assets/images/songwriters.jpg" alt="">
-
-               <h3>Songwriters</h3>
-
-            </div>
-
-         </div>
+         <?php 
+         if(!empty($categories)){
+            foreach ($categories as $key => $value) {
+               ?>
+               <div class="col-lg-4 col-md-6 onview">
+                  <div class="cat-box">
+                     <a href="<?php echo $value['spec_url'];?>"><img src="<?php echo $value['spec_img'];?>" alt="<?php echo $value['spec_name'];?>" loading="lazy"></a>
+                     <h3><?php echo $value['spec_name'];?></h3>
+                  </div>
+               </div>
+               <?php
+            }
+         }
+         ?>
 
       </div>
 

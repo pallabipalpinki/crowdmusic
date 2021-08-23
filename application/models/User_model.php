@@ -32,8 +32,58 @@ class User_model extends CI_Model
 	public function get_users($param=null,$order_by='id',$order='ASC',$limit=null,$start=null,$return_query=FALSE){
 		$this->db->select('users.*,users_role.role_name');
 		$this->db->join('users_role','users_role.role_id=users.user_role','LEFT');
-		if($param!=NULL){
+		// $this->db->join('slugs','slugs.slugs_type_id=users.id','LEFT');
+		if($param!=null){
 			$this->db->where($param);
+		}
+
+
+		$this->db->order_by($order_by,$order);
+
+		if($limit!=null && $start!=null){
+			$this->db->limit($limit,$start);
+		}
+
+		$query=$this->db->get('users');
+
+		if($return_query==FALSE){
+			$result= $query->result();
+			return $result;
+		}else if($return_query==TRUE){
+			return $this->db->last_query();
+		}
+	}
+
+	public function _get_users($param=null,$order_by='id',$order='ASC',$limit=null,$start=null,$return_query=FALSE){
+		$this->db->select('users.*,users_role.role_name,slugs.*,slugs.*');
+		$this->db->join('users_role','users_role.role_id=users.user_role','LEFT');
+		$this->db->join('slugs','slugs.slug_type_id=users.id','LEFT');
+
+		if(isset($param['user_status']) && $param['user_status']!=''){
+			$this->db->where('status',$param['user_status']);
+		}
+
+		if(isset($param['user_role']) && $param['user_role']!=''){
+			$this->db->where('user_role',$param['user_role']);
+		}
+
+		if(isset($param['slug_type']) && $param['slug_type']!=''){
+			$this->db->where('slug_type',$param['slug_type']);
+		}
+
+		if(isset($param['specs']) && $param['specs']!=''){
+			$this->db->where_in('user_specs',$param['specs'],FALSE);
+		}
+
+		if(isset($param['generes']) && $param['generes']!=''){
+			$this->db->where('FIND_IN_SET('.$param['generes'].',user_geners)<>0');
+		}
+
+		if(isset($param['srch']) && $param['srch']!=''){
+			//$this->db->where('MATCH(firstname,lastname) AGAINST("'.$param['srch'].'" IN NATURAL MODE)');
+
+			$this->db->like('firstname',$param['srch']);			
+			$this->db->or_like('lastname',$param['srch']);
 		}
 
 		$this->db->order_by($order_by,$order);
@@ -42,10 +92,55 @@ class User_model extends CI_Model
 			$this->db->limit($limit,$start);
 		}
 
-		$result=$this->db->get('users');
+		$query=$this->db->get('users');
 
 		if($return_query==FALSE){
-			return $result->result();
+			return $query->result();			
+		}else if($return_query==TRUE){
+			return $this->db->last_query();
+		}
+	}
+
+
+	public function get__users($param=null,$order_by='id',$order='ASC',$limit=null,$start=null,$return_query=FALSE){
+		$this->db->select('users.*,users_role.role_name,slugs.*,slugs.*');
+		$this->db->join('users','users.id=users_specs.user_id','LEFT');
+		$this->db->join('users_role','users_role.role_id=users.user_role','LEFT');
+		$this->db->join('slugs','slugs.slug_type_id=users_specs.user_id','LEFT');
+
+		if(isset($param['user_role']) && $param['user_role']!=''){
+			$this->db->where('user_role',$param['user_role']);
+		}
+
+		if(isset($param['slug_type']) && $param['slug_type']!=''){
+			$this->db->where('slug_type',$param['slug_type']);
+		}
+
+		if(isset($param['specs']) && $param['specs']!=''){
+			$this->db->where('user_spec_id',$param['specs'],FALSE);
+		}
+
+		if(isset($param['generes']) && $param['generes']!=''){
+			$this->db->where_in('user_geners',$param['generes'],FALSE);
+		}
+
+		if(isset($param['srch']) && $param['srch']!=''){
+			//$this->db->where('MATCH(firstname,lastname) AGAINST("'.$param['srch'].'" IN NATURAL MODE)');
+
+			$this->db->like('firstname',$param['srch']);			
+			$this->db->or_like('lastname',$param['srch']);
+		}
+
+		$this->db->order_by($order_by,$order);
+
+		if($limit!=null && $start!=null){
+			$this->db->limit($limit,$start);
+		}
+
+		$query=$this->db->get('users_specs');
+
+		if($return_query==FALSE){
+			return $query->result();			
 		}else if($return_query==TRUE){
 			return $this->db->last_query();
 		}
@@ -284,15 +379,20 @@ public function get_contributor($param=null,$order_by='users.id',$order='ASC',$l
 		}				
 	}
 
-	public function get_messages($param=null,$param_or=null,$order_by='msg_id',$order='ASC',$limit=null,$start=null,$return_query=FALSE){
+	public function get_messages($param=null,$param_or=null,$apply_first_or=FALSE,$order_by='msg_id',$order='ASC',$limit=null,$start=null,$return_query=FALSE){
 		$this->db->select('message_board.*,u1.id as senderid,u2.id as recieverid,CONCAT(u1.firstname," ",u1.lastname) as sender_name,u1.profile_image as sender_img,u1.user_role as sender_role,CONCAT(u2.firstname," ",u2.lastname) as reciever_name,u2.profile_image as reciever_img,u2.user_role as reciever_role');
 		$this->db->join('users u1','u1.id=message_board.sender_id','INNER');
 		$this->db->join('users u2','u2.id=message_board.reciever_id','INNER');
 
-		// SELECT `message_board`.*, u1.`firstname`, u1.`lastname`,u2.`firstname`, u2.`lastname`, u1.`profile_image`,u1.`user_role`, u2.`profile_image`,u2.`user_role` FROM `message_board` INNER JOIN `users` u1 ON u1.`id`=`message_board`.`sender_id` INNER JOIN `users` u2 ON u2.`id`=message_board.reciever_id WHERE (u1.`id` = '13' OR u2.`id` = '13') ORDER BY `msg_id`
-
 		if($param!=NULL){
-			$this->db->or_where($param);
+			if($apply_first_or==TRUE){
+				$this->db->group_start();
+				$this->db->or_where($param);
+				$this->db->group_end();
+			}else{
+				$this->db->where($param);
+			}
+			
 		}
 		if($param_or!=NULL){
 			$this->db->group_start();
