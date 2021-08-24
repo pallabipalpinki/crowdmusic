@@ -231,6 +231,10 @@ public function get_album_track($aid,$uid)
 			$this->db->where('content_data.status',$param['status']);
 		}
 
+		if(isset($param['content_user_id'])){
+			$this->db->where('content_data.content_user_id',$param['content_user_id']);
+		}
+
 		if(isset($param['column_search'])){
 			foreach ($param['column_search'] as $item)
 			{
@@ -273,7 +277,7 @@ public function get_album_track($aid,$uid)
 			}
 			
 			$query = $this->db->get('content_data');
-
+				//print_r($this->db->last_query());die;
 			if($return_query==FALSE){
 				return $query->result();
 			}else if($return_query==TRUE){
@@ -288,6 +292,8 @@ public function get_album_track($aid,$uid)
 				return $this->db->last_query();
 			}			
 		}
+		
+
 	}
 
 

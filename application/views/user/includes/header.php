@@ -132,11 +132,7 @@
                       </svg>
                     </a>
                     
-                    <button class="menu-toggler vc">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    </button>
+                    
                  
                   <?php }else{ ?>
                   
@@ -147,16 +143,22 @@
                     </a>
                   </div>
                   <?php }?>
+                  <button class="menu-toggler vc">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    </button>
+
                   <div class="menu-wrapper">
                     <div class="menu-close">
                       <span></span>
                       <span></span>
                     </div>
-                    <ul class="mt-auto">
-                      <li><a href="#">Item 1</a></li>
-                      <li><a href="#">Item 2</a></li>
-                      <li><a href="#">Item 3</a></li>
-                      <li><a href="#">Item 4</a></li>
+                    <ul>
+                      <li><a href="about.html">About US</a></li>
+                      <li><a href="contact.html">Contact Us</a></li>
+                      <li><a href="#">Artist</a></li>
+                      <li><a href="#">FAQ</a></li>
                     </ul>
                     <ul class="home-section-menu d-inline-block d-lg-none mb-auto">
                       <li><a class="active" href="#_view">Home</a></li>

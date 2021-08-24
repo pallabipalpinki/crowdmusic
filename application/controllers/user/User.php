@@ -838,16 +838,18 @@ class User extends CI_Controller
     }
 
 
-    public function LoadContributorTrackList(){
+public function LoadContributorTrackList(){
         if($this->session->userdata('SESSION_USER_ID')){
                 if($this->input->is_ajax_request() && $this->input->server('REQUEST_METHOD')=='POST'){
 
-                    $contributor_id=$this->security->xss_clean($this->input->post('contributor_id'));
+                    $contributor_id=post_data('contributor_id');
 
+
+                    //echo $contributor_id;die;
                    
                         $content=$this->cm->_get_contents_tracks(NULL,array('status'=>'1','content_user_id'=>$contributor_id),FALSE,FALSE);
 
-                        // echo '<pre>';print_r($content);
+                      //echo '<pre>';print_r($content);die;
 
                         header('Content-Type: application/json; charset=utf-8');
 
@@ -949,6 +951,12 @@ class User extends CI_Controller
             }
         }
     */
+
+
+
+
+
+
 
 
 }

@@ -4,12 +4,7 @@
 <!-- Swiper -->
 <div class="swiper-container singerlist">
     <div class="swiper-wrapper">
-      <div class="swiper-slide">
-        <div class="dp">
-          <a href="#"><img src="<?php echo base_url(); ?>assets/images/singer1.jpg" alt=""></a>
-        </div>
-        <p>Shawn Mendes</p>
-      </div>
+      
       <div class="swiper-slide">
         <div class="dp">
           <a href="#"><img src="<?php echo base_url(); ?>assets/images/singer1.jpg" alt=""></a>
@@ -29,18 +24,8 @@
       <?php
             }
       } ?>
-      <div class="swiper-slide">
-        <div class="dp">
-          <a href="#"><img src="<?php echo base_url(); ?>assets/images/singer1.jpg" alt=""></a>
-        </div>
-        <p>Shawn Mendes</p>
-      </div>
-      <div class="swiper-slide">
-        <div class="dp">
-          <a href="#"><img src="<?php echo base_url(); ?>assets/images/singer1.jpg" alt=""></a>
-        </div>
-        <p>Shawn Mendes</p>
-      </div>
+      
+      
     </div>
     <div class="swiper-button-prev"></div>
     <div class="swiper-button-next"></div>

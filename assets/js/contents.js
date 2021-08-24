@@ -556,7 +556,7 @@ jQuery(function ($) {
 });
 
 function openListoftracks(contributor_id) {
-  //alert(contributor_id);
+ //alert(contributor_id);
   var html = '';
   $.ajax({
     type: 'POST',
@@ -565,7 +565,7 @@ function openListoftracks(contributor_id) {
     beforeSend: function () {},
     success: function (d) {
       if (d != '') {
-        // console.log(d);
+         //console.log(d);
         $.each(d, function (k, v) {
           let className = k === 0 ? 'active' : '';
           html +=
@@ -585,3 +585,4 @@ function openListoftracks(contributor_id) {
     },
   });
 }
+

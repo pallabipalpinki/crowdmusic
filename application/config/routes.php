@@ -51,8 +51,8 @@ $route['follow-user'] = 'user/user/onFollowUsers';
 // $route['profiles/(:any)/browse-contributors']	='user/user/browsecontributors';
 
 $route['profiles/(:any)'] = 'user/User/indexPublicpage';
-// $route['profiles/(:any)/contents']	='user/User/indexPublicpage';
-// $route['profiles/(:any)/contributors']	='user/User/indexPublicpage';
+$route['profiles/(:any)/contents']	='user/User/indexPublicpage';
+$route['profiles/(:any)/contributors']	='user/User/indexPublicpage';
 $route['profiles/(:any)/(:any)'] = 'user/User/indexPublicpage';
 $route['tracks/(:any)/(:any)'] = 'user/User/indexPublicpage';
 // $route['user-login'] = 'user/dashboard/is_valid_login';

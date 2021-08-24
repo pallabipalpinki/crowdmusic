@@ -429,6 +429,7 @@ public function genres(){
 public function genres_add(){
    
   if($this->session->userdata('SESSION_ADMIN_ID')){
+    //echo "hi";die;
     $this->data['module']  = 'music';
     $this->data['page']='add_genres';
     $this->load->vars($this->data);
@@ -974,6 +975,7 @@ public function category_add(){
                 $data_to_store=array(
                     'spec_name' => $name,
                     'spec_status' => 1,
+                    'spec_show_in_home_page'=>$categoryshown,
                     'spec_serial'=>$spec_serial
                     
                 );
