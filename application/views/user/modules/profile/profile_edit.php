@@ -152,7 +152,7 @@
                         <div class="col-md-6">
                           <div class="form-group">
                             <label>User Role</label>
-                            <select class="form-control wek-nbr-cls" name="usertype" id="usertype" disabled>
+                            <select class="form-control wek-nbr-cls" name="usertype" id="usertype" <?php echo ($role['selected']!='')?'disabled':''; ?>>
                               <option value="0">Select a Account Type</option>
                               <?php
                                 foreach ($user_details['user_roles'] as $role) {

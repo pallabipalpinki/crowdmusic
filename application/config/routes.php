@@ -38,6 +38,10 @@ $route['user/profile-edit/(:num)'] = 'user/dashboard/profile_edit/$1';
 $route['user/profile-update'] = 'user/dashboard/profile_update';
 
 $route['user-addlike'] ='Common/onLikeTracks';
+$route['contactus'] ='Common/Contactus';
+$route['aboutus'] ='Common/Aboutus';
+$route['faq'] ='Common/Faq';
+$route['privacy-policy'] ='Common/PrivacyPolicy';
 
 
 $route['sign-up'] = 'user/User/indexSignup';
@@ -119,10 +123,15 @@ $route['album-track-view/(:num)/(:num)'] = 'common/album_track_view/$1/$2';
 
 $route['search_global']='user/Contentcuration/onSearchGlobal';
 
-$route['search_category/(:num)/(:num)/(:num)']	=	'Common/onLoadCategoryUsers';
+// $route['search_category/(:num)/(:num)/(:num)']	=	'Common/onLoadCategoryUsers';
+
+$route['search_category/(:num)/(:num)']	=	'Common/onLoadCategoryUsers';
 
 $route['(:any)']	=	'Common/indexCategories';
 
 //=========admin category==========
+
+
+
 
 

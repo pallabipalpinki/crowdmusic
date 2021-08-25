@@ -149,6 +149,7 @@ public function user_add(){
         $this->data['title'] = 'User Add Form';
         $this->data['page']='add-user';
         $this->data['user_role'] = $this->admin_panel_model->get_user_role();
+         $this->data['content_specs']=$this->cm->get_content_specs(array('spec_status'=>'1'));
         $this->data['submit_url'] = 'admin/save_user';
         $this->load->vars($this->data);
         $this->load->view($this->data['theme'].'/template');
@@ -181,22 +182,32 @@ public function save_user(){
               }
               else
                 { 
-                  //echo "1";die;  
-                    if (empty($_FILES['profile_image']['name'])) {
-                    $profilephoto= base_url().'uploads/user/profileimage/upload.jpg';
-                      }
-                  else{  
-                        $config['upload_path'] = './uploads/user/profileimage/';
-                        $config['allowed_types'] = 'jpg|jpeg|png';
-                        $this->load->library('upload', $config);
-                      if (!$this->upload->do_upload('profile_image')) {
-                            $error = array('error' => $this->upload->display_errors());
-                          }
-                      else{
-                          $data=$this->upload->data();
-                          $profilephoto= base_url()."uploads/user/profileimage/".$data['file_name'];
-                          }
-                      }
+                  $fname=post_data('fname');
+                  $lname=post_data('lname');
+                  $phone=post_data('phone');
+                  $email=post_data('email');
+                  $address=post_data('address');
+                  $about=post_data('about');
+                  $usertype=post_data('usertype');
+                  $companyname=post_data('companyname');
+                  $password=post_data('password');
+
+                  // //echo "1";die;  
+                  //   if (empty($_FILES['profile_image']['name'])) {
+                  //   $profilephoto= base_url().'uploads/user/profileimage/upload.jpg';
+                  //     }
+                  // else{  
+                  //       $config['upload_path'] = './uploads/user/profileimage/';
+                  //       $config['allowed_types'] = 'jpg|jpeg|png';
+                  //       $this->load->library('upload', $config);
+                  //     if (!$this->upload->do_upload('profile_image')) {
+                  //           $error = array('error' => $this->upload->display_errors());
+                  //         }
+                  //     else{
+                  //         $data=$this->upload->data();
+                  //         $profilephoto= base_url()."uploads/user/profileimage/".$data['file_name'];
+                  //         }
+                  //     }
                       //echo $profilephoto;die;  
 
                 $email=$this->input->post('email');
@@ -208,7 +219,6 @@ public function save_user(){
                      'address'=> $this->input->post('address'),
                      'phone' => $this->input->post('phone'),
                      'email'  =>  $this->input->post('email'),
-                     'profile_image'=>$profilephoto,
                      'password' => md5($this->input->post('password')),
                      'company_name' => $this->input->post('companyname'),
                      'user_role' => $this->input->post('usertype'),
@@ -217,7 +227,67 @@ public function save_user(){
                      'verified'=>1
                     );
                  //print_r($usersdata);die;
-                   $result = $this->admin_panel_model->user_add_db($usersdata);
+                   $added=$this->um->add_user($usersdata);
+
+                if($added){
+
+                    $this->load->library('image_lib');
+                    $media_disk_path=FCPATH.'/uploads/user/profileimage/';
+
+                    if(isset($_FILES['profile_image']) && $_FILES['profile_image']['name']!=''){
+                        $config['upload_path']   = $media_disk_path;
+                        $new_name = strtotime(date('d-m-Y h:i:s')).str_replace(' ', '_', $_FILES["profile_image"]['name']);
+                        $config['file_name'] = $new_name;
+                        $config['max_size']      = '10000';
+                        $config['allowed_types'] = 'jpg|jpeg|png';
+                        $this->load->library('upload');                         
+
+                        $this->upload->initialize($config);
+
+                        if ( ! $this->upload->do_upload('profile_image')) {
+                        }else {
+                                                   
+                          $upload_image = $this->upload->data();
+
+                          $path=$media_disk_path.'/'.$upload_image['file_name'];
+
+                          $relative_path=base_url().'uploads/user/profileimage/'.$new_name;
+                          $disk_path=$path;
+
+                          //$this->resizeImage($path,$path,'366','365');
+                          $this->um->update_user(array('profile_image_disk_path'=>$disk_path,'profile_image'=>$relative_path),array('id'=>$added));
+                        }
+                    }
+
+
+                    $slug=$added.'-'.url_slug($fname).'-'.url_slug($lname);
+
+                    $slug_data_to_store=array(
+                        'slug_type'=>'USER_PROFILE',
+                        'slug_type_id'=>$added,
+                        'slug_value'=>$slug,
+                        'slug_url_value'=>base_url().'profiles/'.$slug
+                    );
+
+                    $slug_added=$this->sm->add_slug($slug_data_to_store);
+
+                    if($slug_added){
+                        if(in_array($usertype, array(2,3,4))){
+                            $_filter_data=$this->sm->get_filter(array('filter_type'=>'USER_NAMES','filter_type_id'=>$added));
+
+                            if(empty($_filter_data)){
+                                $filter_data=array(
+                                    'filter_type'=>'USER_NAMES',
+                                    'filter_type_id'=>$added,
+                                    'filter_value'=>$fname.' '.$lname,
+                                    'filter_url'=>base_url().'profiles/'.$slug
+                                );
+
+                                $this->sm->add_filter($filter_data);
+                            }
+                        }    
+                    }
+
                     
                         $user_type = $this->input->post('usertype');
                         $page = 'audiance';
@@ -234,8 +304,7 @@ public function save_user(){
                               $page = 'producer';
                           }
 
-                          if($result)
-                            {
+                          
 
                       // if(!empty($email)){
                           
@@ -317,24 +386,32 @@ public function update_user($id){
                     }
                 else
                     {
+                       $fname=post_data('fname');
+                      $lname=post_data('lname');
+                      $phone=post_data('phone');
+                      $email=post_data('email');
+                      $address=post_data('address');
+                      $about=post_data('about');
+                      $usertype=post_data('usertype');
+                      $companyname=post_data('companyname');
                       //echo "hi";die;
                       // $company = ($this->input->post('usertype')=='C') ? $this->input->post('companyname'): '';
-                        if (empty($_FILES['profile_image']['name'])) {
+                  //       if (empty($_FILES['profile_image']['name'])) {
                           
-                          $profilephoto= $userdata->profile_image;
-                      }
-                  else{  
-                        $config['upload_path'] = './uploads/user/profileimage/';
-                        $config['allowed_types'] = 'jpg|jpeg|png';
-                        $this->load->library('upload', $config);
-                      if (!$this->upload->do_upload('profile_image')) {
-                            $error = array('error' => $this->upload->display_errors());
-                          }
-                      else{
-                          $data=$this->upload->data();
-                          $profilephoto= base_url()."uploads/user/profileimage/".$data['file_name'];
-                          }
-                      }
+                  //         $profilephoto= $userdata->profile_image;
+                  //     }
+                  // else{  
+                  //       $config['upload_path'] = './uploads/user/profileimage/';
+                  //       $config['allowed_types'] = 'jpg|jpeg|png';
+                  //       $this->load->library('upload', $config);
+                  //     if (!$this->upload->do_upload('profile_image')) {
+                  //           $error = array('error' => $this->upload->display_errors());
+                  //         }
+                  //     else{
+                  //         $data=$this->upload->data();
+                  //         $profilephoto= base_url()."uploads/user/profileimage/".$data['file_name'];
+                  //         }
+                  //     }
 
 
                       //echo $profilephoto;die;
@@ -344,17 +421,100 @@ public function update_user($id){
                          'address'=> $this->input->post('address'),
                          'phone' => $this->input->post('phone'),
                          'email'  =>  $this->input->post('email'),
-                         'profile_image'=>$profilephoto,
+                         //'profile_image'=>$profilephoto,
                          'password' => $editpassword,
                          'company_name' => $this->input->post('companyname'),
                          'user_role' => $this->input->post('usertype'),
                          'about'=>$this->input->post('about'),
-                         'status'=>1,
-                         'verified'=>1
+                         'updated_at'=>date("Y-m-d H:i:s"),
+                         'updated_by'=>$this->session->userdata('SESSION_ADMIN_ID').'|admin',
+
                           );
                           
                   // print_r($usersdata);die;
-                  $res_id=$this->admin_panel_model->user_edit_db($id,$usersdata);
+                  //$res_id=$this->admin_panel_model->user_edit_db($id,$usersdata);
+                 $updated=$this->um->update_user($usersdata,array('id'=>$id));
+
+                    if($updated){
+
+                        if(isset($_FILES['profile_image']) && $_FILES['profile_image']['name']!=''){
+                            $this->load->library('image_lib');
+                            $media_disk_path=FCPATH.'/uploads/user/profileimage/';
+                            $config['upload_path']   = $media_disk_path;
+                            $new_name = strtotime(date('d-m-Y h:i:s')).str_replace(' ', '_', $_FILES["profile_image"]['name']);
+                            $config['file_name'] = $new_name;
+                            $config['max_size']      = '10000';
+                            $config['allowed_types'] = 'jpg|jpeg|png';
+                            $this->load->library('upload');                         
+
+                            $this->upload->initialize($config);
+
+                            if ( ! $this->upload->do_upload('profile_image')) {
+                            }else {
+                                                       
+                              $upload_image = $this->upload->data();
+
+                              $path=$media_disk_path.'/'.$upload_image['file_name'];
+
+                              $relative_path=base_url().'uploads/user/profileimage/'.$new_name;
+                              $disk_path=$path;
+                              if(is_file($userdata->profile_image_disk_path)){
+                                @unlink($userdata->profile_image_disk_path);
+                              }
+
+                              //$this->resizeImage($path,$path,'366','365');
+                              $this->um->update_user(array('profile_image_disk_path'=>$disk_path,'profile_image'=>$relative_path),array('id'=>$id));
+                            }
+                        }
+
+                        $user_slug=$this->sm->get_slug(array('slug_type'=>'USER_PROFILE','slug_type_id'=>$id));
+
+                        if(!empty($user_slug)){
+                            $slug=$id.'-'.url_slug($fname).'-'.url_slug($lname);
+
+                            $slug_url=base_url().'profiles/'.$slug.'/profiledit';
+
+                            $slu_data_to_store=array(
+                                'slug_type'=>'USER_PROFILE',
+                                'slug_type_id'=>$id,
+                                'slug_value'=>$slug,
+                                'slug_url_value'=>base_url().'profiles/'.$slug
+                            );
+
+                            $this->sm->update_slug($slu_data_to_store,array('slug_type'=>'USER_PROFILE','slug_type_id'=>$id));
+                        }else{
+                            $slug_url=$user_slug->slug_url_value.'/profiledit';
+                        }
+
+                        if($slug_url){
+
+                            //echo $usertype;die;
+
+                            if(in_array($usertype, array(2,3,4))){
+                                $_filter_data=$this->sm->get_filter(array('filter_type'=>'USER_NAMES','filter_type_id'=>$id));
+
+                                $filter_data=array(
+                                    'filter_type'=>'USER_NAMES',
+                                    'filter_type_id'=>$id,
+                                    'filter_value'=>$fname.' '.$lname,
+                                    'filter_url'=>base_url().'profiles/'.$slug
+                                );
+
+                                if(!empty($_filter_data)){
+                                    $this->sm->update_filter($filter_data,array('filter_type'=>'USER_NAMES','filter_type_id'=>$id));
+                                }else{
+                                    $this->sm->add_filter($filter_data);
+                                }
+                            }
+                                
+                        }
+
+
+
+
+
+
+
                       
                         $user_type = $this->input->post('usertype');
                         $page = 'audiance';
@@ -370,9 +530,6 @@ public function update_user($id){
                           else if($user_type == 4){
                               $page = 'producer';
                           }
-
-                 
-                   if($res_id){           
                       $this->session->set_flashdata('success','User updated Successfully');
                       redirect('admin/'.$page);
                     }
@@ -382,7 +539,7 @@ public function update_user($id){
                       }
                     }
                   }
-               else{        redirect('admin');
+               else{  redirect('admin');
                 }
             }
 public function user_delete($user_id){
@@ -609,7 +766,8 @@ public function albums_edit($id){
   }
 public function update_albums(){
        if($this->session->userdata('SESSION_ADMIN_ID')){
-         //print_r($this->input->post()); die;
+
+        // print_r($_FILES); die;
            // echo "hi";die;
             $id=$this->input->post('aid');
             $userdata= $this->admin_panel_model->get_albums_detail($id);
@@ -645,16 +803,17 @@ public function update_albums(){
                       //echo "hi";die;
                       // $company = ($this->input->post('usertype')=='C') ? $this->input->post('companyname'): '';
                      if (empty($_FILES['album_coverimage']['name'])) {
-                          
+                          //echo "hi";die;
                           $relative_path= $userdata->album_image_file;
                           $disk_path= $userdata->album_image_file_path;
                       }
                       else{  
+                       // echo "hi2"; die;
                             $config['upload_path']   = $media_disk_path.'/';
                             //echo $config['upload_path'];die;
                             $new_name = strtotime(date('d-m-Y h:i:s')).$_FILES["album_coverimage"]['name'];
                             $config['file_name'] = $new_name;
-                            $config['upload_path'] = './uploads/2021_1/';
+                            $config['upload_path'] = 'uploads/'.$content_folder;
                             $config['allowed_types'] = 'jpg|jpeg|png';
                             $this->load->library('upload', $config);
                           if (!$this->upload->do_upload('album_coverimage')) {
@@ -688,7 +847,7 @@ public function update_albums(){
                           'update_at'=>date('Y-m-d H:i:s')
                           );
                           
-                     // print_r($usersdata);die;
+                      //print_r($usersdata);die;
                   $res_id=$this->admin_panel_model->update_album_track($usersdata,$id);
                       
                        
@@ -869,7 +1028,7 @@ public function update_musictrack(){
                             //echo $config['upload_path'];die;
                             $new_name = strtotime(date('d-m-Y h:i:s')).$_FILES["track_coverimage"]['name'];
                             $config['file_name'] = $new_name;
-                            $config['upload_path'] = './uploads/2021_1/';
+                            $config['upload_path'] = 'uploads/'.$content_folder;
                             $config['allowed_types'] = 'jpg|jpeg|png';
                             $this->load->library('upload', $config);
                           if (!$this->upload->do_upload('track_coverimage')) {
@@ -1071,6 +1230,7 @@ public function update_category(){
            $query=$this->db->query("SELECT spec_name FROM `content_speciality` WHERE `spec_id` = ".$cid."");
 
            $data=$query->result();
+          // print_r($data); echo $this->input->post('name');die;
            
            if($data[0]->spec_name!=$this->input->post('name')){
 

@@ -120,12 +120,12 @@
                   <p>Contributor</p>
                 </a>
               </li>
-              <li class="nav-item">
+              <!--<li class="nav-item">
                 <a href="<?= base_url('admin/mixer')?>"  class="nav-link">
-                  <i class="fa fa-music" aria-hidden="true"></i><!-- <i class="fa fa-handshake-o" aria-hidden="true"></i> -->
+                  <i class="fa fa-music" aria-hidden="true"></i> <i class="fa fa-handshake-o" aria-hidden="true"></i> 
                   <p>Mixer</p>
                 </a>
-              </li>
+              </li>-->
 
               <li class="nav-item">
                 <a href="<?= base_url('admin/producer')?>"  class="nav-link">

@@ -4,7 +4,7 @@ if(session_userdata('SESSION_USER_ID')){
   $user_slug=$this->sm->get_slug(array('slug_type'=>'USER_PROFILE','slug_type_id'=>session_userdata('SESSION_USER_ID')));
   $this->data['profile_url']=$user_slug->slug_url_value;
 
-  if(in_array($module, array('home','album','user','profile','contents','message'))){
+  if(in_array($module, array('home','album','user','profile','contents','message','contact'))){
      $this->load->view($theme . '/includes/header',$this->data);
      $this->load->view($theme . '/modules/' . $module .'/'.$page);   
      $this->load->view($theme . '/includes/footer');
@@ -15,7 +15,7 @@ if(session_userdata('SESSION_USER_ID')){
       }
   }
 }else{ 
-  if(in_array($module, array('home','album','user','profile','contents'))){
+  if(in_array($module, array('home','album','user','profile','contents','contact'))){
        $this->load->view($theme . '/includes/header');
        $this->load->view($theme . '/modules/' . $module .'/'.$page);   
        $this->load->view($theme . '/includes/footer');

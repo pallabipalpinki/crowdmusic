@@ -11,10 +11,10 @@
                   <div class="col-md-auto mb-3 mb-md-0 footer-nav">
                      <ul class="list-unstyled social-links">
                         <li><a href="#">Home</a></li>
-                        <li><a href="#">About Us</a></li>
-                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="<?php echo base_url('aboutus');?>">About Us</a></li>
+                        <li><a href="<?php echo base_url('privacy-policy');?>">Privacy Policy</a></li>
                         <li><a href="#">Work with Us</a></li>
-                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="<?php echo base_url('conactus');?>">Contact Us</a></li>
                      </ul>
                   </div>
                   <div class="col-md-auto ml-md-auto">

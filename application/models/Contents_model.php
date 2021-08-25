@@ -46,14 +46,14 @@ class Contents_model extends CI_Model
     }
     public function get_artist($single_row=FALSE)
     {
-        $this->db->select('d.*,u.firstname,u.lastname,u.profile_image');
+        $this->db->select('d.*,u.firstname,u.lastname,u.profile_image,u.user_specs');
         //$this->db->from('content_data AS d');
         $this->db->join('users AS u', 'u.id = d.content_user_id', 'LEFT');
         $this->db->where('d.status', 1);
         $this->db->order_by('d.created_at', 'desc'); 
      	$this->db->group_by('d.content_user_id'); 
         $query = $this->db->get('content_data AS d');
-       	// print_r($this->db->last_query()); die;
+       	//print_r($this->db->last_query()); die;
 
         if($single_row==FALSE){
         	$result = $query->result();
@@ -63,6 +63,19 @@ class Contents_model extends CI_Model
         	return $result;
         } 	                  
     }
+
+public function get_speciality($spec){
+		$this->db->select('spec_name');
+	    $this->db->where('spec_id', $spec);
+	    $this->db->where('spec_status', 1);
+        $query = $this->db->get('content_speciality');
+        //print_r($this->db->last_query()); die;
+        $result = $query->first_row();
+        return $result;    
+
+}
+
+
     public function get_artist_music($id)
     {
         $this->db->select('d.*,u.*,ur.role_name');
@@ -486,4 +499,29 @@ public function get_album_track($aid,$uid)
         
         return $result;                  
     }
+
+    public function get_content_concat_specs($param,$order_by='spec_id',$order='ASC',$return_query=FALSE)
+    {
+
+    	$this->db->select('GROUP_CONCAT(spec_name) as concat_name');
+        $this->db->where_in('spec_id',$param,FALSE);
+
+        if($order_by!=NULL){
+        	$this->db->order_by($order_by,$order);
+        }
+
+        $query = $this->db->get('content_speciality');
+
+        if($return_query==FALSE){
+        	$result=$query->first_row();
+        }else{
+        	$result=$this->db->last_query();
+        }
+
+       return $result;
+
+     }
+
+
+
 }

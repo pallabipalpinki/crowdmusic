@@ -5,12 +5,12 @@
 <div class="swiper-container singerlist">
     <div class="swiper-wrapper">
       
-      <div class="swiper-slide">
+     <!--  <div class="swiper-slide">
         <div class="dp">
           <a href="#"><img src="<?php echo base_url(); ?>assets/images/singer1.jpg" alt=""></a>
         </div>
         <p>Shawn Mendes</p>
-      </div>
+      </div> -->
       <?php
       if(!empty($artists)){
             foreach ($artists as $key => $value) { 
@@ -20,6 +20,7 @@
          <a href="<?php echo $value['artists_profile'];?>" title="show"><img src="<?php echo $value['artists_image'];?>" alt="" loading="lazy"/></a>
         </div>
         <p><?php echo $value['artists_name'];?></p>
+        <h6><?php echo $value['artist_spec'];?></h6>
       </div>
       <?php
             }
@@ -117,7 +118,7 @@
                         Your browser does not support the audio element.
                       </audio>
                     </div>
-                    <label class="form-control caption"><a href="<?php echo $value['artists_profile'];?>"><?php echo $value['content_track_user_name'];?></a></label>
+                    <label class="form-control caption"><a href="<?php echo $value['artists_profile'];?>">By-<?php echo $value['content_track_user_name'];?></a></label>
                   </div>
                <?php
             }
@@ -382,7 +383,10 @@
          <?php 
          if(!empty($categories)){
             foreach ($categories as $key => $value) {
+             
+
                ?>
+
                <div class="col-lg-4 col-md-6 onview">
                   <div class="cat-box">
                      <a href="<?php echo $value['spec_url'];?>"><img src="<?php echo $value['spec_img'];?>" alt="<?php echo $value['spec_name'];?>" loading="lazy"></a>

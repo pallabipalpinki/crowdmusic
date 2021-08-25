@@ -89,15 +89,15 @@ class User extends CI_Controller
                             'user_roleid'=>$userdata->user_role,
                             'user_role'=>$userdata->role_name,
                             'user_created_at'=>date('jS F Y', strtotime($userdata->created_at)),
-                            'user_profile_url'=>(session_userdata('SESSION_USER_ID'))?$user_slug->slug_url_value:'',
-                            'user_profile_edit_url'=>(session_userdata('SESSION_USER_ID'))?$user_slug->slug_url_value.'/profiledit':'',
-                            'user_content_url'=>(session_userdata('SESSION_USER_ID') && $userdata->user_role!='4')?$user_slug->slug_url_value.'/contents':'',
-                            'user_contributorlist_url'=>(session_userdata('SESSION_USER_ID') && $userdata->user_role=='4')?$user_slug->slug_url_value.'/contributors':'',
+                            'user_profile_url'=>(session_userdata('SESSION_USER_ID') && ($userdata->id==session_userdata('SESSION_USER_ID')))?$user_slug->slug_url_value:'',
+                            'user_profile_edit_url'=>(session_userdata('SESSION_USER_ID') && ($userdata->id==session_userdata('SESSION_USER_ID')))?$user_slug->slug_url_value.'/profiledit':'',
+                            'user_content_url'=>(session_userdata('SESSION_USER_ID') && ($userdata->id==session_userdata('SESSION_USER_ID')) && $userdata->user_role!='4')?$user_slug->slug_url_value.'/contents':'',
+                            'user_contributorlist_url'=>(session_userdata('SESSION_USER_ID') && ($userdata->id==session_userdata('SESSION_USER_ID')) && $userdata->user_role=='4')?$user_slug->slug_url_value.'/contributors':'',
                             'user_dp_image'=>(!empty($userdata->dp_image))?$userdata->dp_image:base_url().'assets/images/innercover.jpg',
                             'user_profile_image'=>(!empty($userdata->profile_image))?$userdata->profile_image:base_url().'assets/images/innercover.jpg',
                             'user_tracks'=>$tracks,
                             'user_genres'=>$user_geners,                            
-                            'user_message_link'=>(session_userdata('SESSION_USER_ID') && in_array($userdata->user_role, array(2,4)))?$user_slug->slug_url_value.'/messages':'',
+                            'user_message_link'=>(session_userdata('SESSION_USER_ID') && ($userdata->id==session_userdata('SESSION_USER_ID')) && in_array($userdata->user_role, array(2,4)))?$user_slug->slug_url_value.'/messages':'',
                             'user_following'=>(!empty($user_following) && $user_following->follow_status=='following')?'Following':'Follow',
                             'user_followed_by_me'=>(!empty($user_following))?$user_following->follow_status:'unfollowed',
                             'user_total_followers'=>$total_followers
@@ -165,25 +165,24 @@ class User extends CI_Controller
                     );
                 }
 
-                if($userdata->user_role=='2'){
-                    $content_specs=$this->cm->get_content_specs(array('spec_status'=>'1'));
+                $content_specs=$this->cm->get_content_specs(array('spec_status'=>'1'));
 
+                if($userdata->user_role=='2'){
                     if($userdata->user_specs!=null){
                         $user_specs[]=explode(',', $userdata->user_specs);
                     }else{
                         $user_specs=array();
                     }
-
-                    foreach ($content_specs as $_k => $_v) {
-                        $_user_specs[]=array(
-                            'spec_id'=>$_v->spec_id,
-                            'spec_name'=>$_v->spec_name,
-                            'selected'=>((!empty($user_specs) && is_array($user_specs)) && in_array($_v->spec_id, $user_specs[0]))?'selected':''
-                        );
-                    }
-                    
                 }else{
                     $_user_specs=array();
+                }
+
+                foreach ($content_specs as $_k => $_v) {
+                    $_user_specs[]=array(
+                        'spec_id'=>$_v->spec_id,
+                        'spec_name'=>$_v->spec_name,
+                        'selected'=>((!empty($user_specs) && is_array($user_specs)) && in_array($_v->spec_id, $user_specs[0]))?'selected':''
+                    );
                 }
 
                 $slug_data=$this->sm->get_slug(array('slug_type'=>'CONTENT_TRACK_TAGS','slug_value'=>$segment_3));
@@ -838,18 +837,16 @@ class User extends CI_Controller
     }
 
 
-public function LoadContributorTrackList(){
+    public function LoadContributorTrackList(){
         if($this->session->userdata('SESSION_USER_ID')){
                 if($this->input->is_ajax_request() && $this->input->server('REQUEST_METHOD')=='POST'){
 
-                    $contributor_id=post_data('contributor_id');
+                    $contributor_id=$this->security->xss_clean($this->input->post('contributor_id'));
 
-
-                    //echo $contributor_id;die;
                    
                         $content=$this->cm->_get_contents_tracks(NULL,array('status'=>'1','content_user_id'=>$contributor_id),FALSE,FALSE);
 
-                      //echo '<pre>';print_r($content);die;
+                        // echo '<pre>';print_r($content);
 
                         header('Content-Type: application/json; charset=utf-8');
 
@@ -951,12 +948,6 @@ public function LoadContributorTrackList(){
             }
         }
     */
-
-
-
-
-
-
 
 
 }

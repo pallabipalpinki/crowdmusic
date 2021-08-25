@@ -700,14 +700,18 @@ class Contentcuration extends CI_Controller{
 
 
     public function onLoadAlbumTrackList(){
-    	if($this->session->userdata('SESSION_USER_ID')){
+    	if(session_userdata('SESSION_USER_ID')){
 				if($this->input->is_ajax_request() && $this->input->server('REQUEST_METHOD')=='POST'){
+
+					$user_id=session_userdata('SESSION_USER_ID');
 
 					$content_type=$this->security->xss_clean($this->input->post('_content_type'));
 
 					if($content_type=='1'){
 
-						$content=$this->cm->_get_contents_albums(NULL,array('status'=>'1','album_user_id'=>$this->session->userdata('SESSION_USER_ID')),FALSE,FALSE);
+						$param['album_user_id']=$user_id;
+
+						$content=$this->cm->_get_contents_albums(NULL,$param,FALSE,FALSE);
 
 						header('Content-Type: application/json; charset=utf-8');
 
@@ -715,7 +719,10 @@ class Contentcuration extends CI_Controller{
 
 					}else if($content_type=='2'){
 
-						$content=$this->cm->_get_contents_tracks(NULL,array('status'=>'1','content_user_id'=>$this->session->userdata('SESSION_USER_ID')),FALSE,FALSE);
+						$param['content_user_id']=$user_id;
+
+
+						$content=$this->cm->_get_contents_tracks(NULL,$param,FALSE,FALSE);
 
 						////echo '<pre>';print_r($content);
 

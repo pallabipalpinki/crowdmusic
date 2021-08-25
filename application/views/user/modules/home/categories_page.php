@@ -1,29 +1,46 @@
 <main id="page-view">
-		<section class="inner-pg">
+		<section class="inner-pg artist-sec">
 			<div class="inner-cover-div">
-				<a class="inner-cover-bg twPc-block"> <img src="<?php echo base_url().'assets/images/innercover.jpg';?>" loading="lazy"/> </a>
+				
 				<div class="artist_body">
 					<div class="container-fluid">
 						<div class="row">
-							<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+							<!-- <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
 								<button type="button" class="btn btn-sm  btn-primary m-t-15"><i class="fa fa-search "> </i> Filter</button>
-							</div>
+							</div> -->
 							<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
 								<div class="form-group">
 									<div class="form-line">
-										<input type="text" id="system_srch_param" class="form-control" placeholder="Search by Reg. No.">
+										<input type="text" id="system_srch_param" class="form-control" placeholder="Search ....">
 									</div>
 								</div>
 							</div>
-							<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+							<!-- <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
 								<div class="form-group">
 									<select class="form-control" id="system_genere">
 										<option value="0">All Genere</option>
 										<?php 
-										if(!empty($geners)){
-											foreach ($geners as $key => $value) {
+										// if(!empty($geners)){
+										// 	foreach ($geners as $key => $value) {
+										// 		?>
+										// 		<option value="<?php echo $value->genere_id;?>"><?php echo $value->genere_name;?></option>
+										// 		<?php
+										// 	}
+										// }
+										?>
+									</select>
+								</div>
+							</div> -->
+
+							<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+								<div class="form-group">
+									<select class="form-control" id="system_category">
+										<option value="0">All Categories</option>
+										<?php 
+										if(!empty($categories)){
+											foreach ($categories as $key => $value) {
 												?>
-												<option value="<?php echo $value->genere_id;?>"><?php echo $value->genere_name;?></option>
+												<option value="<?php echo $value['spec_id'];?>" <?php echo $value['selected'];?>><?php echo $value['spec_name'];?></option>
 												<?php
 											}
 										}

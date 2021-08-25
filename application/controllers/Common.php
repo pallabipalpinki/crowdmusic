@@ -7,7 +7,9 @@ class Common extends CI_Controller{
     parent::__construct();
     error_reporting(0);
 
-    $this->data['title']          = 'crowd music';
+    $settings_data=$this->sm->get_settings(array('settings_key'=>'system_settings'));
+    $settings_data_decoded=json_decode($settings_data->settings_value);
+    $this->data['title']          = $settings_data_decoded->system_title;
     $this->data['theme']          = 'user';
 
     $this->load->model('user_panel_model');
@@ -18,25 +20,35 @@ class Common extends CI_Controller{
   public function index()
   {
    
-    $this->data['page_title'] = 'Home';
+    $this->data['page_title'] = 'Home | '.$this->data['title'];
     $this->data['module']  = 'home';
     $this->data['page'] = 'index';
     $artists=array();
 
     $_artists=$this->cm->get_artist();
-
+    //print_r( $_artists);die;
     if(!empty($_artists)){
       foreach ($_artists as $key => $value) {
         $slug_url=$this->sm->get_slug(array('slug_type'=>'USER_PROFILE','slug_type_id'=>$value->content_user_id));
+        //print_r($value); die;
+        if(!empty($value->user_specs)){
+          $user_specs=$this->cm->get_content_concat_specs($value->user_specs);
+          //print_r($user_specs);die;
+          $user_specs_name=$user_specs->concat_name;         
+        }else{
+            $user_specs_name='';
+        }
 
         $artists[]=array(
           'artists_id'=>$value->content_user_id,
           'artists_name'=>ucwords($value->firstname.' '.$value->lastname),
           'artists_image'=>$value->profile_image,
-          'artists_profile'=>base_url().'artists/'.$slug_url->slug_value
+          'artists_profile'=>base_url().'artists/'.$slug_url->slug_value,
+          'artist_spec'=>$user_specs_name
         );
       }
     }
+    //print_obj($artists);die;
 
     $this->data['artists']=$artists;
     // $albums=$this->contents_model->get_albums();
@@ -69,7 +81,7 @@ class Common extends CI_Controller{
           'content_image'=>$value->content_image,
           'content_track_name'=>$value->content_track_name,
           'content_thumbs'=>($track_thumbs->thumbs_value=='up')?'liked':'',
-          'content_thumbs_icon'=>(!empty($track_thumbs))?(($track_thumbs->thumbs_value=='up')?'fas fa-thumbs-up':'far fas fa-thumbs-down'):'far fa-thumbs-up',
+          'content_thumbs_icon'=>(!empty($track_thumbs))?(($track_thumbs->thumbs_value=='up')?'fas fa-thumbs-up':'fas fa-thumbs-down'):'far fa-thumbs-up',
           'content_login_toggle'=>(!session_userdata('SESSION_USER_ID'))?'onclick="openSignin()"':'',
            'artists_image'=>$value->profile_image,
           'artists_profile'=>base_url().'artists/'.$slug_url->slug_value
@@ -89,7 +101,7 @@ class Common extends CI_Controller{
         $categories[]=array(
           'spec_name'=>$value->spec_name,
           'spec_url'=>$slug->slug_url_value,
-          'spec_img'=>base_url().'assets/images/producer.jpg'
+          'spec_img'=>$value->spec_img
         );
       }
     }else{
@@ -145,7 +157,23 @@ class Common extends CI_Controller{
           $_category_users=array();
         }
 
-        //print_obj($_category_users);die;
+        $content_categories=$this->cm->get_content_specs(array('spec_status'=>'1','spec_show_in_home_page'=>'1'),FALSE,'spec_serial');
+
+        if(!empty($content_categories)){
+          foreach ($content_categories as $key => $value) {
+            $slug=$this->sm->get_slug(array('slug_type'=>'CATEGORIES','slug_type_id'=>$value->spec_id));
+            $categories[]=array(
+              'spec_id'=>$value->spec_id,
+              'spec_name'=>ucwords($value->spec_name),
+              'spec_url'=>$slug->slug_url_value,
+              'selected'=>($slug->slug_value==$segment_1)?'selected':''
+            );
+          }
+        }else{
+          $categories=array();
+        }
+
+        $this->data['categories']=$categories;
 
         $this->data['category_users']=$_category_users;
 
@@ -175,7 +203,7 @@ class Common extends CI_Controller{
 
 
 
-  public function onLoadCategoryUsers(){
+  public function onLoadCategoryUsers_old(){
     //if($this->input->is_ajax_request() && $this->input->server('REQUEST_METHOD')=='GET'){
 
       $category=$this->uri->segment(2,0);
@@ -197,6 +225,69 @@ class Common extends CI_Controller{
       if($generes>0){
         $param['generes']=$generes;
       }
+
+      //print_obj($param);die;
+
+      if($offset>0){
+        $_offset=$offset;
+      }else{
+        $_offset='0';
+      }
+
+      $category_users=$this->um->_get_users($param,'id','ASC',10,$_offset);
+
+     // print_obj($category_users);die;
+
+      if(!empty($category_users)){
+
+        foreach ($category_users as $key => $value) {
+
+          $name=ucwords($value->firstname.' '.$value->lastname);
+          $_category_users[]=array(
+            'user_name'=>$name,
+            'user_about'=>subsstring($value->about,80),
+            'user_slug'=>$value->slug_url_value,
+            'user_image'=>($value->profile_image!='')?$value->profile_image:base_url().'uploads/user/no.jpg'
+          );
+        }
+        
+      }else{
+        $_category_users=array();
+      }
+
+
+      json_header_encode($_category_users);
+    // }else{
+    //   redirect(base_url());
+    // }
+  }
+
+
+  public function onLoadCategoryUsers(){
+    //if($this->input->is_ajax_request() && $this->input->server('REQUEST_METHOD')=='GET'){
+
+      $category=$this->uri->segment(2,0);
+      //$generes=$this->uri->segment(3,0);
+      $offset=$this->uri->segment(3,0);
+      $srch=$this->input->get('p');
+      
+
+      //echo $srch;die;
+
+      $param['user_role']='2';
+      $param['slug_type']='USER_PROFILE';
+      if($category>0){
+        $param['specs']=$category;
+      }
+      
+
+      if(!empty($srch)){
+        $param['srch']=$srch;
+      }
+
+      // if($generes>0){
+      //   $param['generes']=$generes;
+      // }
 
       //print_obj($param);die;
 
@@ -442,10 +533,41 @@ class Common extends CI_Controller{
       redirect(base_url());
     }
   }
+public function Contactus(){
+   
+    $this->data['page_title'] = 'Contact Us | '.$this->data['title'];
+    $this->data['module']  = 'contact';
+    $this->data['page'] = 'contactus';
+    $this->load->vars($this->data);
+    $this->load->view($this->data['theme'].'/template');
+}
 
+    public function Aboutus(){ 
+     $this->data['page_title'] = 'About Us | '.$this->data['title'];
+     $this->data['module']  = 'contact';
+     $this->data['page'] = 'aboutus'; 
+     $this->load->vars($this->data);
+     $this->load->view($this->data['theme'].'/template');
 
+    }
+    public function Faq(){
+ 
+     $this->data['page_title'] = 'Faq | '.$this->data['title'];
+     $this->data['module']  = 'contact';
+     $this->data['page'] = 'faq'; 
+     $this->load->vars($this->data);
+     $this->load->view($this->data['theme'].'/template');
 
+    }
 
+    public function PrivacyPolicy(){
+     $this->data['page_title'] = 'Privacy Policy | '.$this->data['title'];
+     $this->data['module']  = 'contact';
+     $this->data['page'] = 'privacypolicy'; 
+     $this->load->vars($this->data);
+     $this->load->view($this->data['theme'].'/template');
+
+    }
 }
 
 ?>

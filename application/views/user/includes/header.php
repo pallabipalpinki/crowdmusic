@@ -155,10 +155,10 @@
                       <span></span>
                     </div>
                     <ul>
-                      <li><a href="about.html">About US</a></li>
-                      <li><a href="contact.html">Contact Us</a></li>
+                      <li><a href="<?php echo base_url('aboutus');?>">About US</a></li>
+                      <li><a href="<?php echo base_url('contactus');?>">Contact Us</a></li>
                       <li><a href="#">Artist</a></li>
-                      <li><a href="#">FAQ</a></li>
+                      <li><a href="<?php echo base_url('faq');?>">FAQ</a></li>
                     </ul>
                     <ul class="home-section-menu d-inline-block d-lg-none mb-auto">
                       <li><a class="active" href="#_view">Home</a></li>

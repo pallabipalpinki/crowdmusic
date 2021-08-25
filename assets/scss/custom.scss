@@ -2181,8 +2181,12 @@ ul.contributors {
 
 /* Artist */
 
+.artist-sec {
+  min-height: 550px;
+}
 .artist_body {
   padding: 55px 0px;
+  margin: 55px 0;
 }
 
 .artist-item {
@@ -2206,6 +2210,13 @@ ul.contributors {
 }
 .ai-img-wrapper {
   position: relative;
+  margin: 0 auto;
+}
+.ai-img-wrapper img {
+  margin: 0 auto;
+  display: block;
+  width: 100%;
+  height: 230px;
 }
 .ai-img-wrapper div {
   background: rgba(0, 0, 0, 0.3);
@@ -2285,6 +2296,7 @@ ul.contributors {
   padding-top: 50px;
   padding-bottom: 50px;
   margin: 0 auto;
+  overflow: hidden;
 }
 
 .singerlist .swiper-slide {
@@ -2314,6 +2326,10 @@ ul.contributors {
 }
 .singerlist .swiper-slide p {
   font-size: 18px;
+  color: #fff;
+}
+.singerlist .swiper-slide h6 {
+  font-size: 12px !important;
   color: #fff;
 }
 .singerlist.swiper-container .swiper-button-prev,
@@ -2346,4 +2362,211 @@ button.btn.btn-sm.like-track {
   color: #ff008d;
   font-size: 17px;
   top: 5px;
+}
+/* About */
+.about-section {
+  padding: 4em 0;
+}
+.site-title {
+  padding: 2em 0;
+}
+.site-title h3 {
+  font-size: 3.5em;
+  color: #14b9d5;
+  font-family: 'Marvel-Regular';
+  font-weight: 700;
+}
+.site-title p {
+  font-size: 1.1em;
+  color: #333333;
+  line-height: 1.8em;
+  margin-top: 0.5em;
+}
+.about-inner-column h4 {
+  font-size: 1.5em;
+  color: #4100f5;
+}
+.about-inner-column p {
+  font-size: 1.1em;
+  color: #333333;
+  line-height: 1.8em;
+  margin: 1em 0 0;
+}
+
+.about-inner-column ul li a {
+  color: #333333;
+  font-size: 1.1em;
+  padding-left: 2em;
+}
+.about-right img {
+  width: 100%;
+}
+.about-list {
+  margin: 25px 0;
+}
+.about-bg {
+  background-image: url(https://preview.ibb.co/j6V8kR/responsive_about_us_page_by_badr_rehman.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+.about-heading > p {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.about-txt > p {
+  font-size: 18px;
+  text-align: center;
+}
+.about-content-box {
+  padding-top: 100px;
+  padding-bottom: 100px;
+  padding-left: 70px;
+  padding-right: 70px;
+  color: #fff;
+}
+
+.about-bg-layer {
+  background-color: rgba(62, 207, 182, 0.7);
+  height: 200%;
+  margin: 0px;
+}
+/* Contact */
+.contact-btn {
+  background: linear-gradient(100.92deg, #4100f5 1.37%, #7847ff 81.91%);
+  color: #fff;
+  border-radius: 8px;
+  padding: 8px 30px;
+}
+.contact-btn :hover {
+  color: #fff;
+}
+.second-portion {
+  margin-top: 50px;
+}
+.contact-box > .contact-icon {
+  text-align: center;
+  position: relative;
+}
+.contact-box > .contact-icon > .contact-image {
+  position: relative;
+  z-index: 2;
+  margin: auto;
+  width: 88px;
+  height: 88px;
+  border: 8px solid white;
+  line-height: 88px;
+  border-radius: 50%;
+  background: linear-gradient(100.92deg, #4100f5 1.37%, #7847ff 81.91%);
+  vertical-align: middle;
+}
+.contact-box > .contact-icon:hover > .contact-image {
+  background: #333;
+}
+.contact-box > .contact-icon > .contact-image > i {
+  font-size: 36px !important;
+  color: #fff !important;
+}
+.contact-box > .contact-icon:hover > .contact-image > i {
+  color: white !important;
+}
+.contact-box > .contact-icon > .contact-info {
+  margin-top: -24px;
+  background: rgba(0, 0, 0, 0.04);
+  border: 1px solid #e0e0e0;
+  padding: 30px 0 10px 0;
+  min-height: 183px;
+}
+.contact-box > .contact-icon:hover > .contact-info {
+  background: rgba(0, 0, 0, 0.04);
+  border-color: #e0e0e0;
+  color: white;
+}
+.contact-box > .contact-icon > .contact-info > h3.contact-title {
+  font-size: 16px;
+  color: #222;
+  font-weight: 700;
+}
+.contact-box > .contact-icon > .contact-info > p {
+  font-size: 13px;
+  color: #666;
+  line-height: 1.5em;
+  margin: 20px;
+}
+.contact-box > .contact-icon:hover > .contact-info > h3.contact-title,
+.contact-box > .contact-icon:hover > .contact-info > p,
+.contact-box > .contact-icon:hover > .contact-info > .contact-more > a {
+  color: #222;
+}
+.contact-box > .contact-icon > .contact-info > .contact-more a {
+  font-size: 12px;
+  color: #222;
+  line-height: 12px;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+.contact-box > .contact-icon:hover > .contact-info > .contact-more > a {
+  color: #fff;
+  padding: 6px 8px;
+  background-color: #63b76c;
+}
+.contact-box .contact-space {
+  height: 30px;
+}
+
+@media only screen and (max-width: 768px) {
+  .contact-form {
+    margin-top: 25px;
+  }
+
+  .btn-send {
+    width: 100%;
+    padding: 10px;
+  }
+
+  .second-portion {
+    margin-top: 25px;
+  }
+}
+/* faq */
+.faq_heading {
+  position: relative;
+}
+
+.faq_heading::after {
+  content: '';
+  height: 2px;
+  background: #fff;
+  display: inline-block;
+  width: 270px;
+}
+
+.faq_item {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  background: #f6f9fc;
+  display: block;
+  font-size: 15px;
+  line-height: 20px;
+  padding: 15px;
+  text-decoration: none;
+}
+
+.faq_title {
+  font-weight: normal;
+}
+
+.faq_content {
+  font-weight: 100;
+  font-size: 0.95rem;
+  color: #282828;
+  margin-top: 35px;
+}
+.privcy-box {
+  border: 1px solid black;
+  background-color: #cccccc;
+  padding: 25px;
+  margin: 15px;
 }
