@@ -130,7 +130,7 @@ class User extends CI_Controller
                           'content_track'=>$value['content_track'],
                           'content_image'=>$value['content_image'],
                           'content_thumbs'=>($track_thumbs->thumbs_value=='up')?'liked':'',
-                          'content_thumbs_icon'=>(!empty($track_thumbs))?(($track_thumbs->thumbs_value=='up')?'far fa-thumbs-up':'far fa-thumbs-down'):'far fa-thumbs-up',
+                          'content_thumbs_icon'=>(!empty($track_thumbs))?(($track_thumbs->thumbs_value=='up')?'fas fa-thumbs-up':'fas fa-thumbs-down'):'far fa-thumbs-up',
                           'content_login_toggle'=>(!session_userdata('SESSION_USER_ID'))?'onclick="openSignin()"':''
                         );
                       }
