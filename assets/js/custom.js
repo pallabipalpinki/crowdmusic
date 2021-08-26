@@ -364,7 +364,7 @@ $('body').on('click','#btn_follow',function(){
   var f_count=parseInt($(this).attr('data-follow_count'));
   var _f='';
   var txt='';
-
+ //alert(u);alert(f);alert(f_count);
   if(f=='unfollowed'){
     _f='following';
     txt='Following';

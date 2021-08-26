@@ -78,7 +78,15 @@
 									</div>
 									<?php
 								}
-							}
+							}else{?>
+								<div class="col-md-4 offset-md-4">
+								<div class="no-img">
+							     <img src="assets/images/no-img.png" class="img-responsive" />
+								</div>
+							    </div>
+
+
+							<?php }
 							?>
 						</div>
 					</div>

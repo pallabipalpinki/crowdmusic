@@ -82,6 +82,10 @@ jQuery(function($) {
             html+='</div>';
           });            
         }
+        else{
+          html+='<div class="col-md-4 offset-md-4"><div class="no-img"><img src="'+base_url+'assets/images/no-img.png" class="img-responsive" /></div></div>';
+
+        }
 
         $('div#cate_list').html(html);
 
