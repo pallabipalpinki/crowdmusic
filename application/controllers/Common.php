@@ -116,6 +116,50 @@ class Common extends CI_Controller{
   }
 
 
+    public function headercontributorlist(){
+
+    $this->data['page_title'] = 'Artist | '.$this->data['title'];
+    $this->data['module']  = 'home';
+    $this->data['page'] = 'artistlisting';
+    $artists=array();
+
+   // $_artists=$this->cm->get_artist();
+     $_artists=$this->um->get_contributor(array('user_role'=>2,'status'=>1));
+    //print_r( $_artists);die;
+    if(!empty($_artists)){
+      foreach ($_artists as $key => $value) {
+        $slug_url=$this->sm->get_slug(array('slug_type'=>'USER_PROFILE','slug_type_id'=>$value->id));
+        //print_r($value); die;
+        if(!empty($value->user_specs)){
+          $user_specs=$this->cm->get_content_concat_specs($value->user_specs);
+          //print_r($user_specs);die;
+          $user_specs_name=$user_specs->concat_name;         
+        }else{
+            $user_specs_name='';
+        }
+
+        $artists[]=array(
+          'artists_id'=>$value->id,
+          'artists_name'=>ucwords($value->firstname.' '.$value->lastname),
+          'artists_image'=>$value->profile_image,
+          'artists_profile'=>base_url().'artists/'.$slug_url->slug_value,
+          'artist_spec'=>$user_specs_name
+        );
+      }
+    }
+   // print_obj($artists);die;
+
+    $this->data['artists']=$artists;
+
+    $this->load->vars($this->data);
+    $this->load->view($this->data['theme'].'/template');
+
+
+
+
+  }
+
+
   public function indexCategories(){
     $settings_data=$this->sm->get_settings(array('settings_key'=>'system_settings'));
     $settings_data_decoded=json_decode($settings_data->settings_value);

@@ -42,6 +42,8 @@ $route['contactus'] ='Common/Contactus';
 $route['aboutus'] ='Common/Aboutus';
 $route['faq'] ='Common/Faq';
 $route['privacy-policy'] ='Common/PrivacyPolicy';
+$route['artist-listing'] ='Common/headercontributorlist';
+
 
 
 $route['sign-up'] = 'user/User/indexSignup';

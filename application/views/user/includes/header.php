@@ -157,7 +157,7 @@
                     <ul>
                       <li><a href="<?php echo base_url('aboutus');?>">About US</a></li>
                       <li><a href="<?php echo base_url('contactus');?>">Contact Us</a></li>
-                      <li><a href="#">Artist</a></li>
+                      <li><a href="<?php echo base_url('artist-listing');?>">Artist</a></li>
                       <li><a href="<?php echo base_url('faq');?>">FAQ</a></li>
                     </ul>
                     <ul class="home-section-menu d-inline-block d-lg-none mb-auto">
