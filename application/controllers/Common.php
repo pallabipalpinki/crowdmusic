@@ -155,8 +155,6 @@ class Common extends CI_Controller{
     $this->load->view($this->data['theme'].'/template');
 
 
-
-
   }
 
 
@@ -493,6 +491,7 @@ class Common extends CI_Controller{
     $total_albums=$this->cm->get_total_albums(array('album_user_id'=>$artist_id));
     $user_details=array(
                   'user_following'=>(!empty($user_following) && $user_following->follow_status=='following')?'Following':'Follow',
+                  'user_is_following_me'=>(($artist_id!=session_userdata('SESSION_USER_ID')))?'yes':'',
                   'user_followed_by_me'=>(!empty($user_following))?$user_following->follow_status:'unfollowed',
                  'user_total_followers'=>$total_followers,
                   'total_tracks'=>$total_tracks,
@@ -510,7 +509,7 @@ class Common extends CI_Controller{
                   'content_track'=>$value['content_track'],
                   'content_image'=>$value['content_image'],
                   'content_thumbs'=>($track_thumbs->thumbs_value=='up')?'liked':'',
-                  'content_thumbs_icon'=>(!empty($track_thumbs))?(($track_thumbs->thumbs_value=='up')?'far fa-thumbs-up':'far fa-thumbs-down'):'far fa-thumbs-up',
+                  'content_thumbs_icon'=>(!empty($track_thumbs))?(($track_thumbs->thumbs_value=='up')?'fas fa-thumbs-up':'fas fa-thumbs-down'):'far fa-thumbs-up',
                    'content_login_toggle'=>(!session_userdata('SESSION_USER_ID'))?'onclick="openSignin()"':''
                 );
       }

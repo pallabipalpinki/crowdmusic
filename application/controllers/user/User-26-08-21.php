@@ -98,7 +98,6 @@ class User extends CI_Controller
                             'user_tracks'=>$tracks,
                             'user_genres'=>$user_geners,                            
                             'user_message_link'=>(session_userdata('SESSION_USER_ID') && ($userdata->id==session_userdata('SESSION_USER_ID')) && in_array($userdata->user_role, array(2,4)))?$user_slug->slug_url_value.'/messages':'',
-                            'user_is_following_me'=>(($userdata->id!=session_userdata('SESSION_USER_ID')))?'yes':'',
                             'user_following'=>(!empty($user_following) && $user_following->follow_status=='following')?'Following':'Follow',
                             'user_followed_by_me'=>(!empty($user_following))?$user_following->follow_status:'unfollowed',
                             'user_total_followers'=>$total_followers
@@ -282,7 +281,7 @@ class User extends CI_Controller
                             $redirect_url=$user_slug_url->slug_url_value.'/profiledit';
                         }
 
-                        $return['success']='Logged in successfully';
+                        $return['success']='Logedin successfully';
                         $return['redirect']=$redirect_url;
                     }else{
                         $return['error']='You ID has been deactivated.Contact system adminstrator';
