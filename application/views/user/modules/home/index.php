@@ -107,7 +107,10 @@
             foreach ($tracks as $key => $value) {
                ?>
                <div class="col-6 col-md-4 col-lg-3 onview">
-                <button class="btn btn-sm like-track <?php echo $value['content_thumbs'];?>"  data-track="<?php echo $value['content_id'];?>" data-artist="<?php echo $value['content_user_id'];?>"><i class="<?php echo $value['content_thumbs_icon'];?>" id="thumbs<?php echo $value['content_id'];?>"></i></button>
+                <button class="btn btn-sm like-track <?php echo $value['content_thumbs'];?>"  data-track="<?php echo $value['content_id'];?>" data-total-like-ct="<?php echo $value['total_like_ct'];?>" data-artist="<?php echo $value['content_user_id'];?>"><i class="<?php echo $value['content_thumbs_icon'];?>" id="thumbs<?php echo $value['content_id'];?>"></i><h6 id="like_count"> <?php echo $value['total_like_ct'];?></h6></button>
+
+
+                <!-- <div class="col-auto ml-auto" id="like_count"><?php echo $value['total_like_ct'];?></div> -->
                   <div class="top-item player">
                       <img src="<?php echo $value['content_image']; ?>" alt="">
                       <div class="caption">

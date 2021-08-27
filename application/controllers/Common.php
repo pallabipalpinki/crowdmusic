@@ -66,6 +66,7 @@ class Common extends CI_Controller{
     if(!empty($tracks)){
       foreach ($tracks as $key => $value) {
         $track_thumbs=$this->cm->get_content_thumbs(array('thumbs_track_id'=>$value->content_id,'thumbs_user_id'=>session_userdata('SESSION_USER_ID')));
+        $track_like_count=$this->cm->get_content_thumbsup_count(array('thumbs_track_id'=>$value->content_id,'thumbs_value'=>'up'),FALSE);
 
         //echo '<pre>';print_r($track_thumbs);
 
@@ -80,6 +81,7 @@ class Common extends CI_Controller{
           'content_track'=>$value->content_track,
           'content_image'=>$value->content_image,
           'content_track_name'=>$value->content_track_name,
+          'total_like_ct'=>$track_like_count,
           'content_thumbs'=>($track_thumbs->thumbs_value=='up')?'liked':'',
           'content_thumbs_icon'=>(!empty($track_thumbs))?(($track_thumbs->thumbs_value=='up')?'fas fa-thumbs-up':'fas fa-thumbs-down'):'far fa-thumbs-up',
           'content_login_toggle'=>(!session_userdata('SESSION_USER_ID'))?'onclick="openSignin()"':'',

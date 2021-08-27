@@ -311,21 +311,30 @@ $('.like-track').click(function () {
     var act = $(this).hasClass('liked');
     var track = $(this).attr('data-track');
     var artist = $(this).attr('data-artist');
+    var l_count=parseInt($(this).attr('data-total-like-ct'));
+    alert(l_count);
     var thumbsval = '';
     if (act) {
       thumbsval = 'up';
       $('#thumbs' + track).removeClass('fa-thumbs-down');
-      $('#thumbs' + track).addClass('fa-thumbs-up');
+      $('#thumbs' + track).addClass('fas fa-thumbs-up');
+      like_count=l_count+1;
+
     } else {
       thumbsval = 'down';
-      $('#thumbs' + track).addClass('fa-thumbs-down');
+      $('#thumbs' + track).addClass('fas fa-thumbs-down');
       $('#thumbs' + track).removeClass('fa-thumbs-up');
+    like_count=l_count;
     }
+    alert(like_count);
     $.ajax({
       type: 'POST',
       url: base_url + 'user-addlike',
       data: { d: thumbsval, track_id: track, artist_id: artist },
       success: function (d) {},
+      complete:function(xhr,ststus){
+      $('#like_count').html(like_count);
+    }
     });
   } else {
     openSignin();
