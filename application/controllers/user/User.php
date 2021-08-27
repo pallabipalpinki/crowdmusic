@@ -122,7 +122,8 @@ class User extends CI_Controller
 
                     if(!empty($artist_tracks)){
                       foreach ($artist_tracks as $key => $value) {
-                        $track_thumbs=$this->cm->get_content_thumbs(array('thumbs_track_id'=>$value['content_id'],'thumbs_user_id'=>session_userdata('SESSION_USER_ID')));
+                    $track_thumbs=$this->cm->get_content_thumbs(array('thumbs_track_id'=>$value['content_id'],'thumbs_user_id'=>session_userdata('SESSION_USER_ID')));
+                    $track_like_count=$this->cm->get_content_thumbsup_count(array('thumbs_track_id'=>$value->content_id,'thumbs_value'=>'up'),FALSE);
 
                         //echo '<pre>';print_r($track_thumbs);
                         $tracks_data[]=array(
@@ -130,10 +131,12 @@ class User extends CI_Controller
                           'content_user_id'=>$value['content_user_id'],
                           'content_track'=>$value['content_track'],
                           'content_image'=>$value['content_image'],
+                          'total_like_ct'=>$track_like_count,
+                          'like_by_logged_user'=>$track_thumbs->thumbs_value,
                           'content_thumbs'=>($track_thumbs->thumbs_value=='up')?'liked':'',
                           'content_thumbs_icon'=>(!empty($track_thumbs))?(($track_thumbs->thumbs_value=='up')?'fas fa-thumbs-up':'fas fa-thumbs-down'):'far fa-thumbs-up',
                           'content_login_toggle'=>(!session_userdata('SESSION_USER_ID'))?'onclick="openSignin()"':''
-                        );
+                           );
                       }
                     }else{
                       $tracks_data=array();

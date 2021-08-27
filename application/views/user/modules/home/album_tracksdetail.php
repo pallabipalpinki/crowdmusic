@@ -75,8 +75,7 @@
 	                    	 foreach ($album as $key => $value) {
 	                    			?>
 	                          <div class="col-lg-4 col-sm-6 mb-4">
-	                          	<button class="btn btn-sm like-track <?php echo $value['content_thumbs'];?>"  data-track="<?php echo $value['content_id'];?>" data-artist="<?php echo $value['content_user_id'];?>"><i class="<?php echo $value['content_thumbs_icon'];?>" id="thumbs<?php echo $value['content_id'];?>"></i></button>
-	                            <!-- <button class="btn btn-sm like-track <?php echo $value['content_thumbs'];?>"  data-track="<?php echo $value['content_id'];?>" data-artist="<?php echo $value['content_user_id'];?>"><i class="<?php echo $value['content_thumbs_icon'];?>" id="thumbs<?php echo $value['content_id'];?>"></i></button> -->
+	                          <button class="btn btn-sm like-track <?php echo $value['content_thumbs'];?>"  data-track="<?php echo $value['content_id'];?>" data-likeby-logged-user="<?php echo $value['like_by_logged_user'];?>" data-total-like-ct="<?php echo $value['total_like_ct'];?>" data-artist="<?php echo $value['content_user_id'];?>"><i class="<?php echo $value['content_thumbs_icon'];?>" id="thumbs<?php echo $value['content_id'];?>"></i><h6 id="like_count<?php echo $value['content_id'];?>"> <?php echo $value['total_like_ct'];?></h6></button>
 	                            <div class="top-item player">
 	                              <img src="<?php echo $value['content_image']; ?>" alt="">
 	                              <div class="caption">

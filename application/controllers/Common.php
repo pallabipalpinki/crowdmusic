@@ -82,6 +82,7 @@ class Common extends CI_Controller{
           'content_image'=>$value->content_image,
           'content_track_name'=>$value->content_track_name,
           'total_like_ct'=>$track_like_count,
+          'like_by_logged_user'=>$track_thumbs->thumbs_value,
           'content_thumbs'=>($track_thumbs->thumbs_value=='up')?'liked':'',
           'content_thumbs_icon'=>(!empty($track_thumbs))?(($track_thumbs->thumbs_value=='up')?'fas fa-thumbs-up':'fas fa-thumbs-down'):'far fa-thumbs-up',
           'content_login_toggle'=>(!session_userdata('SESSION_USER_ID'))?'onclick="openSignin()"':'',
@@ -435,6 +436,7 @@ class Common extends CI_Controller{
             if(!empty($artist_tracks)){
               foreach ($artist_tracks as $key => $value) {
                 $track_thumbs=$this->cm->get_content_thumbs(array('thumbs_track_id'=>$value['content_id'],'thumbs_user_id'=>session_userdata('SESSION_USER_ID')));
+                $track_like_count=$this->cm->get_content_thumbsup_count(array('thumbs_track_id'=>$value->content_id,'thumbs_value'=>'up'),FALSE);
 
                 //echo '<pre>';print_r($track_thumbs);
                 $tracks_data[]=array(
@@ -442,8 +444,10 @@ class Common extends CI_Controller{
                   'content_user_id'=>$value['content_user_id'],
                   'content_track'=>$value['content_track'],
                   'content_image'=>$value['content_image'],
+                  'total_like_ct'=>$track_like_count,
+                  'like_by_logged_user'=>$track_thumbs->thumbs_value,
                   'content_thumbs'=>($track_thumbs->thumbs_value=='up')?'liked':'',
-                  'content_thumbs_icon'=>(!empty($track_thumbs))?(($track_thumbs->thumbs_value=='up')?'far fa-thumbs-up':'far fa-thumbs-down'):'far fa-thumbs-up',
+                  'content_thumbs_icon'=>(!empty($track_thumbs))?(($track_thumbs->thumbs_value=='up')?'fas fa-thumbs-up':'fas fa-thumbs-down'):'far fa-thumbs-up',
                   'content_login_toggle'=>(!session_userdata('SESSION_USER_ID'))?'onclick="openSignin()"':''
                 );
               }
@@ -505,14 +509,17 @@ class Common extends CI_Controller{
 
       foreach ($tracks as $key => $value) {
         $track_thumbs=$this->um->checklike($value->content_id,session_userdata('SESSION_USER_ID'));
+         $track_like_count=$this->cm->get_content_thumbsup_count(array('thumbs_track_id'=>$value->content_id,'thumbs_value'=>'up'),FALSE);
         $tracks_data[]=array(
                   'content_id'=>$value['content_id'],
                   'content_user_id'=>$value['content_user_id'],
                   'content_track'=>$value['content_track'],
                   'content_image'=>$value['content_image'],
+                  'total_like_ct'=>$track_like_count,
+                  'like_by_logged_user'=>$track_thumbs->thumbs_value,
                   'content_thumbs'=>($track_thumbs->thumbs_value=='up')?'liked':'',
                   'content_thumbs_icon'=>(!empty($track_thumbs))?(($track_thumbs->thumbs_value=='up')?'fas fa-thumbs-up':'fas fa-thumbs-down'):'far fa-thumbs-up',
-                   'content_login_toggle'=>(!session_userdata('SESSION_USER_ID'))?'onclick="openSignin()"':''
+                  'content_login_toggle'=>(!session_userdata('SESSION_USER_ID'))?'onclick="openSignin()"':''
                 );
       }
     }else{
