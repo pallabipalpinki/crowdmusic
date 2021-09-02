@@ -123,7 +123,7 @@ class User extends CI_Controller
                     if(!empty($artist_tracks)){
                       foreach ($artist_tracks as $key => $value) {
                     $track_thumbs=$this->cm->get_content_thumbs(array('thumbs_track_id'=>$value['content_id'],'thumbs_user_id'=>session_userdata('SESSION_USER_ID')));
-                    $track_like_count=$this->cm->get_content_thumbsup_count(array('thumbs_track_id'=>$value->content_id,'thumbs_value'=>'up'),FALSE);
+                     $track_like_count=$this->cm->get_content_thumbsup_count(array('thumbs_track_id'=>$value->content_id,'thumbs_value'=>'up'),FALSE);
 
                         //echo '<pre>';print_r($track_thumbs);
                         $tracks_data[]=array(
@@ -270,7 +270,9 @@ class User extends CI_Controller
                         $session_data=array(
                             'SESSION_USER_ID'=>$userdata->id,
                             'SESSION_USER_TYPE'=>$userdata->user_role,
-                            'SESSION_USER_EMAIL'=>$userdata->email
+                            'SESSION_USER_EMAIL'=>$userdata->email,
+                            'SESSION_USER_Firstname'=>$userdata->firstname,
+                            'SESSION_USER_Lastname'=>$userdata->lastname 
                         );
 
                         session_set_userdata($session_data);
@@ -280,9 +282,11 @@ class User extends CI_Controller
                         $user_slug_url=$this->sm->get_slug(array('slug_type'=>'USER_PROFILE','slug_type_id'=>$userdata->id));
 
                         if($userdata->user_role>0){
-                            $redirect_url=$user_slug_url->slug_url_value;
+                            //$redirect_url=$user_slug_url->slug_url_value;
+                            $redirect_url=base_url().'profile-home-newsline/'.$user_slug_url->slug_value;
                         }else{
                             $redirect_url=$user_slug_url->slug_url_value.'/profiledit';
+
                         }
 
                         $return['success']='Logged in successfully';
@@ -302,6 +306,115 @@ class User extends CI_Controller
             redirect(base_url());
         }
     }
+
+
+
+
+public function indexLandingpage()
+  {
+   $this->data['title'] = 'Newslines';
+    $this->data['page_title'] = 'Profile | '.$this->data['title'];
+    $this->data['module']  = 'profile';
+    $this->data['page'] = 'loginlandingpage';
+    $artists=array();
+
+    $_artists=$this->cm->get_artist(FALSE,5);
+    //print_r( $_artists);die;
+    if(!empty($_artists)){
+      foreach ($_artists as $key => $value) {
+        $slug_url=$this->sm->get_slug(array('slug_type'=>'USER_PROFILE','slug_type_id'=>$value->content_user_id));
+        //print_r($value); die;
+        if(!empty($value->user_specs)){
+          $user_specs=$this->cm->get_content_concat_specs($value->user_specs);
+          //print_r($user_specs);die;
+          $user_specs_name=$user_specs->concat_name;         
+        }else{
+            $user_specs_name='';
+        }
+
+        $artists[]=array(
+          'artists_id'=>$value->content_user_id,
+          'artists_name'=>ucwords($value->firstname.' '.$value->lastname),
+          'artists_image'=>$value->profile_image,
+          'artists_profile'=>base_url().'artists/'.$slug_url->slug_value,
+          'artist_spec'=>$user_specs_name
+        );
+      }
+    }
+    //print_obj($artists);die;
+
+    $this->data['artists']=$artists;
+    // $albums=$this->contents_model->get_albums();
+   //print_r($albums);die;
+    //phpinfo();die;
+    $p['order']='content_id';
+    $p['length']=10;
+
+    $tparam['status']='1';
+    //This needs to be changed
+    $tracks=$this->cm->_get_contents_tracks($p,$tparam);
+
+    //echo '<pre>';print_r($tracks);die;
+
+    if(!empty($tracks)){
+      foreach ($tracks as $key => $value) {
+        $track_thumbs=$this->cm->get_content_thumbs(array('thumbs_track_id'=>$value->content_id,'thumbs_user_id'=>session_userdata('SESSION_USER_ID')));
+        $track_like_count=$this->cm->get_content_thumbsup_count(array('thumbs_track_id'=>$value->content_id,'thumbs_value'=>'up'),FALSE);
+
+        //echo '<pre>';print_r($track_thumbs);
+
+        $artist_profile_url=$this->sm->get_slug(array('slug_type'=>'USER_PROFILE','slug_type_id'=>$value->content_user_id));
+       
+
+        $tracks_data[]=array(
+          'content_id'=>$value->content_id,
+          'content_user_id'=>$value->content_user_id,
+          'content_track_user_name'=>ucwords($value->firstname.' '.$value->lastname),
+          'content_track_user_profile_url'=>$artist_profile_url->slug_url_value,
+          'content_track'=>$value->content_track,
+          'content_image'=>$value->content_image,
+          'content_track_name'=>$value->content_track_name,
+          'total_like_ct'=>$track_like_count,
+          'like_by_logged_user'=>$track_thumbs->thumbs_value,
+          'content_thumbs'=>($track_thumbs->thumbs_value=='up')?'liked':'',
+          'content_thumbs_icon'=>(!empty($track_thumbs))?(($track_thumbs->thumbs_value=='up')?'fas fa-thumbs-up':'fas fa-thumbs-down'):'far fa-thumbs-up',
+          'content_login_toggle'=>(!session_userdata('SESSION_USER_ID'))?'onclick="openSignin()"':'',
+           'artists_image'=>$value->profile_image,
+          'artists_profile'=>base_url().'artists/'.$slug_url->slug_value
+        );
+      }
+    }else{
+      $tracks_data=array();
+    }
+
+    $this->data['tracks']=$tracks_data;
+
+    $content_categories=$this->cm->get_content_specs(array('spec_status'=>'1','spec_show_in_home_page'=>'1'),FALSE,'spec_serial');
+
+    if(!empty($content_categories)){
+      foreach ($content_categories as $key => $value) {
+        $slug=$this->sm->get_slug(array('slug_type'=>'CATEGORIES','slug_type_id'=>$value->spec_id));
+        $categories[]=array(
+          'spec_name'=>$value->spec_name,
+          'spec_url'=>$slug->slug_url_value,
+          'spec_img'=>$value->spec_img
+        );
+      }
+    }else{
+      $categories=array();
+    }
+
+    $this->data['categories']=$categories;
+
+    $this->load->vars($this->data);
+    $this->load->view($this->data['theme'].'/template');
+
+  }
+
+
+
+
+
 
     public function onLogout(){
         if(session_userdata('SESSION_USER_ID')){
@@ -591,7 +704,9 @@ class User extends CI_Controller
                             $session_data=array(
                                 'SESSION_USER_ID'=>$user_id,
                                 'SESSION_USER_TYPE'=>$usertype,
-                                'SESSION_USER_EMAIL'=>$email
+                                'SESSION_USER_EMAIL'=>$email,
+                                'SESSION_USER_Firstname'=>$userdata->firstname,
+                                    'SESSION_USER_Lastname'=>$userdata->lastname 
                             );
 
                             session_set_userdata($session_data);
@@ -742,7 +857,8 @@ class User extends CI_Controller
                     $edit_url=$slug_url.'/profiledit';
 
                     if($user_data->user_role>0){
-                        $redirect_url=$slug_url;
+                        //$redirect_url=$slug_url;
+                        $redirect_url=base_url().'profile-home-newsline'.$user_slug->slug_value;
                     }else{
                         $redirect_url=$edit_url;
                     }
@@ -769,7 +885,9 @@ class User extends CI_Controller
                     $session_data=array(
                         'SESSION_USER_ID'=>$user_data->id,
                         'SESSION_USER_TYPE'=>$user_data->user_role,
-                        'SESSION_USER_EMAIL'=>$user_data->email
+                        'SESSION_USER_EMAIL'=>$user_data->email,
+                        'SESSION_USER_Firstname'=>$userdata->firstname,
+                        'SESSION_USER_Lastname'=>$userdata->lastname 
                     );
 
                     session_set_userdata($session_data);

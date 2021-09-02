@@ -55,7 +55,7 @@ $route['follow-user'] = 'user/user/onFollowUsers';
 //$route['user-dashboard'] = 'user/dashboard';
 // $route['profiles/(:any)/contents']	='user/Contentcuration/index';
 // $route['profiles/(:any)/browse-contributors']	='user/user/browsecontributors';
-
+$route['profile-home-newsline/(:any)'] = 'user/user/indexLandingpage';
 $route['profiles/(:any)'] = 'user/User/indexPublicpage';
 $route['profiles/(:any)/contents']	='user/User/indexPublicpage';
 $route['profiles/(:any)/contributors']	='user/User/indexPublicpage';
