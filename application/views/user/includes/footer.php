@@ -40,6 +40,43 @@
             </div>
          </div>
       </footer>
+
+
+
+      <?php
+
+      if(session_userdata('SESSION_USER_ID')){
+         ?>
+         <div class="modal fade da-modal signinModal" id="commentModalId" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg loginForm" role="document">
+               <div class="modal-content px-2">
+                <div class="modal-header">
+                  <div class="header-title mb-0">
+                    <h2>Comment</h2>
+                  </div>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <div id="commentmsg"></div>
+                  <form id="comment_form">
+                     <input type="hidden" name="content_track" id="content_track">
+                     <input type="hidden" name="content_track_user" id="content_track_user">
+                    <div class="form-group">
+                      <textarea class="form-control" rows="5" name="comment_data" id="comment_data"></textarea>
+                    </div>
+                    <!-- <a href="#"> <span></span> <span></span> <span></span> <span></span> Submit </a> -->
+                    <button class="log-btn btn btn-lg btn-primary btn-block" type="submit" id="comment_btn" >Submit</button>
+                  </form>
+                </div>
+               </div>
+            </div>
+         </div>
+         <?php
+      }
+
+      ?>
 <script type="text/javascript">
   
   var base_url= '<?php echo base_url();?>';
@@ -50,15 +87,14 @@
   src="https://code.jquery.com/jquery-3.6.0.min.js"
   integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
   crossorigin="anonymous"></script>
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+      <script src="<?php echo base_url(); ?>assets/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
       <script src="<?php echo base_url(); ?>assets/js/jquery.flipster.min.js"></script>
       <script src="<?php echo base_url(); ?>assets/js/gsap.min.js"></script>
       <script src="//cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.7/ScrollMagic.min.js"></script>
       <script src="//cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.7/plugins/debug.addIndicators.min.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
-      <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.min.js"></script>
-      <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/additional-methods.min.js"></script>
-      <script src="<?php echo base_url(); ?>assets/js/howler/howler.core.js"></script>
+      <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/jquery.validate.min.js"></script>
+      <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/additional-methods.min.js"></script>
       <script src="<?php echo base_url(); ?>assets/js/siriwave.js"></script>
       <script src="<?php echo base_url(); ?>assets/js/jQuery.tagify.min.js"></script>
       <script src="<?php echo base_url(); ?>assets/js/chosen/chosen.jquery.min.js"></script>

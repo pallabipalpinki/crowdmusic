@@ -488,6 +488,9 @@ class Common extends CI_Controller{
     $this->data['page_title'] = 'Album Songs';
     $this->data['module']  = 'home';
     $this->data['page'] = 'album_tracksdetail.php';
+
+   
+
     $this->data['artist']=$this->contents_model->get_artist_music($artist_id);
     $tracks=$this->contents_model->get_album_music_track($artist_id,$album_id);
     $user_following=$this->um->get_user_follower_data(array('follow_user'=>session_userdata('SESSION_USER_ID'),'follow_user_id'=>$artist_id,'follow_status'=>'following'));
@@ -508,8 +511,12 @@ class Common extends CI_Controller{
     if(!empty($tracks)){
 
       foreach ($tracks as $key => $value) {
-        $track_thumbs=$this->um->checklike($value->content_id,session_userdata('SESSION_USER_ID'));
-         $track_like_count=$this->cm->get_content_thumbsup_count(array('thumbs_track_id'=>$value->content_id,'thumbs_value'=>'up'),FALSE);
+
+     $track_thumbs=$this->cm->get_content_thumbs(array('thumbs_track_id'=>$value['content_id'],'thumbs_user_id'=>session_userdata('SESSION_USER_ID')));
+    $track_like_count=$this->cm->get_content_thumbsup_count(array('thumbs_track_id'=>$value['content_id'],'thumbs_value'=>'up'),false);
+
+        //$track_thumbs=$this->um->checklike($value->content_id,session_userdata('SESSION_USER_ID'));
+         //$track_like_count=$this->cm->get_content_thumbsup_count(array('thumbs_track_id'=>$value->content_id,'thumbs_value'=>'up'),FALSE);
         $tracks_data[]=array(
                   'content_id'=>$value['content_id'],
                   'content_user_id'=>$value['content_user_id'],

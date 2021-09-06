@@ -123,7 +123,7 @@ class User extends CI_Controller
                     if(!empty($artist_tracks)){
                       foreach ($artist_tracks as $key => $value) {
                     $track_thumbs=$this->cm->get_content_thumbs(array('thumbs_track_id'=>$value['content_id'],'thumbs_user_id'=>session_userdata('SESSION_USER_ID')));
-                     $track_like_count=$this->cm->get_content_thumbsup_count(array('thumbs_track_id'=>$value->content_id,'thumbs_value'=>'up'),FALSE);
+                     $track_like_count=$this->cm->get_content_thumbsup_count(array('thumbs_track_id'=>$value['content_id'],'thumbs_value'=>'up'),FALSE);
 
                         //echo '<pre>';print_r($track_thumbs);
                         $tracks_data[]=array(
@@ -270,7 +270,9 @@ class User extends CI_Controller
                         $session_data=array(
                             'SESSION_USER_ID'=>$userdata->id,
                             'SESSION_USER_TYPE'=>$userdata->user_role,
-                            'SESSION_USER_EMAIL'=>$userdata->email
+                            'SESSION_USER_EMAIL'=>$userdata->email,
+                            'SESSION_USER_Firstname'=>$userdata->firstname,
+                            'SESSION_USER_Lastname'=>$userdata->lastname 
                         );
 
                         session_set_userdata($session_data);
@@ -309,14 +311,16 @@ class User extends CI_Controller
 
 
 public function indexLandingpage()
-  {
+{
    $this->data['title'] = 'Newslines';
     $this->data['page_title'] = 'Profile | '.$this->data['title'];
     $this->data['module']  = 'profile';
     $this->data['page'] = 'loginlandingpage';
     $artists=array();
 
-    $_artists=$this->cm->get_artist(FALSE,5);
+    $loged_user_data=$this->um->get_user(array('id'=>session_userdata('SESSION_USER_ID')));
+
+    $_artists=$this->cm->get_artist(FALSE,4);
     //print_r( $_artists);die;
     if(!empty($_artists)){
       foreach ($_artists as $key => $value) {
@@ -403,6 +407,39 @@ public function indexLandingpage()
     }
 
     $this->data['categories']=$categories;
+
+
+    $comments_tracks=$this->cm->get_comments(array('commnet_track_user_id'=>session_userdata('SESSION_USER_ID')),'comment_id','DESC',10,null,TRUE,'content_id');
+
+   // print_obj($comments_tracks);die;
+
+    if(!empty($comments_tracks)){
+        foreach ($comments_tracks as $key => $value) {
+
+            $comments=$this->cm->get_comments(array('commnet_track_user_id'=>session_userdata('SESSION_USER_ID'),'content_track_id'=>$value->content_id),'comment_id','DESC',10);
+
+            $tracks_up=$this->cm->get_content_thumbsup_count(array('thumbs_track_id'=>$value->content_id,'thumbs_value'=>'up'));
+            $tracks_down=$this->cm->get_content_thumbsup_count(array('thumbs_track_id'=>$value->content_id,'thumbs_value'=>'down'));
+
+            $_comments[$value->content_id][]=array(
+                'logged_in_user_image'=>$loged_user_data->profile_image,
+                'comment_track_user'=>$value->content_user_id,
+                'comment_track'=>ucwords($value->content_track_name),
+                'comment_content_image'=>$value->content_image,
+                'comment_track_thumbs_up'=>$tracks_up,
+                'comment_track_thumbs_down'=>$tracks_down,
+                'comments'=>$comments
+            );
+        }
+    }else{
+        $_comments=array();
+    }
+
+
+    //print_obj($_comments);die;
+
+    $this->data['comments']=$_comments;
+    
 
     $this->load->vars($this->data);
     $this->load->view($this->data['theme'].'/template');
@@ -702,7 +739,9 @@ public function indexLandingpage()
                             $session_data=array(
                                 'SESSION_USER_ID'=>$user_id,
                                 'SESSION_USER_TYPE'=>$usertype,
-                                'SESSION_USER_EMAIL'=>$email
+                                'SESSION_USER_EMAIL'=>$email,
+                                'SESSION_USER_Firstname'=>$userdata->firstname,
+                                    'SESSION_USER_Lastname'=>$userdata->lastname 
                             );
 
                             session_set_userdata($session_data);
@@ -881,7 +920,9 @@ public function indexLandingpage()
                     $session_data=array(
                         'SESSION_USER_ID'=>$user_data->id,
                         'SESSION_USER_TYPE'=>$user_data->user_role,
-                        'SESSION_USER_EMAIL'=>$user_data->email
+                        'SESSION_USER_EMAIL'=>$user_data->email,
+                        'SESSION_USER_Firstname'=>$userdata->firstname,
+                        'SESSION_USER_Lastname'=>$userdata->lastname 
                     );
 
                     session_set_userdata($session_data);

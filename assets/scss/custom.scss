@@ -2285,6 +2285,7 @@ ul.contributors {
   font-size: 14px;
   font-weight: 400;
   padding-bottom: 4px;
+  min-height: 65px;
 }
 .artist-filter {
   padding: 5px 16px;
@@ -2356,7 +2357,7 @@ ul.contributors {
 }
 
 button.btn.btn-sm.like-track {
-  right: 15px;
+  right: 40px;
   float: right;
   position: absolute;
   z-index: 9;
@@ -2366,7 +2367,17 @@ button.btn.btn-sm.like-track {
   display: flex;
 }
 .like-track i {
-  margin-right: 10px !important;
+  margin-right: 3px !important;
+}
+button.btn.btn-sm.comment-track {
+  right: 10px;
+  float: right;
+  position: absolute;
+  z-index: 9;
+  color: #ff008d;
+  font-size: 17px;
+  top: 5px;
+  display: flex;
 }
 /* About */
 .about-section {

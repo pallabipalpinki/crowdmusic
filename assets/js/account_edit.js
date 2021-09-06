@@ -276,4 +276,86 @@ jQuery(function($) {
   }
 
 
+  $('body').on('click','.comment-track',function(){
+    $('#commentModalId').find('#content_track').val($(this).attr('data-track'));
+    $('#commentModalId').find('#content_track_user').val($(this).attr('data-track_user'));
+  });
+
+  $('#comment_form').validate({
+     rules:{
+        comment_data:{
+          required:true,
+          minlength:20,
+          maxlength:300
+        }
+      },
+      messages:{
+        comment_data:{
+          required:'Comment somthing',
+          minlength:'Mimimum 20 charachter',
+          maxlength:'Maximum 300 charachter'
+        }
+      },
+      submitHandler:function(){
+        $.ajax({
+          type:'POST',
+          url:base_url+'comment',
+          data:$('#comment_form').serialize(),
+          beforeSend:function(){
+            $('#comment_btn').html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>').prop('disabled',true);
+          },
+          success:function(d){
+            if(d.success){
+              $('#commentmsg').html('<div class="alert alert-success">'+d.success+'</div>');
+              setTimeout(function(){
+                $('#commentmsg').html('');
+                $('#commentModalId').modal('hide');
+              },1500);
+            }else if(d.error){
+              $('#commentmsg').html('<div class="alert alert-danger">'+d.error+'</div>');
+              setTimeout(function(){
+                $('#commentmsg').html('');
+              },1500);
+              $('#comment_btn').html('Submit').prop('disabled',false);
+            }
+          },
+          complete:function(xhr,status){
+            $('#comment_form').find('#comment_data').val('');
+            $('#comment_btn').html('Submit').prop('disabled',false);
+
+          }
+        });
+      }
+  });
+
+  $("#post_comment").keyup(function(event) {
+    var comt=$("#post_comment").val();
+    var content_track_user=$('#content_track_user').val();
+    var content_track=$('#content_track').val();
+    if (event.keyCode === 13) {
+        if(comt!=''){
+          $.ajax({
+            type:'POST',
+            url:base_url+'comment',
+            data:{content_track:content_track,comment_data:comt,content_track_user:content_track_user},
+            beforeSend:function(){
+             
+            },
+            success:function(d){
+              if(d.success){
+                
+              }else if(d.error){
+                
+              }
+            },
+            complete:function(xhr,status){
+              $('#post_comment').val('');
+
+            }
+          });
+        }
+    }
+  });
+
+
 });

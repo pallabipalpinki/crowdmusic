@@ -18,7 +18,7 @@ class Contentcuration extends CI_Controller{
     public function index()
     {
     	//echo session_userdata('SESSION_USER_ID');die;
-		if(session_userdata('SESSION_USER_ID')){
+			if(session_userdata('SESSION_USER_ID')){
       	//echo 'hi';die;
         $segment_1=$this->uri->segment(1,0);
 	      $segment_2=$this->uri->segment(2,0);
@@ -42,6 +42,7 @@ class Contentcuration extends CI_Controller{
                 'user_role'=>$userdata->role_name,
                 'user_profile_url'=>$user_slug->slug_url_value,
                 'user_profile_edit_url'=>(session_userdata('SESSION_USER_ID'))?$user_slug->slug_url_value.'/profiledit':'',
+                'user_notification_url'=>(session_userdata('SESSION_USER_ID'))? base_url().'profile-home-newsline/'.$user_slug->slug_value :'',
                 'user_content_url'=>$user_slug->slug_url_value.'/contents',
                 'user_dp_image'=>(!empty($userdata->dp_image))?$userdata->dp_image:base_url().'assets/images/innercover.jpg',
                 'user_profile_image'=>(!empty($userdata->profile_image))?$userdata->profile_image:base_url().'assets/images/innercover.jpg',
@@ -811,5 +812,42 @@ class Contentcuration extends CI_Controller{
    
       $this->image_lib->clear();
    }
+
+
+   public function onComment(){
+   		if(session_userdata('SESSION_USER_ID')){
+				if($this->input->is_ajax_request() && $this->input->server('REQUEST_METHOD')=='POST'){
+
+					$user_id=session_userdata('SESSION_USER_ID');
+					$content_track_id=post_data('content_track');
+					$content_comment_data=post_data('comment_data');
+					$comment_track_user=post_data('content_track_user');
+
+					$content_data=array(
+						'comment_user_id'=>$user_id,
+						'content_track_id'=>$content_track_id,
+						'commnet_track_user_id'=>$comment_track_user,
+						'comment_data'=>$content_comment_data
+					);
+
+					$added=$this->cm->add_comment($content_data);
+
+					if($added){
+						$return['success']='Comment added successfully';
+					}else{
+						$return['error']='Try later';
+					}
+
+					header('Content-Type: application/json; charset=utf-8');
+
+					echo json_encode($return);
+
+				}else{
+					return(base_url());
+				}
+			}else{
+				return(base_url());
+			}
+  }
 
 }

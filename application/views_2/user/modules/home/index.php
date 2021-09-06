@@ -22,7 +22,10 @@
         <p><?php echo $value['artists_name'];?></p>
         <h6><?php echo $value['artist_spec'];?></h6>
       </div>
-     
+      <?php
+            }
+      } ?>
+      
       
     </div>
     <div class="swiper-button-prev"></div>
@@ -118,7 +121,17 @@
                         Your browser does not support the audio element.
                       </audio>
                     </div>
-                    <label class="form-control caption"><a href="<?php echo $value['artists_profile'];?>">By-<?php echo $value['content_track_user_name'];?></a></label>
+                    <?php
+                    if($value['content_user_id']!=session_userdata('SESSION_USER_ID')){
+                     ?>
+                     <label class="form-control caption lbl_caption" data-track_user="<?php echo $value['content_user_id'];?>" data-track="<?php echo $value['content_id']; ?>" data-toggle="modal" data-target="#commentModalId"><a href="<?php echo $value['artists_profile'];?>">By-<?php echo $value['content_track_user_name'];?></a></label>
+                     <?php
+                    }else{
+                     ?>
+                     <label class="form-control caption"><a href="<?php echo $value['artists_profile'];?>">By-<?php echo $value['content_track_user_name'];?></a></label>
+                     <?php
+                    }
+                    ?>
                   </div>
                <?php
             }

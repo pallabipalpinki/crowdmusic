@@ -515,6 +515,19 @@ public function update_user($id){
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
                       
                         $user_type = $this->input->post('usertype');
                         $page = 'audiance';
@@ -1230,7 +1243,6 @@ public function update_category(){
            $query=$this->db->query("SELECT spec_name FROM `content_speciality` WHERE `spec_id` = ".$cid."");
 
            $data=$query->result();
-          // print_r($data); echo $this->input->post('name');die;
            
            if($data[0]->spec_name!=$this->input->post('name')){
 

@@ -4,7 +4,7 @@
 		<div class="container">
 		  	<div class="page_view profile-view">
 				<div class="row">
-					<div class="col-lg-12">
+					<div class="col-lg-8 offset-lg-2 col-md-8 offset-md-2">
 						<!-- 
 						<section class="separator">
 							<div class="row">
@@ -264,6 +264,7 @@
 
 <script type="text/javascript">var u_type='<?php echo $user_details['user_roleid'];?>';var sender_img='<?php echo $user_details['user_profile_image']; ?>';</script>
 <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css'><link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.2/css/font-awesome.min.css'>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&family=Saira+Extra+Condensed:wght@700&display=swap" rel="stylesheet">
 <style type="text/css">
 	#frame {
 	  width: 95%;
@@ -286,7 +287,7 @@
 	  max-width: 340px;
 	  width: 40%;
 	  height: 100%;
-	  background: #2c3e50;
+	  background: #011222;
 	  color: #f5f5f5;
 	  overflow: hidden;
 	  position: relative;
@@ -374,6 +375,7 @@
 	#frame #sidepanel #profile .wrap p {
 	  float: left;
 	  margin-left: 15px;
+	  font-family: 'Poppins', sans-serif;
 	}
 	@media screen and (max-width: 735px) {
 	  #frame #sidepanel #profile .wrap p {
@@ -557,7 +559,7 @@
 	  margin: 10px 0 0 20px;
 	}
 	#frame #sidepanel #search input {
-	  font-family: "proxima-nova",  "Source Sans Pro", sans-serif;
+	  font-family: 'Poppins', sans-serif;
 	  padding: 10px 0 10px 46px;
 	  width: calc(100% - 25px);
 	  border: none;
@@ -676,6 +678,8 @@
 	}
 	#frame #sidepanel #contacts ul li.contact .wrap .meta .name {
 	  font-weight: 600;
+	  font-family: 'Poppins', sans-serif;
+    margin-bottom: 7px;
 	}
 	#frame #sidepanel #contacts ul li.contact .wrap .meta .preview {
 	  margin: 5px 0 0 0;
@@ -712,7 +716,7 @@
 	  color: #f5f5f5;
 	  cursor: pointer;
 	  font-size: 0.85em;
-	  font-family: "proxima-nova",  "Source Sans Pro", sans-serif;
+	  font-family: 'Poppins', sans-serif;
 	}
 	@media screen and (max-width: 735px) {
 	  #frame #sidepanel #bottom-bar button {
@@ -765,7 +769,8 @@
 	}
 	@media screen and (min-width: 900px) {
 	  #frame .content {
-	    width: calc(100% - 340px);
+	    width: calc(100% - 296px);
+	    background: #eae8e8;
 	  }
 	}
 	#frame .content .contact-profile {
@@ -782,6 +787,7 @@
 	}
 	#frame .content .contact-profile p {
 	  float: left;
+	  font-family: 'Poppins', sans-serif;
 	}
 	#frame .content .contact-profile .social-media {
 	  float: right;
@@ -832,8 +838,10 @@
   margin: 6px 8px 0 0;
 }
 #frame .content .messages ul li.sent p {
-  background: #435f7a;
-  color: #f5f5f5;
+  background: #ff78a3;
+    color: #000000;
+    font-family: 'Poppins', sans-serif;
+}
 }
 #frame .content .messages ul li.replies img {
   float: right;
@@ -842,6 +850,7 @@
 #frame .content .messages ul li.replies p {
   background: #f5f5f5;
   float: right;
+  font-family: 'Poppins', sans-serif;
 }
 #frame .content .messages ul li img {
   width: 22px;
@@ -865,18 +874,21 @@
   bottom: 0;
   width: 100%;
   z-index: 99;
+  border-top: 1px solid #cfcfcf;
+  background: #fff;
 }
 #frame .content .message-input .wrap {
   position: relative;
 }
 #frame .content .message-input .wrap input {
-  font-family: "proxima-nova",  "Source Sans Pro", sans-serif;
+  font-family: 'Poppins', sans-serif;
   float: left;
   border: none;
   width: calc(100% - 90px);
   padding: 11px 32px 10px 8px;
   font-size: 0.8em;
   color: #32465a;
+  background: #ffffff;
 }
 @media screen and (max-width: 735px) {
   #frame .content .message-input .wrap input {
@@ -891,7 +903,7 @@
   right: 60px;
   z-index: 4;
   margin-top: 10px;
-  font-size: 1.1em;
+  font-size: 1.3em;
   color: #435f7a;
   opacity: .5;
   cursor: pointer;
@@ -911,7 +923,7 @@
   width: 50px;
   padding: 12px 0;
   cursor: pointer;
-  background: #32465a;
+  background: #f65589;
   color: #f5f5f5;
 }
 @media screen and (max-width: 735px) {

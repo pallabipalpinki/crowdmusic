@@ -1,0 +1,135 @@
+<main id="page-view">
+		<section class="inner-pg">
+			<div class="inner-cover-div">
+				<a class="inner-cover-bg twPc-block"> <img src="<?php echo base_url().'assets/images/innercover.jpg';?>" loading="lazy"/> </a>
+				<div class="artist_body">
+					<div class="container-fluid">
+						<div class="row">
+							<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+								<button type="button" class="btn btn-sm  btn-primary m-t-15"><i class="fa fa-search "> </i> Filter</button>
+							</div>
+							<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+								<div class="form-group">
+									<div class="form-line">
+										<input type="text" id="name1" class="form-control" placeholder="Search by Reg. No.">
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+								<div class="form-group">
+									<select class="form-control" id="system_genere">
+										<option value="0">Select Genere</option>
+										<?php 
+										if(!empty($geners)){
+											foreach ($geners as $key => $value) {
+												?>
+												<option value="<?php echo $value->genere_id;?>"><?php echo $value->genere_name;?></option>
+												<?php
+											}
+										}
+										?>
+									</select>
+								</div>
+							</div>
+							
+						</div>
+						<div class="row">
+							<?php
+							if(!empty($category_users)){
+								foreach ($category_users as $key => $value) {
+									?>
+									<div class="col-md-3">
+										<div class="artist-item">
+										  <div class="ai-img-wrapper">
+											<img src="<?php echo $value['user_image'];?>" class="img-responsive" loading="lazy"/>
+										  </div>
+										  <div class="artist-box">
+											<h3><?php echo $value['user_name'];?></a></h3>
+											<div class="ai-price"><a href="<?php echo $value['user_slug'];?>">View Profile</a></div>
+											<ul class="rating">
+												<li class="fa fa-star"></li>
+												<li class="fa fa-star"></li>
+												<li class="fa fa-star"></li>
+												<li class="fa fa-star"></li>
+												<li class="fa fa-star disable"></li>
+											</ul>
+										  </div>
+										  <div class="artist-desc">
+											<p><?php echo $value['user_about'];?></p>
+										  </div>
+										</div>
+									</div>
+									<?php
+								}
+							}
+							?>
+							
+							<!-- <div class="col-md-3">
+								<div class="artist-item">
+								  <div class="ai-img-wrapper">
+									<img src="images/edit.jpg" class="img-responsive" />
+								  </div>
+								  <div class="artist-box">
+									<h3>Berry Lace Dress</h3>
+									<div class="ai-price">Song Type</div>
+									<ul class="rating">
+										<li class="fa fa-star"></li>
+										<li class="fa fa-star"></li>
+										<li class="fa fa-star"></li>
+										<li class="fa fa-star"></li>
+										<li class="fa fa-star disable"></li>
+									</ul>
+								  </div>
+								  <div class="artist-desc">
+									<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+								  </div>
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="artist-item">
+								  <div class="ai-img-wrapper">
+									<img src="images/edit.jpg" class="img-responsive" />
+								  </div>
+								  <div class="artist-box">
+									<h3>Berry Lace Dress</h3>
+									<div class="ai-price">Song Type</div>
+									<ul class="rating">
+										<li class="fa fa-star"></li>
+										<li class="fa fa-star"></li>
+										<li class="fa fa-star"></li>
+										<li class="fa fa-star"></li>
+										<li class="fa fa-star disable"></li>
+									</ul>
+								  </div>
+								  <div class="artist-desc">
+									<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+								  </div>
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="artist-item">
+								  <div class="ai-img-wrapper">
+									<img src="images/edit.jpg" class="img-responsive" />
+								  </div>
+								  <div class="artist-box">
+									<h3>Berry Lace Dress</h3>
+									<div class="ai-price">Song Type</div>
+									<ul class="rating">
+										<li class="fa fa-star"></li>
+										<li class="fa fa-star"></li>
+										<li class="fa fa-star"></li>
+										<li class="fa fa-star"></li>
+										<li class="fa fa-star disable"></li>
+									</ul>
+								  </div>
+								  <div class="artist-desc">
+									<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+								  </div>
+								</div>
+							</div> -->
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	</main>

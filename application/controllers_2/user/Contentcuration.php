@@ -18,7 +18,7 @@ class Contentcuration extends CI_Controller{
     public function index()
     {
     	//echo session_userdata('SESSION_USER_ID');die;
-		if(session_userdata('SESSION_USER_ID')){
+			if(session_userdata('SESSION_USER_ID')){
       	//echo 'hi';die;
         $segment_1=$this->uri->segment(1,0);
 	      $segment_2=$this->uri->segment(2,0);
@@ -121,13 +121,13 @@ class Contentcuration extends CI_Controller{
 										'updated_at'=>date('Y-m-d H:i:s')
 									);
 
-								$updated=$this->cm->update_content_data($content_data_to_add,array('content_id'=>$content_id));
+									$updated=$this->cm->update_content_data($content_data_to_add,array('content_id'=>$content_id));
 
 									if($updated){									
 
 				            $this->load->library('image_lib');
 
-								if(isset($_FILES['content_cover_image']) && $_FILES['content_cover_image']['name']!=''){
+										if(isset($_FILES['content_cover_image']) && $_FILES['content_cover_image']['name']!=''){
                       $config['upload_path']   = $media_disk_path.'/';
 
 
@@ -347,7 +347,7 @@ class Contentcuration extends CI_Controller{
 		                  	//echo '<pre>';print_r($tags_data_to_store);
 
                   			if(empty($tags_data)){
-								$tag_id=$this->cm->add_content_tags_data($tags_data_to_store);
+													$tag_id=$this->cm->add_content_tags_data($tags_data_to_store);
                   			}else{
                   				$tag_id=$tags_data->tag_id;
                   			}
@@ -811,5 +811,42 @@ class Contentcuration extends CI_Controller{
    
       $this->image_lib->clear();
    }
+
+
+   public function onComment(){
+   		if(session_userdata('SESSION_USER_ID')){
+				if($this->input->is_ajax_request() && $this->input->server('REQUEST_METHOD')=='POST'){
+
+					$user_id=session_userdata('SESSION_USER_ID');
+					$content_track_id=post_data('content_track');
+					$content_comment_data=post_data('comment_data');
+					$comment_track_user=post_data('content_track_user');
+
+					$content_data=array(
+						'comment_user_id'=>$user_id,
+						'content_track_id'=>$content_track_id,
+						'commnet_track_user_id'=>$comment_track_user,
+						'comment_data'=>$content_comment_data
+					);
+
+					$added=$this->cm->add_comment($content_data);
+
+					if($added){
+						$return['success']='Comment added successfully';
+					}else{
+						$return['error']='Try later';
+					}
+
+					header('Content-Type: application/json; charset=utf-8');
+
+					echo json_encode($return);
+
+				}else{
+					return(base_url());
+				}
+			}else{
+				return(base_url());
+			}
+  }
 
 }

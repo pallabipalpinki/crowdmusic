@@ -93,6 +93,7 @@ class User extends CI_Controller
                             'user_profile_edit_url'=>(session_userdata('SESSION_USER_ID') && ($userdata->id==session_userdata('SESSION_USER_ID')))?$user_slug->slug_url_value.'/profiledit':'',
                             'user_content_url'=>(session_userdata('SESSION_USER_ID') && ($userdata->id==session_userdata('SESSION_USER_ID')) && $userdata->user_role!='4')?$user_slug->slug_url_value.'/contents':'',
                             'user_contributorlist_url'=>(session_userdata('SESSION_USER_ID') && ($userdata->id==session_userdata('SESSION_USER_ID')) && $userdata->user_role=='4')?$user_slug->slug_url_value.'/contributors':'',
+                            'user_notification_url'=>(session_userdata('SESSION_USER_ID') && ($userdata->id==session_userdata('SESSION_USER_ID')))? base_url().'profile-home-newsline/'.$user_slug->slug_value :'',
                             'user_dp_image'=>(!empty($userdata->dp_image))?$userdata->dp_image:base_url().'assets/images/innercover.jpg',
                             'user_profile_image'=>(!empty($userdata->profile_image))?$userdata->profile_image:base_url().'assets/images/innercover.jpg',
                             'user_tracks'=>$tracks,
@@ -123,7 +124,7 @@ class User extends CI_Controller
                     if(!empty($artist_tracks)){
                       foreach ($artist_tracks as $key => $value) {
                     $track_thumbs=$this->cm->get_content_thumbs(array('thumbs_track_id'=>$value['content_id'],'thumbs_user_id'=>session_userdata('SESSION_USER_ID')));
-                     $track_like_count=$this->cm->get_content_thumbsup_count(array('thumbs_track_id'=>$value->content_id,'thumbs_value'=>'up'),FALSE);
+                     $track_like_count=$this->cm->get_content_thumbsup_count(array('thumbs_track_id'=>$value['content_id'],'thumbs_value'=>'up'),FALSE);
 
                         //echo '<pre>';print_r($track_thumbs);
                         $tracks_data[]=array(
@@ -311,14 +312,16 @@ class User extends CI_Controller
 
 
 public function indexLandingpage()
-  {
+{
    $this->data['title'] = 'Newslines';
     $this->data['page_title'] = 'Profile | '.$this->data['title'];
     $this->data['module']  = 'profile';
     $this->data['page'] = 'loginlandingpage';
     $artists=array();
 
-    $_artists=$this->cm->get_artist(FALSE,5);
+    $loged_user_data=$this->um->get_user(array('id'=>session_userdata('SESSION_USER_ID')));
+
+    $_artists=$this->cm->get_artist(FALSE,4);
     //print_r( $_artists);die;
     if(!empty($_artists)){
       foreach ($_artists as $key => $value) {
@@ -405,6 +408,39 @@ public function indexLandingpage()
     }
 
     $this->data['categories']=$categories;
+
+
+    $comments_tracks=$this->cm->get_comments(array('commnet_track_user_id'=>session_userdata('SESSION_USER_ID')),'comment_id','DESC',10,null,TRUE,'content_id');
+
+   // print_obj($comments_tracks);die;
+
+    if(!empty($comments_tracks)){
+        foreach ($comments_tracks as $key => $value) {
+
+            $comments=$this->cm->get_comments(array('commnet_track_user_id'=>session_userdata('SESSION_USER_ID'),'content_track_id'=>$value->content_id),'comment_id','DESC',10);
+
+            $tracks_up=$this->cm->get_content_thumbsup_count(array('thumbs_track_id'=>$value->content_id,'thumbs_value'=>'up'));
+            $tracks_down=$this->cm->get_content_thumbsup_count(array('thumbs_track_id'=>$value->content_id,'thumbs_value'=>'down'));
+
+            $_comments[$value->content_id][]=array(
+                'logged_in_user_image'=>$loged_user_data->profile_image,
+                'comment_track_user'=>$value->content_user_id,
+                'comment_track'=>ucwords($value->content_track_name),
+                'comment_content_image'=>$value->content_image,
+                'comment_track_thumbs_up'=>$tracks_up,
+                'comment_track_thumbs_down'=>$tracks_down,
+                'comments'=>$comments
+            );
+        }
+    }else{
+        $_comments=array();
+    }
+
+
+    //print_obj($_comments);die;
+
+    $this->data['comments']=$_comments;
+    
 
     $this->load->vars($this->data);
     $this->load->view($this->data['theme'].'/template');

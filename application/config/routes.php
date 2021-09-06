@@ -110,6 +110,9 @@ $route['load_contents']	='user/Contentcuration/onLoadAlbumTrackList';
 $route['load_contributorsong']	='user/user/LoadContributorTrackList';
 
 
+$route['comment']='user/Contentcuration/onComment';
+
+
 //============
 // $route['artist-detail-view/(:num)'] = 'common/artist_view/$1';
 // $route['artists/(:any)'] = 'common/indexArtistview';
