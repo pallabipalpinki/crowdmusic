@@ -196,28 +196,7 @@
 
 							                    </div>
 
-												<!--  <a href ="#">
-
-													<img src="<?php echo $value['content_image']; ?>" alt="">
-
-												 </a>
-
-												 <div class="overlay-music-icon">
-
-													<a href ="#">
-
-													   <i class="fa fa-play-circle"></i>
-
-													</a>
-
-												 </div>
-
-											  </div>
-
-											  <div class="feature-list text-center">
-
-												 <h6 class="font-weight-600  mb-0"><?php echo $value['content_track_name'];?></h6> -->
-
+												
 												 <div class="feature-list text-center">
 
 												 <button class="btn btn-sm like-track <?php echo $value['content_thumbs'];?>"  data-track="<?php echo $value['content_id'];?>" data-likeby-logged-user="<?php echo $value['like_by_logged_user'];?>" data-total-like-ct="<?php echo $value['total_like_ct'];?>" data-artist="<?php echo $value['content_user_id'];?>"><i class="<?php echo $value['content_thumbs_icon'];?>" id="thumbs<?php echo $value['content_id'];?>"></i><h6 id="like_count<?php echo $value['content_id'];?>"> <?php echo $value['total_like_ct'];?></h6></button>
@@ -226,11 +205,11 @@
 								                    if($value['content_user_id']!=session_userdata('SESSION_USER_ID')){
 								                     ?>
 								                      <button class="btn btn-sm comment-track" data-track_user="<?php echo $value['content_user_id'];?>" data-track="<?php echo $value['content_id']; ?>" data-toggle="modal" data-target="#commentModalId"><i class="fa fa-comment" id=""></i></button>
-								                      <label class="caption"><a href="<?php echo $value['artists_profile'];?>">By-<?php echo $value['content_track_user_name'];?></a></label>
+								                      <label class="caption"><a href="<?php echo $value['content_track_user_profile_url'];?>">By-<?php echo $value['content_track_user_name'];?></a></label>
 								                     <?php
 								                    }else{
 								                     ?>
-								                     <label class="caption"><a href="<?php echo $value['artists_profile'];?>">By-<?php echo $value['content_track_user_name'];?></a></label>
+								                     <label class="caption"><a href="<?php echo $value['artists_profile'];?>">By-<?php echo $value['content_track_user_profile_url'];?></a></label>
 								                     <?php
 								                    }
 								                    ?>
@@ -452,7 +431,7 @@
 												?>
 												<div class="post-comment">
 												  <img src="<?php echo $v->profile_image;?>" alt="" class="profile-photo-sm" />
-												  <p><a href="javascript:void(0);" class="profile-link"><?php echo $v->comment_username;?> </a><i class="em em-laughing"></i> <?php echo $v->comment_data;?> - <strong><?php echo date('F d,Y',strtotime($v->created_at));?></strong></p>
+												  <p><a href="javascript:void(0);" class="profile-link"><?php echo $v->comment_username;?> </a><i class="em em-laughing"></i> <?php echo $v->comment_data;?>  <strong><!-- <?php echo date('F d,Y',strtotime($v->created_at));?> --></strong></p>
 												</div>
 												<?php
 											}

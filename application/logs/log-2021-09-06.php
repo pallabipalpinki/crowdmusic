@@ -143,3 +143,7 @@ ERROR - 2021-09-06 11:35:58 --> 404 Page Not Found: Assets/js
 ERROR - 2021-09-06 11:43:09 --> 404 Page Not Found: Assets/images
 ERROR - 2021-09-06 11:43:09 --> 404 Page Not Found: Assets/js
 ERROR - 2021-09-06 11:51:36 --> 404 Page Not Found: Assets/images
+ERROR - 2021-09-06 12:06:21 --> 404 Page Not Found: Assets/images
+ERROR - 2021-09-06 12:38:07 --> 404 Page Not Found: Assets/images
+ERROR - 2021-09-06 12:51:57 --> 404 Page Not Found: Assets/images
+ERROR - 2021-09-06 12:52:04 --> 404 Page Not Found: Assets/images
