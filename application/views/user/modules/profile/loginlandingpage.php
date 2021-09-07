@@ -472,3 +472,6 @@
 		</section>
 
 	</main>
+
+
+	<script type="text/javascript">var _user_loggedin='<?php echo session_userdata('SESSION_USER_ID');?>';</script>
