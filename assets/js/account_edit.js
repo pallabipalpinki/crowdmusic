@@ -285,14 +285,14 @@ jQuery(function($) {
      rules:{
         comment_data:{
           required:true,
-          minlength:20,
+          minlength:2,
           maxlength:300
         }
       },
       messages:{
         comment_data:{
           required:'Comment somthing',
-          minlength:'Mimimum 20 charachter',
+          minlength:'Mimimum 2 charachter',
           maxlength:'Maximum 300 charachter'
         }
       },
