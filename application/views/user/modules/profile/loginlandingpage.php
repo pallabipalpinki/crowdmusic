@@ -411,10 +411,10 @@
 						foreach ($newuserdata as $key => $value) {
 						  if($value['user_id']==session_userdata('SESSION_USER_ID')){?>
 						<div class="post-container">
-						   <a href="<?php echo $value['artists_profile'];?>"><img src="<?php echo $value['user_image']; ?>"  class="profile-photo-md pull-left" /></a>
+						   <a href="<?php echo $value['artists_profile'];?>"><img src="<?php echo $value['user_image']; ?>"  class="profile-photo-md pull-left" />      You</a>
 						  <div class="post-detail">
 							<div class="user-info">
-							  <h5><a href="#" class="profile-link">You</a></h5>
+							  <!-- <h5><a href="#" class="profile-link">You</a></h5> -->
 							  <p class="text-muted">Logged-in on <?php echo date('jS F Y', strtotime($value['logindate']));?> as <?php echo $value['user_role_name'];?></p>
 							</div>
 							
@@ -425,24 +425,24 @@
 							</div> -->
 							
 						  </div>
-						</div>
+						  </div>
 						     <?php }else{?>
 
 
 
 							<div class="post-container">
-						   <a href="<?php echo $value['artists_profile'];?>"><img src="<?php echo $value['user_image']; ?>"  class="profile-photo-md pull-left" /></a>
+						   <a href="<?php echo $value['artists_profile'];?>"><img src="<?php echo $value['user_image']; ?>"  class="profile-photo-md pull-left" />  <?php echo $value['user_name'];?> </a>
 						  <div class="post-detail">
 							<div class="user-info">
-							  <h5><a href="<?php echo $value['artists_profile'];?>" class="profile-link"><?php echo $value['user_name'];?></a></h5>
+							  <!-- <h5><a href="<?php echo $value['artists_profile'];?>" class="profile-link"><?php echo $value['user_name'];?></a></h5> -->
 							  <p class="text-muted">Logged-in on <?php echo date('jS F Y', strtotime($value['logindate']));?> as <?php echo $value['user_role_name'];?></p>
 							</div>
 							
 							
 							<div class="line-divider"></div>
-							<!-- <div class="post-comment">
-							 <p><a href="<?php echo $value['artists_profile'];?>">Diana </a><i class="em em-laughing"></i> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud </p>
-							</div> -->
+							<div class="post-comment">
+							 <p><!-- <a href="<?php echo $value['artists_profile'];?>">Diana </a> --><i class="em em-laughing"></i> <?php echo $value['user_about'];?></p>
+							</div>
 							
 						  </div>
 						</div>
@@ -469,10 +469,11 @@
 
 
 						<div class="post-container">
-						  <img src="<?php echo $value['artists_image']; ?>"  class="profile-photo-md pull-left" />
+						 <a href="<?php echo $value['content_track_user_profile_url'];?>"><img src="<?php echo $value['artists_image']; ?>"  class="profile-photo-md pull-left" />  You</a> 
+						  <!-- <img src="<?php echo $value['artists_image']; ?>"  class="profile-photo-md pull-left" /> -->
 						  <div class="post-detail">
 							<div class="user-info">
-							  <h5><a href="#" class="profile-link">You</a></h5>
+							  <!-- <h5><a href="#" class="profile-link">You</a></h5> -->
 							  <p class="text-muted">Have uploaded track  on  <?php echo date('jS F Y',strtotime($value['uploaddate']));?>  at  <?php echo date('G:ia',strtotime($value['uploaddate']));?></p>
 							</div>
 							
@@ -480,17 +481,17 @@
 							<div class="line-divider"></div>
 							<div class="post-comment">
 							   <img src="<?php echo $value['content_image']; ?>"  class="profile-photo-md pull-left" />
-							  <p><a href="#" class="profile-link"   area><?php echo $value['content_track_name'];?> </a><i class="em em-laughing"></i> <?php echo $value['content_about'];?> </p>
+							  <p><a href="#" class="profile-link"  ><?php echo $value['content_track_name'];?> </a><i class="em em-laughing"></i> <?php echo $value['content_about'];?> </p>
 							</div>
 							
 						  </div>
 						</div>
 						<?php }else{ ?>
 							<div class="post-container">
-						  <img src="<?php echo $value['artists_image']; ?>"  class="profile-photo-md pull-left" />
+						   <a href="<?php echo $value['content_track_user_profile_url'];?>"><img src="<?php echo $value['artists_image']; ?>"  class="profile-photo-md pull-left" /> <?php echo $value['content_track_user_name']; ?></a>
 						  <div class="post-detail">
 							<div class="user-info">
-							  <h5><a href="#" class="profile-link"><?php echo $value['content_track_user_name']; ?></a></h5>
+							  <!-- <h5><a href="#" class="profile-link"><?php echo $value['content_track_user_name']; ?></a></h5> -->
 							  <p class="text-muted">Have uploaded track  on  <?php echo date('jS F Y',strtotime($value['uploaddate']));?>  at  <?php echo date('G:ia',strtotime($value['uploaddate']));?></p>
 							</div>
 							
