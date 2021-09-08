@@ -44,14 +44,37 @@ class Contents_model extends CI_Model
         $result = $query->result();
         return $result;                  
     }
-    public function get_artist($single_row=FALSE,$limit=0,$start=0)
+
+
+    public function get_top_contents()
+    {
+        $this->db->select('d.*,u.*,count(ct.thumbs_track_id) AS cntoflike');
+        $this->db->from('content_data AS d');
+        $this->db->join('users AS u', 'u.id=d.content_user_id', 'LEFT');
+        $this->db->join('content_thumbs AS ct', 'ct.thumbs_track_id = d.content_id', 'LEFT');
+        $this->db->where('u.status', 1);
+        $this->db->where('d.status', 1);
+        $this->db->where('ct.thumbs_value', 'up');
+        $this->db->group_by('ct.thumbs_track_id');
+        $this->db->order_by('cntoflike', 'desc');
+        $this->db->limit(10,0); 
+        $query = $this->db->get();
+       //print_r($this->db->last_query()); die;
+       $result = $query->result();
+        return $result;                  
+    }
+    public function get_artist($single_row=FALSE,$limit=0,$start=0,$order='DESC')
     {
         $this->db->select('d.*,u.firstname,u.lastname,u.profile_image,u.user_specs');
         //$this->db->from('content_data AS d');
         $this->db->join('users AS u', 'u.id = d.content_user_id', 'LEFT');
         $this->db->where('d.status', 1);
         $this->db->where('u.user_role', 2);
-        $this->db->order_by('d.created_at', 'desc'); 
+        if($order_by!=NULL){
+        	//$this->db->order_by($order_by,$order);
+        	$this->db->order_by('d.created_at', $order);
+        }
+         
      	$this->db->group_by('d.content_user_id');
         if($limit!=0){
         $this->db->limit($limit,$start); 
@@ -236,7 +259,7 @@ public function get_album_track($aid,$uid)
 
 
     public function _get_contents_tracks($post=array(),$param=array(),$count=FALSE,$return_query=FALSE){
-		$this->db->select('content_data.*,users.firstname,users.lastname');
+		$this->db->select('content_data.*,users.firstname,users.lastname,users.profile_image');
 		$this->db->join('users','users.id=content_data.content_user_id','LEFT');
 
 		$i = 0;

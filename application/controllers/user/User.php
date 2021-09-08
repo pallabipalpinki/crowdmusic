@@ -355,11 +355,38 @@ public function indexLandingpage()
 
     $tparam['status']='1';
     //This needs to be changed
-    $tracks=$this->cm->_get_contents_tracks($p,$tparam);
-
+     $tracks=$this->cm->_get_contents_tracks($p,$tparam);
+     $toptracks=$this->cm->get_top_contents();
     //echo '<pre>';print_r($tracks);die;
 
-    if(!empty($tracks)){
+    if(!empty($toptracks)){
+      foreach ($toptracks as $key => $value) {
+        $track_thumbs=$this->cm->get_content_thumbs(array('thumbs_track_id'=>$value->content_id,'thumbs_user_id'=>session_userdata('SESSION_USER_ID')));
+        $track_like_count=$this->cm->get_content_thumbsup_count(array('thumbs_track_id'=>$value->content_id,'thumbs_value'=>'up'),FALSE);
+
+        //echo '<pre>';print_r($track_thumbs);
+
+        $artist_profile_url=$this->sm->get_slug(array('slug_type'=>'USER_PROFILE','slug_type_id'=>$value->content_user_id));
+       
+
+        $tracks_data[]=array(
+          'content_id'=>$value->content_id,
+          'content_user_id'=>$value->content_user_id,
+          'content_track_user_name'=>ucwords($value->firstname.' '.$value->lastname),
+          'content_track_user_profile_url'=>$artist_profile_url->slug_url_value,
+          'content_track'=>$value->content_track,
+          'content_image'=>$value->content_image,
+          'content_track_name'=>$value->content_track_name,
+          'total_like_ct'=>$track_like_count,
+          'like_by_logged_user'=>$track_thumbs->thumbs_value,
+          'content_thumbs'=>($track_thumbs->thumbs_value=='up')?'liked':'',
+          'content_thumbs_icon'=>(!empty($track_thumbs))?(($track_thumbs->thumbs_value=='up')?'fas fa-thumbs-up':'fas fa-thumbs-down'):'far fa-thumbs-up',
+          'content_login_toggle'=>(!session_userdata('SESSION_USER_ID'))?'onclick="openSignin()"':'',
+           'artists_image'=>$value->profile_image,
+          'artists_profile'=>base_url().'artists/'.$slug_url->slug_value
+        );
+      }
+    }elseif(!empty($tracks)){
       foreach ($tracks as $key => $value) {
         $track_thumbs=$this->cm->get_content_thumbs(array('thumbs_track_id'=>$value->content_id,'thumbs_user_id'=>session_userdata('SESSION_USER_ID')));
         $track_like_count=$this->cm->get_content_thumbsup_count(array('thumbs_track_id'=>$value->content_id,'thumbs_value'=>'up'),FALSE);
@@ -440,6 +467,99 @@ public function indexLandingpage()
     //print_obj($_comments);die;
 
     $this->data['comments']=$_comments;
+
+
+
+
+//===NEW ARTIST LOGIN=============
+   $user_data=$this->um->get_users(array('status'=>1),'created_at','desc',10,0,FALSE);
+
+  //print_obj($user_data);die;
+
+    if(!empty($user_data)){
+                    foreach ($user_data as $key => $value) {
+
+                        $user_name=ucwords($value->firstname.' '.$value->lastname);
+                        $user_image=(!empty($value->profile_image) && $value->profile_image!='')?$value->profile_image:base_url('uploads/user/no.jpg');
+
+                    $artist_profile_url=$this->sm->get_slug(array('slug_type'=>'USER_PROFILE','slug_type_id'=>$value->id));
+
+                        $userdata[]=array(
+                            'user_id'=>$value->id,
+                            'user_type'=>$value->user_role,
+                            'user_role_name'=>$value->role_name,
+                            'user_name'=>$user_name,
+                            'user_image'=>$user_image,
+                            'user_about'=>$value->about,
+                            'artists_profile'=>$artist_profile_url->slug_url_value,
+                            'logindate'=>$value->created_at,
+                            'user_online_status'=>$value->online_status
+                        );
+                    }
+                }else{
+                    $userdata=array();
+                }
+
+
+   // print_obj($userdata);die;
+
+    $this->data['newuserdata']=$userdata;
+
+//=============uploaded track ===================================
+    $p['order']='content_id';
+    $p['length']=10;
+
+    $tparam['status']='1';
+    //This needs to be changed
+    $newtrack=$this->cm->_get_contents_tracks($p,$tparam);
+    //print_obj($newtrack);die;
+
+    if(!empty($newtrack)){
+      foreach ($newtrack as $key => $value) {
+        $track_thumbs=$this->cm->get_content_thumbs(array('thumbs_track_id'=>$value->content_id,'thumbs_user_id'=>session_userdata('SESSION_USER_ID')));
+        $track_like_count=$this->cm->get_content_thumbsup_count(array('thumbs_track_id'=>$value->content_id,'thumbs_value'=>'up'),FALSE);
+
+        // echo '<pre>';print_r($track_thumbs);
+        // echo '=============';
+        // echo '<pre>';print_r($track_like_count);die;
+
+
+        $artist_profile_url=$this->sm->get_slug(array('slug_type'=>'USER_PROFILE','slug_type_id'=>$value->content_user_id));
+       
+
+        $newtracks_data[]=array(
+          'content_id'=>$value->content_id,
+          'content_user_id'=>$value->content_user_id,
+          'content_track_user_name'=>ucwords($value->firstname.' '.$value->lastname),
+          'content_track_user_profile_url'=>$artist_profile_url->slug_url_value,
+          'content_track'=>$value->content_track,
+          'content_image'=>$value->content_image,
+          'content_track_name'=>$value->content_track_name,
+          'content_about'=>$value->content_about,
+          'uploaddate'=>$value->created_at,
+          'total_like_ct'=>$track_like_count,
+          'like_by_logged_user'=>$track_thumbs->thumbs_value,
+          'content_thumbs'=>($track_thumbs->thumbs_value=='up')?'liked':'',
+          'content_thumbs_icon'=>(!empty($track_thumbs))?(($track_thumbs->thumbs_value=='up')?'fas fa-thumbs-up':'fas fa-thumbs-down'):'far fa-thumbs-up',
+          'content_login_toggle'=>(!session_userdata('SESSION_USER_ID'))?'onclick="openSignin()"':'',
+           'artists_image'=>$value->profile_image
+          );
+      }
+    }else{
+      $newtracks_data=array();
+    }
+   //print_obj($newtracks_data);die;
+
+    $this->data['newtracks']=$newtracks_data;
+
+
+
+
+
+
+
+
+
     
 
     $this->load->vars($this->data);

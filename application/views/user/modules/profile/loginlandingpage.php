@@ -134,13 +134,13 @@
 
 								  <div class="iq-header-title">
 
-									 <h4 class="card-title">Latest Songs</h4>
+									 <h4 class="card-title">Trending Songs</h4>
 
 								  </div>
 
 								  <div class="d-flex align-items-center iq-view">
 
-									 <b class="mb-0 text-primary"><a href="#">View More <i class="las la-angle-right"></i></a></b>
+									 <b class="mb-0 text-primary"><a href="javascript:void(0);">View More <i class="las la-angle-right"></i></a></b>
 
 								  </div>
 
@@ -209,7 +209,7 @@
 								                     <?php
 								                    }else{
 								                     ?>
-								                     <label class="caption"><a href="<?php echo $value['artists_profile'];?>">By-<?php echo $value['content_track_user_profile_url'];?></a></label>
+								                     <label class="caption"><a href="<?php echo $value['content_track_user_profile_url'];?>">By-<?php echo $value['content_track_user_name'];?></a></label>
 								                     <?php
 								                    }
 								                    ?>
@@ -398,13 +398,128 @@
 					</div>
 
 				</div> -->
+				<div class="container">
+					<!-- sdfdgf -->
+				<div class="post-content">
+				<?php
+				if(!empty($newuserdata)){
+					//print_r($newuserdata);die;
+					?>
+					
+					<?php
+						$i=0;
+						foreach ($newuserdata as $key => $value) {
+						  if($value['user_id']==session_userdata('SESSION_USER_ID')){?>
+						<div class="post-container">
+						   <a href="<?php echo $value['artists_profile'];?>"><img src="<?php echo $value['user_image']; ?>"  class="profile-photo-md pull-left" /></a>
+						  <div class="post-detail">
+							<div class="user-info">
+							  <h5><a href="#" class="profile-link">You</a></h5>
+							  <p class="text-muted">Logged-in on <?php echo date('jS F Y', strtotime($value['logindate']));?> as <?php echo $value['user_role_name'];?></p>
+							</div>
+							
+							
+							<div class="line-divider"></div>
+							<!-- <div class="post-comment">
+							 <p><a href="<?php echo $value['artists_profile'];?>">Diana </a><i class="em em-laughing"></i> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud </p>
+							</div> -->
+							
+						  </div>
+						</div>
+						     <?php }else{?>
+
+
+
+							<div class="post-container">
+						   <a href="<?php echo $value['artists_profile'];?>"><img src="<?php echo $value['user_image']; ?>"  class="profile-photo-md pull-left" /></a>
+						  <div class="post-detail">
+							<div class="user-info">
+							  <h5><a href="<?php echo $value['artists_profile'];?>" class="profile-link"><?php echo $value['user_name'];?></a></h5>
+							  <p class="text-muted">Logged-in on <?php echo date('jS F Y', strtotime($value['logindate']));?> as <?php echo $value['user_role_name'];?></p>
+							</div>
+							
+							
+							<div class="line-divider"></div>
+							<!-- <div class="post-comment">
+							 <p><a href="<?php echo $value['artists_profile'];?>">Diana </a><i class="em em-laughing"></i> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud </p>
+							</div> -->
+							
+						  </div>
+						</div>
+							<?php
+									
+								}}
+							   }
+								?>
+							
+							
+
+				<?php
+				if(!empty($newtracks)){
+					//print_r($newuserdata);die;
+					?>
+
+
+					   <?php
+						$i=0;
+						foreach ($newtracks as $key => $value) {
+						if($value['content_user_id']==session_userdata('SESSION_USER_ID')){?>
+
+
+
+
+						<div class="post-container">
+						  <img src="<?php echo $value['artists_image']; ?>"  class="profile-photo-md pull-left" />
+						  <div class="post-detail">
+							<div class="user-info">
+							  <h5><a href="#" class="profile-link">You</a></h5>
+							  <p class="text-muted">Have uploaded track  on  <?php echo date('jS F Y',strtotime($value['uploaddate']));?>  at  <?php echo date('G:ia',strtotime($value['uploaddate']));?></p>
+							</div>
+							
+							
+							<div class="line-divider"></div>
+							<div class="post-comment">
+							   <img src="<?php echo $value['content_image']; ?>"  class="profile-photo-md pull-left" />
+							  <p><a href="#" class="profile-link"   area><?php echo $value['content_track_name'];?> </a><i class="em em-laughing"></i> <?php echo $value['content_about'];?> </p>
+							</div>
+							
+						  </div>
+						</div>
+						<?php }else{ ?>
+							<div class="post-container">
+						  <img src="<?php echo $value['artists_image']; ?>"  class="profile-photo-md pull-left" />
+						  <div class="post-detail">
+							<div class="user-info">
+							  <h5><a href="#" class="profile-link"><?php echo $value['content_track_user_name']; ?></a></h5>
+							  <p class="text-muted">Have uploaded track  on  <?php echo date('jS F Y',strtotime($value['uploaddate']));?>  at  <?php echo date('G:ia',strtotime($value['uploaddate']));?></p>
+							</div>
+							
+							
+							<div class="line-divider"></div>
+							<div class="post-comment">
+							   <img src="<?php echo $value['content_image']; ?>"  class="profile-photo-md pull-left" />
+							  <p><a href="#" class="profile-link" area><?php echo $value['content_track_name'];?> </a><i class="em em-laughing"></i> <?php echo $value['content_about'];?> </p>
+							</div>
+							
+						  </div>
+						</div>
+						<?php
+									
+								}}}
+								?>
+<!-- ///========================= -->
+							
+				
 
 				<?php
 				if(!empty($comments)){
 					?>
-					<div class="container">
-						<div class="post-content">
+					
+						
+						
+							
 							<div class="post-container">
+								              
 								<?php
 								$i=0;
 								foreach ($comments as $key => $value) {
@@ -459,13 +574,15 @@
 								?>
 							</div>
 						</div>
-					</div>
+						
+					
 					<?php
 				}
 
 				?>
-
-
+				</div>
+					
+				</div>
 
 			</div>
 

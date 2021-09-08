@@ -50,10 +50,6 @@ public function get_contents()
     
 
 
-
-
-
-
     public function get_artist($single_row=FALSE)
     {
         $this->db->select('d.*,u.firstname,u.lastname,u.profile_image');
