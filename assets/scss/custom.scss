@@ -3354,3 +3354,18 @@ input#btnControl {
     left: 0px;
   }
 }
+.msg-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 27px;
+  //background-color: none;
+  border: 2px solid #ff38b3;
+  color: rgb(255, 56, 179);
+  //padding: 12px 16px;
+  font-size: 16px;
+  cursor: pointer;
+  text-align: center;
+  line-height: 36px;
+  background: none;
+  margin: 5px 0px 0 0;
+}

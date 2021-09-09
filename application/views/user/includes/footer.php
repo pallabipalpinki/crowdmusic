@@ -41,11 +41,14 @@
                               <input type="checkbox" id="btnControl-footer" />
                               <label class="btn" for="btnControl-footer" id="footer-toggle">
                                 <div class="hamburger hamburger-container">
+                                  <!-- <div class="hamburger hamburger-container">
                                   <span></span>
                                   <span></span>
                                   <span></span>
                                   <span></span>
-                                </div>
+                                  
+                                </div> -->
+                                <button class="msg-btn"><i class="fa fa-comment"></i></button>
                               </label>  
                             </div>
                         </li>
