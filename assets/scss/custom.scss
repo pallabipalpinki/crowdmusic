@@ -3239,3 +3239,118 @@ img.profile-photo-sm {
   color: #fff;
   margin-right: 5%;
 }
+.mobile-menu-section {
+  // position: absolute;
+  // right: 20px;
+  // top: 30px;
+}
+.hamburger-container {
+  width: 40px;
+  height: 35px;
+  position: relative;
+  margin-top: -0.3rem;
+  cursor: pointer;
+}
+.hamburger-container span {
+  background: #f2f2f2;
+  display: block;
+  position: absolute;
+  height: 3px;
+  transform: rotate(0deg);
+  transition: all 0.25s cubic-bezier(0.22, 0.61, 0.36, 1);
+  opacity: 1;
+  width: 100%;
+}
+
+span {
+  border-radius: 10px;
+  left: 0;
+}
+.hamburger span:nth-child(1) {
+  top: 0px;
+}
+.hamburger span:nth-child(2),
+.hamburger span:nth-child(3) {
+  top: 18px;
+}
+.hamburger span:nth-child(4) {
+  top: 36px;
+}
+#btnControl-footer {
+  display: none;
+}
+#btnControl-footer:checked + label > div > span:nth-child(1) {
+  top: 18px;
+  width: 0%;
+  left: 50%;
+}
+#btnControl-footer:checked + label > div > span:nth-child(2) {
+  transform: rotate(45deg);
+}
+#btnControl-footer:checked + label > div > span:nth-child(3) {
+  transform: rotate(-45deg);
+}
+#btnControl-footer:checked + label > div > span:nth-child(4) {
+  top: 18px;
+  width: 0%;
+  left: 50%;
+}
+.active {
+  transform: translateX(0) !important;
+}
+#footer-right-menu {
+  display: block;
+  list-style-type: none;
+  position: fixed;
+  top: 0;
+  transform: translateX(-100%);
+  width: 25%;
+  background: rgba(0, 0, 0, 1);
+  color: whitesmoke;
+  padding: 0 0 0 5%;
+  margin: 0;
+  transition: transform 450ms cubic-bezier(0.22, 0.61, 0.36, 1);
+  z-index: 10;
+  height: 100%;
+  left: 0px;
+  a {
+    display: block;
+    padding: 1rem;
+    color: #ccc;
+    font-size: 2rem;
+    font-family: arial;
+  }
+}
+#footer-toggle {
+  z-index: 10;
+  right: 0;
+  opacity: 1;
+  background: transparent;
+  height: auto;
+  width: 58px;
+}
+input#btnControl {
+  display: contents;
+}
+@media only screen and (min-width: 481px) and (max-width: 767px) {
+  #footer-right-menu {
+    position: absolute;
+    width: 55%;
+    background: rgba(0, 0, 0, 1);
+    color: whitesmoke;
+    padding: 0 0 0 5%;
+    height: auto;
+    left: -12px;
+  }
+}
+@media only screen and (min-width: 320px) and (max-width: 480px) {
+  #footer-right-menu {
+    position: absolute;
+    width: 60%;
+    background: rgba(0, 0, 0, 1);
+    color: whitesmoke;
+    padding: 0 0 0 5%;
+    height: auto;
+    left: 0px;
+  }
+}

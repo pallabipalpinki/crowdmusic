@@ -9,6 +9,14 @@
             <div class="bottom-nav m_top_60">
                <div class="row align-items-center">
                   <div class="col-md-auto mb-3 mb-md-0 footer-nav">
+                     <ul id="footer-right-menu" class="t-mar">
+                        <li><a href="#">testing</a>
+                         <ul>
+                           <li><a href="#">testing</a></li>
+                           <li><a href="#">testing</a></li>
+                         </ul>
+                        </li>
+                     </ul>
                      <ul class="list-unstyled social-links">
                         <li><a href="#">Home</a></li>
                         <li><a href="<?php echo base_url('aboutus');?>">About Us</a></li>
@@ -27,6 +35,19 @@
                         </li>
                         <li class="list-inline-item">
                            <a href="#"><img src="<?php echo base_url(); ?>assets/images/linkedin.png" /></a>
+                        </li>
+                        <li class="list-inline-item">
+                           <div class="mobile-menu-section">
+                              <input type="checkbox" id="btnControl-footer" />
+                              <label class="btn" for="btnControl-footer" id="footer-toggle">
+                                <div class="hamburger hamburger-container">
+                                  <span></span>
+                                  <span></span>
+                                  <span></span>
+                                  <span></span>
+                                </div>
+                              </label>  
+                            </div>
                         </li>
                      </ul>
                   </div>
@@ -321,6 +342,18 @@
    // s0.parentNode.insertBefore(s1,s0);
    // })();
    </script>
+   <script>
+             $("#footer-toggle").on('click', function() {
+  $('#footer-right-menu').toggleClass("active");
+});
+
+$(document).keydown(function(e) {
+    if (e.keyCode == 27) {
+       $('#footer-right-menu').removeClass("active");
+       $('#btnControl-footer').prop('checked', false);
+    }
+});
+         </script>
    <!--End of Tawk.to Script-->
    </body>
 </html>

@@ -47,8 +47,8 @@ class Contents_model extends CI_Model
 
 
     public function get_top_contents()
-    '{
-            '        $this->db->select('d.*,u.*,count(ct.thumbs_track_id) AS cntoflike');
+    {
+        $this->db->select('d.*,u.*,count(ct.thumbs_track_id) AS cntoflike');
         $this->db->from('content_data AS d');
         $this->db->join('users AS u', 'u.id=d.content_user_id', 'LEFT');
         $this->db->join('content_thumbs AS ct', 'ct.thumbs_track_id = d.content_id', 'LEFT');
@@ -372,6 +372,7 @@ public function get_album_track($aid,$uid)
 			}
 		}
 
+			
 		if(isset($post['order']))
 		{
 			$column_order=$param['column_order'];
