@@ -69,6 +69,7 @@ class Common extends CI_Controller{
         $track_like_count=$this->cm->get_content_thumbsup_count(array('thumbs_track_id'=>$value->content_id,'thumbs_value'=>'up'),FALSE);
 
         //echo '<pre>';print_r($track_thumbs);
+        $track_comment_count=$this->cm->get_content_comment_count(array('content_track_id'=>$value->content_id),FALSE);
 
         $artist_profile_url=$this->sm->get_slug(array('slug_type'=>'USER_PROFILE','slug_type_id'=>$value->content_user_id));
        
@@ -82,6 +83,7 @@ class Common extends CI_Controller{
           'content_image'=>$value->content_image,
           'content_track_name'=>$value->content_track_name,
           'total_like_ct'=>$track_like_count,
+          'total_comment_count'=>$track_comment_count,
           'like_by_logged_user'=>$track_thumbs->thumbs_value,
           'content_thumbs'=>($track_thumbs->thumbs_value=='up')?'liked':'',
           'content_thumbs_icon'=>(!empty($track_thumbs))?(($track_thumbs->thumbs_value=='up')?'fas fa-thumbs-up':'fas fa-thumbs-down'):'far fa-thumbs-up',
@@ -514,6 +516,7 @@ class Common extends CI_Controller{
 
      $track_thumbs=$this->cm->get_content_thumbs(array('thumbs_track_id'=>$value['content_id'],'thumbs_user_id'=>session_userdata('SESSION_USER_ID')));
     $track_like_count=$this->cm->get_content_thumbsup_count(array('thumbs_track_id'=>$value['content_id'],'thumbs_value'=>'up'),false);
+     $track_comment_count=$this->cm->get_content_comment_count(array('content_track_id'=>$value->content_id),FALSE);
 
         //$track_thumbs=$this->um->checklike($value->content_id,session_userdata('SESSION_USER_ID'));
          //$track_like_count=$this->cm->get_content_thumbsup_count(array('thumbs_track_id'=>$value->content_id,'thumbs_value'=>'up'),FALSE);
@@ -523,6 +526,7 @@ class Common extends CI_Controller{
                   'content_track'=>$value['content_track'],
                   'content_image'=>$value['content_image'],
                   'total_like_ct'=>$track_like_count,
+                  'total_comment_count'=>$track_comment_count,
                   'like_by_logged_user'=>$track_thumbs->thumbs_value,
                   'content_thumbs'=>($track_thumbs->thumbs_value=='up')?'liked':'',
                   'content_thumbs_icon'=>(!empty($track_thumbs))?(($track_thumbs->thumbs_value=='up')?'fas fa-thumbs-up':'fas fa-thumbs-down'):'far fa-thumbs-up',

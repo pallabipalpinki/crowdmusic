@@ -9,13 +9,48 @@
             <div class="bottom-nav m_top_60">
                <div class="row align-items-center">
                   <div class="col-md-auto mb-3 mb-md-0 footer-nav">
-                     <ul id="footer-right-menu" class="t-mar">
-                        <li><a href="#">testing</a>
-                         <ul>
-                           <li><a href="#">testing</a></li>
-                           <li><a href="#">testing</a></li>
-                         </ul>
-                        </li>
+
+
+
+                  <ul id="footer-right-menu" class="t-mar">
+
+                   <div id="commentmsg"></div>
+                  <form id="comment_form">
+                     <input type="hidden" name="content_track" id="content_track">
+                     <input type="hidden" name="content_track_user" id="content_track_user">
+                    <div class="form-group">
+                      <textarea class="form-control" rows="5" name="comment_data" id="comment_data"></textarea>
+                    </div>
+                    <!-- <a href="#"> <span></span> <span></span> <span></span> <span></span> Submit </a> -->
+                    <button class="log-btn btn btn-lg btn-primary btn-block" type="submit" id="comment_btn" > <i class="fa fa-comment" id="comment_icon"></i>  Submit</button>
+                  </form>
+                        <div class="msg-content" id="content_message_div">
+                           <!-- <div class="msg-container">
+                             <img src="images/user-5.jpg"  class="profile-photo-md pull-left" />
+                             <div class="msg-detail">
+                               <div class="user-info">
+                                   <h5 class="msg-pro">Alexis Clark</h5>
+                               </div>
+                               <div class="msg-text">
+                                   <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
+                               </div>
+                             </div>
+                           </div>
+                      
+                      
+                           <div class="msg-container">
+                             <img src="images/user-5.jpg"  class="profile-photo-md pull-left" />
+                             <div class="msg-detail">
+                               <div class="user-info">
+                                   <h5 class="msg-pro">Alexis Clark</h5>
+                               </div>
+                               <div class="msg-text">
+                                   <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
+                               </div>
+                             </div>
+                           </div>
+ -->
+                       </div>
                      </ul>
                      <ul class="list-unstyled social-links">
                         <li><a href="#">Home</a></li>
@@ -45,10 +80,10 @@
                                   <span></span>
                                   <span></span>
                                   <span></span>
-                                  <span></span>
+                                  <span></span>-->
                                   
-                                </div> -->
-                                <button class="msg-btn"><i class="fa fa-comment"></i></button>
+                                </div> 
+                                <!-- <button class="msg-btn"><i class="fa fa-comment"></i></button> -->
                               </label>  
                             </div>
                         </li>
@@ -67,7 +102,7 @@
 
 
 
-      <?php
+      <!-- <?php
 
       if(session_userdata('SESSION_USER_ID')){
          ?>
@@ -90,7 +125,7 @@
                     <div class="form-group">
                       <textarea class="form-control" rows="5" name="comment_data" id="comment_data"></textarea>
                     </div>
-                    <!-- <a href="#"> <span></span> <span></span> <span></span> <span></span> Submit </a> -->
+                  <a href="#"> <span></span> <span></span> <span></span> <span></span> Submit </a>
                     <button class="log-btn btn btn-lg btn-primary btn-block" type="submit" id="comment_btn" >Submit</button>
                   </form>
                 </div>
@@ -100,7 +135,7 @@
          <?php
       }
 
-      ?>
+      ?> -->
 <script type="text/javascript">
   
   var base_url= '<?php echo base_url();?>';
@@ -346,7 +381,7 @@
    // })();
    </script>
    <script>
-             $("#footer-toggle").on('click', function() {
+  $("#footer-toggle").on('click', function() {
   $('#footer-right-menu').toggleClass("active");
 });
 

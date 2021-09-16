@@ -109,8 +109,10 @@ $route['delete_contents']	='user/Contentcuration/onDeleteAlbumtracks';
 $route['load_contents']	='user/Contentcuration/onLoadAlbumTrackList';
 $route['load_contributorsong']	='user/user/LoadContributorTrackList';
 
+$route['load-comment']='user/Contentcuration/onLoadComment';
 
 $route['comment']='user/Contentcuration/onComment';
+
 
 
 //============

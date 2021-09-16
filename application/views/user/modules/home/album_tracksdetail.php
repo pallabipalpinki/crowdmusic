@@ -79,7 +79,7 @@
 	                          <?php
 		                    if($value['content_user_id']!=session_userdata('SESSION_USER_ID')){
 		                     ?>
-		                 <button class="btn btn-sm comment-track" data-track_user="<?php echo $value['content_user_id'];?>" data-track="<?php echo $value['content_id']; ?>" data-toggle="modal" data-target="#commentModalId"><i class="fa fa-comment" id=""></i></button>
+		                  <button class="btn btn-sm comment-track" data-track_user="<?php echo $value['content_user_id'];?>" data-track="<?php echo $value['content_id']; ?>"data-total-comment-ct="<?php echo $value['total_comment_count'];?>"><i class="fa fa-comment" id=""></i> <h6 id="comment_count<?php echo $value['content_id'];?>"> <?php echo $value['total_comment_count'];?></h6>  </button>
 		                   <?php
 		                    }
 		                     ?>

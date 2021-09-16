@@ -371,3 +371,136 @@ jQuery(function($) {
 
 
 
+$('body').on('click','.comment-track',function(){
+    
+  $('#footer-right-menu').toggleClass("active");
+   var track_id = $(this).attr('data-track');
+   var track_user_id =$(this).attr('data-track_user');
+   $('#content_track').val($(this).attr('data-track'));
+   $('#content_track_user').val($(this).attr('data-track_user'));
+    var html='';
+ // alert(track_id);
+     $.ajax({
+          type:'POST',
+          url:base_url+'load-comment',
+          data:{track_id:track_id,track_user_id:track_user_id},
+          success:function(d){
+            $.each(d, function (k, v) {
+                if(v.comment_data!='')
+                 {
+                html+='<div class="msg-content"><div class="msg-container">';
+                html+='<img src="'+v.profile_image+'"  class="profile-photo-md pull-left" />';
+                html+='<div class="msg-detail"><div class="user-info">'
+                html+='<h5 class="msg-pro">'+v.comment_username+'</h5>';
+                html+='</div><div class="msg-text">';
+                html+='<p>'+v.comment_data+'</p>';
+                html+='</div></div></div></div>';
+                }else{
+              html+='';
+
+              }
+              });
+            
+            $('#content_message_div').html(html);
+          },
+          complete:function(xhr,status){
+            
+            // $('#comment_form').find('#comment_data').val('');
+            // $('#comment_btn').html('Submit').prop('disabled',false);
+
+          }
+        });
+
+
+  });
+  $(document).keydown(function(e) {
+    if (e.keyCode == 27) {
+       $('#footer-right-menu').removeClass("active");
+       $('#btnControl-footer').prop('checked', false);
+    }
+});
+
+  $('#comment_form').validate({
+     rules:{
+        comment_data:{
+          required:true,
+          minlength:2,
+          maxlength:300
+        }
+      },
+      messages:{
+        comment_data:{
+          required:'Comment somthing',
+          minlength:'Mimimum 2 charachter',
+          maxlength:'Maximum 300 charachter'
+        }
+      },
+      submitHandler:function(){
+    
+        
+        $.ajax({
+          type:'POST',
+          url:base_url+'comment',
+          data:$('#comment_form').serialize(),
+          beforeSend:function(){
+          $('#comment_btn').html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>').prop('disabled',true);
+          },
+          success:function(d){
+            if(d.success){
+             // console.log(d);
+              $('#commentmsg').html('<div class="alert alert-success">'+d.success+'</div>');
+              setTimeout(function(){
+                $('#commentmsg').html('');
+                //$('#commentModalId').modal('hide');
+              },1500);
+              //var track_id= 
+              var track_id = d.content_track_id;
+              var track_user_id = d.commnet_track_user_id;
+            var html='';
+            // alert(track_id);
+             $.ajax({
+                type:'POST',
+                url:base_url+'load-comment',
+                data:{track_id:track_id,track_user_id:track_user_id},
+            success:function(d){
+              $.each(d, function (k, v) {
+               if(v.comment_data!='')
+                 {
+                html+='<div class="msg-content"><div class="msg-container">';
+                html+='<img src="'+v.profile_image+'"  class="profile-photo-md pull-left" />';
+                html+='<div class="msg-detail"><div class="user-info">'
+                html+='<h5 class="msg-pro">'+v.comment_username+'</h5>';
+                html+='</div><div class="msg-text">';
+                html+='<p>'+v.comment_data+'</p>';
+                html+='</div></div></div></div>';
+                }else{
+              html+='';
+
+              }
+              });
+            
+            $('#content_message_div').html(html);
+            },
+            });
+
+            }else if(d.error){
+              $('#commentmsg').html('<div class="alert alert-danger">'+d.error+'</div>');
+              setTimeout(function(){
+                $('#commentmsg').html('');
+              },1500);
+              //$('#comment_btn').html('Submit').prop('disabled',false);
+            }
+          },
+          complete:function(xhr,status){
+            
+             $('#comment_form').find('#comment_data').val('');
+             $('#comment_btn').html('Submit').prop('disabled',false);
+
+          }
+        });
+
+
+
+      }
+
+  });

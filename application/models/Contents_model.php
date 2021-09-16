@@ -417,6 +417,17 @@ public function get_content_thumbsup_count($param,$return_query=FALSE)
               return $this->db->last_query();
             }                
     }
+    public function get_content_comment_count($param,$return_query=FALSE)
+    {
+        $this->db->where($param);
+        $query = $this->db->get('content_comments');
+           if($return_query==FALSE){
+            return $query->num_rows();
+            }else if($return_query==TRUE){
+              return $this->db->last_query();
+            }                
+    }
+
 
 	
     public function get_content_thumbs($param)

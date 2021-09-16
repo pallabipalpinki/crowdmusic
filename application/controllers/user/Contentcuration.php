@@ -58,7 +58,7 @@ class Contentcuration extends CI_Controller{
 		        $this->load->view($this->data['theme'].'/template');
 	        }else{
 	        	redirect(base_url());
-	        } 
+	        }  
 
 	      }else{
 	      	redirect(base_url());
@@ -122,7 +122,7 @@ class Contentcuration extends CI_Controller{
 										'updated_at'=>date('Y-m-d H:i:s')
 									);
 
-									$updated=$this->cm->update_content_data($content_data_to_add,array('content_id'=>$content_id));
+							$updated=$this->cm->update_content_data($content_data_to_add,array('content_id'=>$content_id));
 
 									if($updated){									
 
@@ -831,16 +831,50 @@ class Contentcuration extends CI_Controller{
 					);
 
 					$added=$this->cm->add_comment($content_data);
+		$track_comment_count=$this->cm->get_content_comment_count(array('content_track_id'=>$content_track_id),FALSE);
 
 					if($added){
 						$return['success']='Comment added successfully';
+						$return['content_track_id']=$content_track_id;
+						$return['commnet_track_user_id']=$comment_track_user;
+						$return['commnet_track_comment_count']=$track_comment_count;
 					}else{
 						$return['error']='Try later';
+						$return['content_track_id']=$content_track_id;
+						$return['commnet_track_user_id']=$comment_track_user;
+						$return['commnet_track_comment_count']=$track_comment_count;
 					}
 
 					header('Content-Type: application/json; charset=utf-8');
 
 					echo json_encode($return);
+
+				}else{
+					return(base_url());
+				}
+			}else{
+				return(base_url());
+			}
+  }
+
+
+
+   public function onLoadComment(){
+   		if(session_userdata('SESSION_USER_ID')){
+				if($this->input->is_ajax_request() && $this->input->server('REQUEST_METHOD')=='POST'){
+
+					$user_id=session_userdata('SESSION_USER_ID');
+					$content_track_id=post_data('track_id');
+					$comment_track_user=post_data('track_user_id');
+
+					
+			$comments_tracks=$this->cm->get_comments(array('commnet_track_user_id'=>$comment_track_user,'content_track_id'=>$content_track_id),'comment_id','DESC');
+
+              // print_obj($comments_tracks);die;
+					
+					header('Content-Type: application/json; charset=utf-8');
+
+					echo json_encode($comments_tracks);
 
 				}else{
 					return(base_url());

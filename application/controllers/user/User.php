@@ -125,6 +125,7 @@ class User extends CI_Controller
                       foreach ($artist_tracks as $key => $value) {
                     $track_thumbs=$this->cm->get_content_thumbs(array('thumbs_track_id'=>$value['content_id'],'thumbs_user_id'=>session_userdata('SESSION_USER_ID')));
                      $track_like_count=$this->cm->get_content_thumbsup_count(array('thumbs_track_id'=>$value['content_id'],'thumbs_value'=>'up'),FALSE);
+                     $track_comment_count=$this->cm->get_content_comment_count(array('content_track_id'=>$value->content_id),FALSE);
 
                         //echo '<pre>';print_r($track_thumbs);
                         $tracks_data[]=array(
@@ -133,6 +134,7 @@ class User extends CI_Controller
                           'content_track'=>$value['content_track'],
                           'content_image'=>$value['content_image'],
                           'total_like_ct'=>$track_like_count,
+                          'total_comment_count'=>$track_comment_count,
                           'like_by_logged_user'=>$track_thumbs->thumbs_value,
                           'content_thumbs'=>($track_thumbs->thumbs_value=='up')?'liked':'',
                           'content_thumbs_icon'=>(!empty($track_thumbs))?(($track_thumbs->thumbs_value=='up')?'fas fa-thumbs-up':'fas fa-thumbs-down'):'far fa-thumbs-up',
@@ -220,7 +222,7 @@ class User extends CI_Controller
                     $page_title=$fullname.' (Contents) | '.$settings_data_decoded->system_title;
                     $this->data['content_generes']=$this->cm->get_genere(array('status'=>'1'));
                 }else{
-                    redirect($user_slug->slug_url_value);;
+                    redirect($user_slug->slug_url_value);
                 }     
             }else if($segment_3=='contributors'){
                 $module  = 'profile';
@@ -363,6 +365,7 @@ public function indexLandingpage()
       foreach ($toptracks as $key => $value) {
         $track_thumbs=$this->cm->get_content_thumbs(array('thumbs_track_id'=>$value->content_id,'thumbs_user_id'=>session_userdata('SESSION_USER_ID')));
         $track_like_count=$this->cm->get_content_thumbsup_count(array('thumbs_track_id'=>$value->content_id,'thumbs_value'=>'up'),FALSE);
+         $track_comment_count=$this->cm->get_content_comment_count(array('content_track_id'=>$value->content_id),FALSE);
 
         //echo '<pre>';print_r($track_thumbs);
 
@@ -378,6 +381,7 @@ public function indexLandingpage()
           'content_image'=>$value->content_image,
           'content_track_name'=>$value->content_track_name,
           'total_like_ct'=>$track_like_count,
+          'total_comment_count'=>$track_comment_count,
           'like_by_logged_user'=>$track_thumbs->thumbs_value,
           'content_thumbs'=>($track_thumbs->thumbs_value=='up')?'liked':'',
           'content_thumbs_icon'=>(!empty($track_thumbs))?(($track_thumbs->thumbs_value=='up')?'fas fa-thumbs-up':'fas fa-thumbs-down'):'far fa-thumbs-up',
@@ -390,6 +394,7 @@ public function indexLandingpage()
       foreach ($tracks as $key => $value) {
         $track_thumbs=$this->cm->get_content_thumbs(array('thumbs_track_id'=>$value->content_id,'thumbs_user_id'=>session_userdata('SESSION_USER_ID')));
         $track_like_count=$this->cm->get_content_thumbsup_count(array('thumbs_track_id'=>$value->content_id,'thumbs_value'=>'up'),FALSE);
+ $track_comment_count=$this->cm->get_content_comment_count(array('content_track_id'=>$value->content_id),FALSE);
 
         //echo '<pre>';print_r($track_thumbs);
 
@@ -405,6 +410,7 @@ public function indexLandingpage()
           'content_image'=>$value->content_image,
           'content_track_name'=>$value->content_track_name,
           'total_like_ct'=>$track_like_count,
+          'total_comment_count'=>$track_comment_count,
           'like_by_logged_user'=>$track_thumbs->thumbs_value,
           'content_thumbs'=>($track_thumbs->thumbs_value=='up')?'liked':'',
           'content_thumbs_icon'=>(!empty($track_thumbs))?(($track_thumbs->thumbs_value=='up')?'fas fa-thumbs-up':'fas fa-thumbs-down'):'far fa-thumbs-up',
