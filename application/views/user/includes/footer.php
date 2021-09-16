@@ -22,7 +22,7 @@
                       <textarea class="form-control" rows="5" name="comment_data" id="comment_data"></textarea>
                     </div>
                     <!-- <a href="#"> <span></span> <span></span> <span></span> <span></span> Submit </a> -->
-                    <button class="log-btn btn btn-lg btn-primary btn-block" type="submit" id="comment_btn" > <i class="fa fa-comment" id="comment_icon"></i>  Submit</button>
+                    <button class="log-btn btn btn-lg btn-primary btn-block" type="submit" id="comment_btn" ><i class="fa fa-comment" id="comment_icon"></i>  Submit</button>
                   </form>
                         <div class="msg-content" id="content_message_div">
                            <!-- <div class="msg-container">
